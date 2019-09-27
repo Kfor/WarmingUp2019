@@ -83,20 +83,20 @@ class Bank extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="bank.title.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="bank.userId.label" />}>
               {getFieldDecorator('userId', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'bank.title.required',
+                      id: 'bank.userId.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'bank.title.placeholder',
+                    id: 'bank.userId.placeholder',
                   })}
                 />,
               )}

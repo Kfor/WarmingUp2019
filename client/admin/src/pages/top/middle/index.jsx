@@ -21,14 +21,14 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-class Credit extends Component {
+class Middle extends Component {
   handleSubmit = e => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'credit/submitRegularForm',
+          type: 'exchangeMiddle/submitRegularForm',
           payload: values,
         });
       }
@@ -74,7 +74,7 @@ class Credit extends Component {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="credit.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="exchange-middle.basic.description" />}>
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -83,92 +83,151 @@ class Credit extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_1.label" />}>
-              {getFieldDecorator('userId_1', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.middle_id.label" />}
+            >
+              {getFieldDecorator('middle_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.userId_1.required',
+                      id: 'exchange-middle.middle_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.userId_1.placeholder',
+                    id: 'exchange-middle.middle_id.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_2.label" />}>
-              {getFieldDecorator('userId_2', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.down_id.label" />}
+            >
+              {getFieldDecorator('down_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.userId_2.required',
+                      id: 'exchange-middle.down_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.userId_2.placeholder',
+                    id: 'exchange-middle.down_id.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.money.label" />}>
-              {getFieldDecorator('money', {
+
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.performance.label" />}
+            >
+              {getFieldDecorator('performance', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.money.required',
+                      id: 'exchange-middle.performance.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.money.placeholder',
+                    id: 'exchange-middle.performance.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.returnMoney.label" />}>
-              {getFieldDecorator('returnMoney', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.appearance.label" />}
+            >
+              {getFieldDecorator('appearance', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.returnMoney.required',
+                      id: 'exchange-middle.appearance.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.returnMoney.placeholder',
+                    id: 'exchange-middle.appearance.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.circle.label" />}>
-              {getFieldDecorator('circle', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.function.label" />}
+            >
+              {getFieldDecorator('function', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.circle.required',
+                      id: 'exchange-middle.function.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.circle.placeholder',
+                    id: 'exchange-middle.function.placeholder',
+                  })}
+                />,
+              )}
+            </FormItem>
+
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.price.label" />}
+            >
+              {getFieldDecorator('price', {
+                rules: [
+                  {
+                    required: true,
+                    message: formatMessage({
+                      id: 'exchange-middle.price.required',
+                    }),
+                  },
+                ],
+              })(
+                <Input
+                  placeholder={formatMessage({
+                    id: 'exchange-middle.price.placeholder',
+                  })}
+                />,
+              )}
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-middle.count.label" />}
+            >
+              {getFieldDecorator('count', {
+                rules: [
+                  {
+                    required: true,
+                    message: formatMessage({
+                      id: 'exchange-middle.count.required',
+                    }),
+                  },
+                ],
+              })(
+                <Input
+                  placeholder={formatMessage({
+                    id: 'exchange-middle.count.placeholder',
                   })}
                 />,
               )}
@@ -181,14 +240,14 @@ class Credit extends Component {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="credit.form.submit" />
+                <FormattedMessage id="exchange-middle.form.submit" />
               </Button>
               <Button
                 style={{
                   marginLeft: 8,
                 }}
               >
-                <FormattedMessage id="credit.form.save" />
+                <FormattedMessage id="exchange-middle.form.save" />
               </Button>
             </FormItem>
           </Form>
@@ -200,6 +259,6 @@ class Credit extends Component {
 
 export default Form.create()(
   connect(({ loading }) => ({
-    submitting: loading.effects['credit/submitRegularForm'],
-  }))(Credit),
+    submitting: loading.effects['exchangeMiddle/submitRegularForm'],
+  }))(Middle),
 );

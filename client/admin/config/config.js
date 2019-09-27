@@ -109,39 +109,40 @@ export default {
             //   redirect: '/welcome',
             // },
             {
-              path: '/angel',
+              path: '/top/angelInvest',
               name: '天使投资轮',
               icon: 'smile',
               component: './Angel',
             },
             {
-              path: '/exchange',
+              path: '/top',
               icon: 'dollar',
               name: '组间交易',
               routes: [
                 {
-                  path: '/exchange/up',
-                  component: 'exchange/up',
+                  path: '/top/dealUpMiddle',
+                  component: './top/up',
                   name: '上中游交易',
                 },
                 {
                   name: '中下游交易',
-                  path: '/exchange/middle',
-                  component: './exchange/middle',
+                  path: '/top/dealMiddleDown',
+                  component: './top/middle',
                 },
-                // {
-                //   name: '上下游交易',
-                //   path: '/exchange/down',
-                //   component: './exchange/down',
-                // },
+                {
+                  name: '下游市场交易',
+                  path: '/top/dealDown',
+                  component: './top/down',
+                },
+                {
+                  name: '组间资产交流',
+                  path: '/top/dealBetween',
+                  // icon: 'pound',
+                  component: './credit',
+                },
               ],
             },
-            {
-              name: '组间资产交流',
-              path: '/credit',
-              icon: 'pound',
-              component: './credit',
-            },
+
             {
               name: '游戏罚款',
               path: '/penalty',
@@ -149,11 +150,22 @@ export default {
               component: './penalty',
             },
             {
-              name: '银行贷款',
-              path: '/upstream/debt',
-              icon: 'bank',
-              component: './bank',
-            },
+              name: '信息监控',
+              icon: 'pound',
+              path: '/profile/basic',
+              component: './profile/basic',
+            }, // {
+            //   name: '数据查询',
+            //   path: '/list/table-list',
+            //   icon: 'bank',
+            //   component: './list/table-list',
+            // },
+            // {
+            //   name: '银行贷款',
+            //   path: '/upstream/debt',
+            //   icon: 'bank',
+            //   component: './bank',
+            // },
             {
               component: './404',
             },

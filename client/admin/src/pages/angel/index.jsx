@@ -83,24 +83,7 @@ class Angel extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="angel.id_subject.label" />}>
-              {getFieldDecorator('id_subject', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({
-                      id: 'angel.id_subject.required',
-                    }),
-                  },
-                ],
-              })(
-                <Input
-                  placeholder={formatMessage({
-                    id: 'angel.id_subject.placeholder',
-                  })}
-                />,
-              )}
-            </FormItem>
+
             <FormItem {...formItemLayout} label={<FormattedMessage id="angel.id_object.label" />}>
               {getFieldDecorator('id_object', {
                 rules: [

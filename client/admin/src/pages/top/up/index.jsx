@@ -21,14 +21,14 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-class Credit extends Component {
+class Up extends Component {
   handleSubmit = e => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'credit/submitRegularForm',
+          type: 'exchangeUp/submitRegularForm',
           payload: values,
         });
       }
@@ -74,7 +74,7 @@ class Credit extends Component {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="credit.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="exchange-up.basic.description" />}>
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -83,92 +83,109 @@ class Credit extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_1.label" />}>
-              {getFieldDecorator('userId_1', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-up.up_id.label" />}
+            >
+              {getFieldDecorator('up_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.userId_1.required',
+                      id: 'exchange-up.up_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.userId_1.placeholder',
+                    id: 'exchange-up.up_id.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_2.label" />}>
-              {getFieldDecorator('userId_2', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-up.middle_id.label" />}
+            >
+              {getFieldDecorator('middle_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.userId_2.required',
+                      id: 'exchange-up.middle_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.userId_2.placeholder',
+                    id: 'exchange-up.middle_id.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.money.label" />}>
-              {getFieldDecorator('money', {
+
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-up.quality.label" />}
+            >
+              {getFieldDecorator('quality', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.money.required',
+                      id: 'exchange-up.quality.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.money.placeholder',
+                    id: 'exchange-up.quality.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.returnMoney.label" />}>
-              {getFieldDecorator('returnMoney', {
+
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-up.price.label" />}
+            >
+              {getFieldDecorator('price', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.returnMoney.required',
+                      id: 'exchange-up.price.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.returnMoney.placeholder',
+                    id: 'exchange-up.price.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="credit.circle.label" />}>
-              {getFieldDecorator('circle', {
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="exchange-up.count.label" />}
+            >
+              {getFieldDecorator('count', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'credit.circle.required',
+                      id: 'exchange-up.count.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'credit.circle.placeholder',
+                    id: 'exchange-up.count.placeholder',
                   })}
                 />,
               )}
@@ -181,14 +198,14 @@ class Credit extends Component {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="credit.form.submit" />
+                <FormattedMessage id="exchange-up.form.submit" />
               </Button>
               <Button
                 style={{
                   marginLeft: 8,
                 }}
               >
-                <FormattedMessage id="credit.form.save" />
+                <FormattedMessage id="exchange-up.form.save" />
               </Button>
             </FormItem>
           </Form>
@@ -200,6 +217,6 @@ class Credit extends Component {
 
 export default Form.create()(
   connect(({ loading }) => ({
-    submitting: loading.effects['credit/submitRegularForm'],
-  }))(Credit),
+    submitting: loading.effects['exchangeUp/submitRegularForm'],
+  }))(Up),
 );
