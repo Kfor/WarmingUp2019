@@ -283,23 +283,6 @@ class BasicForm2 extends Component {
               }}
             />
             
-            
-
-
-
-
-
-            <div className={styles.title}>本轮手机生产计划</div>
-            <Table
-              style={{
-                marginBottom: 24,
-              }}
-              pagination={false}
-              loading={loading}
-              dataSource={newPhonesData}
-              columns={newPhonesColumns}
-              rowKey="id"
-            />
 
 
             <FormItem

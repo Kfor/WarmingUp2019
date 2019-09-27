@@ -13,17 +13,19 @@ export default {
   'form-basic-form3.loan.label': '本轮贷款',
   'form-basic-form3.loan.placeholder': '请输入本轮的计划贷款',
 
-  'form-basic-form3.chipValue.label':' 芯片类型',
+  'form-basic-form3.chipValue.label':'芯片类型',
   
-  'form-basic-form3.TValue.label':' 芯片类型',
-  'form-basic-form3.MValue.label':' 功能值',
-  'form-basic-form3.amount.label':' 美观值',
+  'form-basic-form3.TValue.label':'功能值',
+  'form-basic-form3.MValue.label':'美观值',
+  'form-basic-form3.amount.label':'计划销售数量',
+  'form-basic-form3.price.label': '计划销售单价',
 
   'form-basic-form3.chipValue.placeholder': '请输入销售手机的芯片类型',
 
-  'form-basic-form3.TValue.placeholder': '请输入销售手机的芯片类型',
-  'form-basic-form3.MValue.placeholder': '请输入销售手机的功能值',
-  'form-basic-form3.amount.placeholder': '请输入销售手机的美观值',
+  'form-basic-form3.TValue.placeholder': '请输入销售手机的功能值',
+  'form-basic-form3.MValue.placeholder': '请输入销售手机的美观值',
+  'form-basic-form3.amount.placeholder': '请输入销售手机的计划销售数量',
+  'form-basic-form3.price.placeholder': '请输入销售手机的计划销售单价',
 
   
   'form-basic-form3.basic.title': '基础表单',

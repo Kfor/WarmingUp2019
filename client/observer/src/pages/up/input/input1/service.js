@@ -9,10 +9,4 @@ export async function fakeSubmitForm(params) {
   });
 }
 
-// export async function fakeSubmitForm(params) {
-//   console.log(params)
-//   return request('/api/upstream/debt?' + 'userId=' + params.userId + '&debt=' + params.debt, {
-//     method: 'POST',
-//     data: params,
-//   });
-// }
+

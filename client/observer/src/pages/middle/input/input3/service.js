@@ -1,7 +1,9 @@
 import request from '@/utils/request';
 
 export async function fakeSubmitForm(params) {
-  return request('/api/forms', {
+  console.log(params);
+
+  return request('/middlestream/invest?' + 'userId='+params.userId + '&MInvest='+params.AInvest + '&KInvest='+params.BInvest, {
     method: 'POST',
     data: params,
   });

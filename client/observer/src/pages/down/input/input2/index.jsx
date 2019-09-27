@@ -182,6 +182,29 @@ class BasicForm3 extends Component {
               )}
             </FormItem>
 
+            {/* form-basic-form3.price */}
+            <FormItem
+              {...formItemLayout}
+              label={<FormattedMessage id="form-basic-form3.price.label" />}
+            >
+              {getFieldDecorator('price', {
+                rules: [
+                  {
+                    required: true,
+                    message: formatMessage({
+                      id: 'form-basic-form3.price.required',
+                    }),
+                  },
+                ],
+              })(
+                <Input
+                  placeholder={formatMessage({
+                    id: 'form-basic-form3.price.placeholder',
+                  })}
+                />,
+              )}
+            </FormItem>
+
             <FormItem
               {...formItemLayout}
               label={<FormattedMessage id="form-basic-form3.amount.label" />}
