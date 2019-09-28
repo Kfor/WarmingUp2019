@@ -14,7 +14,7 @@ class TopController {
 
         }
     }
-    /**
+    /** TODO
      * 天使投资
      * @param  data = {
      *          userId:group8,
@@ -182,7 +182,7 @@ class TopController {
         };
       };
 
-      /**
+      /** TODO
        * 
        * @param data = {
        *            userId1: group1,

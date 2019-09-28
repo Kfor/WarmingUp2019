@@ -113,10 +113,15 @@ function addUser(userId) {
 async function invest(userId, data) {
     const result = await findUserByUserId(userId)
     const prev = result.dataValues
-    
+
+    var tmpT = (1+Number(data.TInvest)/10000000)*Number(prev.T);
+    var tmpM = (1+Number(data.MInvest)/10000000)*Number(prev.M);
+
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
     return User.update({
+        T:tmpT,
+        M:tmpM,
         TCost:tmpTCost,
         MCost:tmpMCost,
     }, {
@@ -124,16 +129,51 @@ async function invest(userId, data) {
     })
 };
 
-async function produce(userId, data) {
+async function produce(userId, data) { //上游需要一次性输入
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpChip1Num = Number(prev.chip1Num) + Number(data.chip1Num);
-    var tmpChip2Num = Number(prev.chip2Num) + Number(data.chip2Num);
-    var tmpChip3Num = Number(prev.chip3Num) + Number(data.chip3Num);
+    const It = [1.0,0.9,1.08,1.1];//芯片成本事件
+    const Im = [1,1.05,1.0,1.1];//最大生产系数
+    const fN = [1000,500,200];//基础产量
+    const fC = [100,300,800];//基础成本
+
+    var Max1 = Im[data.round] * fN[0] * prev.M;
+    var Max2 = Im[data.round] * fN[1] * prev.M;
+    var Max3 = Im[data.round] * fN[2] * prev.M;
+
+    var chip1Num = data.chip1Num;
+    var chip2Num = data.chip2Num;
+    var chip3Num = data.chip3Num;
+
+    if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
+        alert('超过生产限额！');
+        console.log('超过生产限额');
+    }
+    if(chip1Num>Max1) {
+        chip1Num = Max1;
+    }
+    if(chip2Num>Max2) {
+        chip2Num = Max2;
+    }
+    if(chip3Num>Max3) {
+        chip3Num = Max3;
+    }
+    
+    var tmpChip1Num = Number(prev.chip1Num) + Number(chip1Num);
+    var tmpChip2Num = Number(prev.chip2Num) + Number(chip2Num);
+    var tmpChip3Num = Number(prev.chip3Num) + Number(chip3Num);
+    
+    var Cost1 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip1Num);
+    var Cost2 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip2Num);
+    var Cost3 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip3Num);
+
+    var totalCost = Cost1 + Cost2 + Cost3;
+
     return User.update({
         chip1Num:tmpChip1Num,
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
+        currency:prev.currency - totalCost,
     }, {
         where: {userId: userId}
     })

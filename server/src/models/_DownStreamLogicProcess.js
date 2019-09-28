@@ -86,38 +86,6 @@ function calSumOfCompValue(input, indexList, num) {
 */
 function distributeMarket(turn, oneTurnInputJSON) {
     var MarketThisTurn = MarketCapacity[turn];
-    /*
-    var oneTurnInputJSON = //这里是测试数据
-    {
-        'productsList':[
-            {
-                'owner':0,
-                'xxx':1.1,
-                'ka':2,
-                'kb':3,
-                'kc':3,
-                'priceActual':3500,
-                'sellValue':10000,
-            },{
-                'owner':1,
-                'xxx':1.2,
-                'ka':3,
-                'kb':1,
-                'kc':1,
-                'priceActual':4500,
-                'sellValue':100,
-            },{
-                'owner':2,
-                'xxx':1.3,
-                'ka':3,
-                'kb':3,
-                'kc':3,
-                'priceActual':6500,
-                'sellValue':100,
-            }
-
-        ]
-    }*/
 
     var marketTypeIndex = {
         0:[],

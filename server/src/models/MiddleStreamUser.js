@@ -127,9 +127,17 @@ async function invest(userId, inputData) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    var xxxCost = Number(prev.xxxCost) + Number(inputData.xxxCost);
+    var tmpM = (1+Number(inputData.MInvest)/10000000)*Number(prev.M);
+    var tmpK = (1+Number(inputData.KInvest)/10000000)*Number(prev.K);
+
+    var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
+    var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
+
     return User.update({
-    //    xxxCost
+        M:tmpM,
+        K:tmpK,
+        MCost:tmpMCost,
+        KCost:tmpKCost,
     },{
         where: {userId: userId}
     })
@@ -139,8 +147,67 @@ async function produce(userId, inputData) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
+    if(inputData.ka==1) {
+        if(inputData.amount>prev.chip1Num) {
+            alert('超过生产限额！');
+            console.log('超过生产限额');
+        }
+    }
+    
+    if(inputData.ka==2) {
+        if(inputData.amount>prev.chip2Num) {
+            alert('超过生产限额！');
+            console.log('超过生产限额');
+        }
+    }
+    
+    if(inputData.ka==3) {
+        if(inputData.amount>prev.chip3Num) {
+            alert('超过生产限额！');
+            console.log('超过生产限额');
+        }
+    }
+
+    var MCost = (Number(inputData.kb)*30-Number(prev.M)*20)*7.5 * inputData.amount;
+    var KCost = (Number(inputData.kc)*30-Number(prev.K)*20)*8.5 * inputData.amount;
+
+    var newPhone = {ka:inputData.ka,kb:inputData.kb,kc:inputData.kc,amount:inputData.amount};
+    var hasThis = false;
+    var newPhones = prev.phoneNum;
+    for(var i=0;i<newPhones.length;i++) {
+        if(newPhones[i].ka==inputData.ka&&
+            newPhones[i].kb==inputData.kb&&
+            newPhones[i].kc==inputData.kc) {
+                newPhones[i].amount += inputData.amount;
+                hasThis = true;
+                break;
+            }
+    }
+
+    if(!hasThis) {
+        newPhones.push(newPhone);
+    }
+
+    var newChip1 = prev.chip1Num;
+    var newChip2 = prev.chip2Num;
+    var newChip3 = prev.chip3Num;
+
+    if(inputData.ka==1) {
+        newChip1 -= inputData.amount;
+    }
+    if(inputData.ka==2) {
+        newChip2 -= inputData.amount;
+    }
+    if(inputData.ka==3) {
+        newChip3 -= inputData.amount;
+    }
+
     return User.update({
-    //    xxxCost
+        currency: prev.currency - MCost - KCost,
+        chip1Num: newChip1,
+        chip2Num: newChip2,
+        chip3Num: newChip3,
+        phoneNum: newPhones,
     },{
         where: {userId: userId}
     })
