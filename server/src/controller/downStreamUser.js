@@ -17,12 +17,11 @@ class UserController {
   async sell(ctx) {
     const data = ctx.request.query;
     User.sell(data.userId, data);
-
     OneRoundSell.addOneRoundSell(data.userId, data);
     
     ctx.body = {
       status: 200,
-      infoText: 'Finished Sell!'+ flag
+      infoText: 'Finished Sell!'
     };
   } 
 

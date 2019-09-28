@@ -8,5 +8,3 @@ export async function fakeSubmitForm(params) {
     data: params,
   });
 }
-
-

@@ -57,7 +57,7 @@ var User = sequelize.define('up_stream_user', {
     T: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
     },
     TCost: {
         type: Sequelize.FLOAT,
@@ -67,7 +67,7 @@ var User = sequelize.define('up_stream_user', {
     M: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
     },
     MCost: {
         type: Sequelize.FLOAT,

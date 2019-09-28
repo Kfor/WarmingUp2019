@@ -57,7 +57,7 @@ var User = sequelize.define('middle_stream_user', {
     M: {
         type: Sequelize.FLOAT, //美观度投入系数
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
     },
     MCost: {
         type: Sequelize.FLOAT,
@@ -67,7 +67,7 @@ var User = sequelize.define('middle_stream_user', {
     K: {
         type: Sequelize.FLOAT, //功能性度投入系数
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
     },
     KCost: {
         type: Sequelize.FLOAT,

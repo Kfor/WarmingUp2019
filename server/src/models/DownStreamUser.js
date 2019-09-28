@@ -39,7 +39,7 @@ var User = sequelize.define('down_stream_user', {
     ad: {
         type: Sequelize.FLOAT, //广告投入系数
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1
     },
     adCost: {
         type: Sequelize.FLOAT,

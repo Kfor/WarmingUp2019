@@ -2,8 +2,9 @@
 var upStreamUser = require('../models/UpStreamUser')
 var middleStreamUser = require('../models/MiddleStreamUser')
 var downStreamUser = require('../models/DownStreamUser')
+var oneRoundSell = require('../models/OneRoundSell')
 
-var autoFine = -10;
+var autoFine = -20;
 class TopController {
     
 
@@ -11,7 +12,6 @@ class TopController {
     async test(ctx) {
         ctx.body = {
             key :'hhh',
-
         }
     }
     /** TODO
@@ -24,7 +24,6 @@ class TopController {
     async angelInvest(ctx) {
         const data = ctx.request.query;
         
-
         ctx.body = {
             status: 200,
             infoText: 'Finished Produce!',
@@ -170,12 +169,54 @@ class TopController {
       /**
        * 下游到市场
        * @param data = {
-       *            //不需要
+       *            round:1,
        *        } 
        */
       async dealDown(ctx) {
         const data = ctx.request.query;
-    
+
+        // 先从oneroundsell拿到数据
+        // 然后根据结果算出分配结果
+        // 根据分配结果返回维护用户表
+
+        const oneTurnInputRaw = await oneRoundSell.getAllSell(data.round);
+        // console.log(oneTurnInputRaw[0].dataValues);
+        var oneTurnInput = [];
+        for(var i=0;i<oneTurnInputRaw.length;i++) {
+            var one = oneTurnInputRaw[i].dataValues;
+            
+            var t = await downStreamUser.findUserByUserId(one.userId);
+            console.log(t.dataValues);
+            var tmpAd = t.dataValues.ad;
+            one.ad = tmpAd;
+            oneTurnInput.push(one);
+        }
+        // console.log(oneTurnInput);
+        var result = oneRoundSell.distributeMarket(data.round,oneTurnInput);
+        console.log(result);
+        
+        for(var i=0;i<result.length;i++) {
+            var tmpUserId = result[i].userId;
+            var tmp = await downStreamUser.findUserByUserId(tmpUserId);
+            var newPhone = tmp.dataValues.phoneNum;
+
+            for(var j=0;j<newPhone.length;j++) {
+                if(newPhone[j].ka==result[i].ka&&
+                    newPhone[j].kb==result[i].kb&&
+                    newPhone[j].kc==result[i].kc) {
+                        newPhone[j].amount -= result[i].amount;
+                    }
+            }
+
+            downStreamUser.update({
+                currency:tmp.dataValues.currency + result[i].amount*result[i].price,
+                phoneNum:newDownPhone,
+            }, {
+                where:{userId:tmpUserId}
+            })
+        }
+
+
         ctx.body = {
             status: 200,
             infoText: 'Finished Deal!',
@@ -209,7 +250,7 @@ class TopController {
        */
       async oneRound(ctx) {
         const data = ctx.request.query;
-    
+        
         ctx.body = {
             status: 200,
             infoText: 'Finished OneRound!',
@@ -252,7 +293,7 @@ class TopController {
        */
       async add(ctx) {
         const data = ctx.request.query;
-        const result = data.dataValues.userId;
+        const result = data.userId;
 
         if(result in ['group1','group2','group3']) {
             upStreamUser.addCurrency(result,data.money)
