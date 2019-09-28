@@ -11,7 +11,7 @@ const path = require('path');
 
 const app = new Koa();
 const router = new Router();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5050;
 
 require('./router')(router);
 
