@@ -49,7 +49,7 @@ var OneRoundSell = sequelize.define('one_round_sell', {
     amount: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
+    },      
 }, {
     freezeTableName: true, // use singular table name
     timestamps: true

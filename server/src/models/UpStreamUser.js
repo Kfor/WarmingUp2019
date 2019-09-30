@@ -114,16 +114,21 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId)
     const prev = result.dataValues
 
-    var tmpT = (1+Number(data.TInvest)/10000000)*Number(prev.T);
-    var tmpM = (1+Number(data.MInvest)/10000000)*Number(prev.M);
+    var tmpT = (1-Number(data.TInvest)/10000000)*Number(prev.T);
+    var tmpM = (1-Number(data.MInvest)/10000000)*Number(prev.M);
 
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
+
+    var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
+
+
     return User.update({
         T:tmpT,
         M:tmpM,
         TCost:tmpTCost,
         MCost:tmpMCost,
+        currency:tmpCurrency,
     }, {
         where: {userId: userId}
     })
@@ -183,8 +188,10 @@ async function debt(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
     var tmpDebt = Number(prev.debt) + Number(data.debt);
+    var tmpCurrency = Number(prev.currency) + Number(data.debt);
     return User.update({
         debt: tmpDebt,
+        currency: tmpCurrency,
     }, {
         where: {userId: userId}
     })
@@ -216,9 +223,9 @@ function clear(userId) {
 async function addCurrency(userId,money) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var newCurrency = Number(prev.currency) + Number(money);
+    var tmpCurrency = Number(prev.currency) + Number(money);
     return User.update({
-        currency:newCurrency,
+        currency: tmpCurrency,
     }, {
         where: {userId: userId}
     })

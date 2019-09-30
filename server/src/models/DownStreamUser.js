@@ -99,16 +99,18 @@ function addUser(userId) {
 /**
  * 广告投入
  */
-async function advertise(userId, inputData) {
+async function advertise(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    var tmpAdCost = Number(prev.adCost) + Number(inputData.adInvest);
-    var tmpAd = Number(prev.ad)*(1+Number(inputData.adInvest)/10000000);
+    var tmpAdCost = Number(prev.adCost) + Number(data.adInvest);
+    var tmpAd = Number(prev.ad)*(1+Number(data.adInvest)/10000000);
 
+    var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
     return User.update({
         adCost: tmpAdCost,
         ad: tmpAd,
+        currency: tmpCurrency,
     },{
         where: {userId: userId}
     })
@@ -117,16 +119,16 @@ async function advertise(userId, inputData) {
 /**
  * 售卖手机到市场。注意，这里只针对User进行维护，而没有订单的维护
  */
-async function sell(userId, inputData) {
+async function sell(userId, data) {
     const result = await findUserByUserId(userId);
     const phones = result.dataValues.phoneNum;
 
     var valid = false;
     for(i=0;i<phones.length;i++) {
-        if(phones[i].ka==inputData.ka&&phones[i].kb==inputData.kb
-            &&phones[i].kc==inputData.kc&&Number(phones[i].amount>=Number(inputData.amount))) {
+        if(phones[i].ka==data.ka&&phones[i].kb==data.kb
+            &&phones[i].kc==data.kc&&Number(phones[i].amount>=Number(data.amount))) {
                 valid = true;
-            //    phones[i].amount -= inputData.amount;
+            //    phones[i].amount -= data.amount;
             }
     }
 
@@ -149,8 +151,10 @@ async function debt(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
     var tmpDebt = Number(prev.debt) + Number(data.debt);
+    var tmpCurrency = Number(prev.currency) + Number(data.debt);
     return User.update({
         debt: tmpDebt,
+        currency: tmpCurrency,
     }, {
         where: {userId: userId}
     })
@@ -183,7 +187,6 @@ function init(userId) {
         where: {userId: userId}
     })
 };
-
 
 async function addCurrency(userId,money) {
     const result = await findUserByUserId(userId);

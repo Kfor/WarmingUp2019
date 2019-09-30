@@ -218,8 +218,10 @@ async function debt(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
     var tmpDebt = Number(prev.debt) + Number(data.debt);
+    var tmpCurrency = Number(prev.currency) + Number(data.debt);
     return User.update({
         debt: tmpDebt,
+        currency: tmpCurrency,
     }, {
         where: {userId: userId}
     })
