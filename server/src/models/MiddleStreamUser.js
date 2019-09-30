@@ -104,7 +104,7 @@ var User = sequelize.define('middle_stream_user', {
 
 }, {
     freezeTableName: true, // use singular table name
-    timestamps: true
+    timestamps: false
 });
 
 /**
@@ -123,12 +123,12 @@ function addUser(userId) {
         })
 };
 
-async function invest(userId, inputData) {
+async function invest(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    var tmpM = (1+Number(inputData.MInvest)/10000000)*Number(prev.M);
-    var tmpK = (1+Number(inputData.KInvest)/10000000)*Number(prev.K);
+    var tmpM = (1+Number(data.MInvest)/10000000)*Number(prev.M);
+    var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
 
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
     var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
@@ -143,42 +143,42 @@ async function invest(userId, inputData) {
     })
 };
 
-async function produce(userId, inputData) {
+async function produce(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    if(inputData.ka==1) {
-        if(inputData.amount>prev.chip1Num) {
+    if(data.ka==1) {
+        if(data.amount>prev.chip1Num) {
             alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
     
-    if(inputData.ka==2) {
-        if(inputData.amount>prev.chip2Num) {
+    if(data.ka==2) {
+        if(data.amount>prev.chip2Num) {
             alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
     
-    if(inputData.ka==3) {
-        if(inputData.amount>prev.chip3Num) {
+    if(data.ka==3) {
+        if(data.amount>prev.chip3Num) {
             alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
 
-    var MCost = (Number(inputData.kb)*30-Number(prev.M)*20)*7.5 * inputData.amount;
-    var KCost = (Number(inputData.kc)*30-Number(prev.K)*20)*8.5 * inputData.amount;
+    var MCost = (Number(data.kb)*30-Number(prev.M)*20)*7.5 * data.amount;
+    var KCost = (Number(data.kc)*30-Number(prev.K)*20)*8.5 * data.amount;
 
-    var newPhone = {ka:inputData.ka,kb:inputData.kb,kc:inputData.kc,amount:inputData.amount};
+    var newPhone = {ka:data.ka,kb:data.kb,kc:data.kc,amount:data.amount};
     var hasThis = false;
     var newPhones = prev.phoneNum;
     for(var i=0;i<newPhones.length;i++) {
-        if(newPhones[i].ka==inputData.ka&&
-            newPhones[i].kb==inputData.kb&&
-            newPhones[i].kc==inputData.kc) {
-                newPhones[i].amount += inputData.amount;
+        if(newPhones[i].ka==data.ka&&
+            newPhones[i].kb==data.kb&&
+            newPhones[i].kc==data.kc) {
+                newPhones[i].amount += data.amount;
                 hasThis = true;
                 break;
             }
@@ -192,14 +192,14 @@ async function produce(userId, inputData) {
     var newChip2 = prev.chip2Num;
     var newChip3 = prev.chip3Num;
 
-    if(inputData.ka==1) {
-        newChip1 -= inputData.amount;
+    if(data.ka==1) {
+        newChip1 -= data.amount;
     }
-    if(inputData.ka==2) {
-        newChip2 -= inputData.amount;
+    if(data.ka==2) {
+        newChip2 -= data.amount;
     }
-    if(inputData.ka==3) {
-        newChip3 -= inputData.amount;
+    if(data.ka==3) {
+        newChip3 -= data.amount;
     }
 
     return User.update({

@@ -52,7 +52,7 @@ var OneRoundSell = sequelize.define('one_round_sell', {
     },      
 }, {
     freezeTableName: true, // use singular table name
-    timestamps: true
+    timestamps: false
 });
 
 /**
@@ -135,7 +135,7 @@ function calSumOfCompValue(input, indexList, num) {
 * 调用完毕后会返回额外附加actualMarket值的JSON
 */
 function distributeMarket(turn, oneTurnInputJSON) {
-    var MarketThisTurn = MarketCapacity[turn];
+    var MarketThisTurn = MarketCapacity[turn-1];
 
     var marketTypeIndex = {
         0:[],

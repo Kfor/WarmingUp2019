@@ -76,7 +76,7 @@ var User = sequelize.define('down_stream_user', {
 
 }, {
     freezeTableName: true, // use singular table name
-    timestamps: true
+    timestamps: false
 });
 
 

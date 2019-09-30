@@ -90,7 +90,7 @@ var User = sequelize.define('up_stream_user', {
     }
 }, {
     freezeTableName: true, // use singular table name
-    timestamps: true
+    timestamps: false
 });
 
 /**
@@ -137,22 +137,24 @@ async function invest(userId, data) {
 async function produce(userId, data) { //上游需要一次性输入
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
+
     const It = [1.0,0.9,1.08,1.1];//芯片成本事件
     const Im = [1,1.05,1.0,1.1];//最大生产系数
     const fN = [1000,500,200];//基础产量
     const fC = [100,300,800];//基础成本
+    const round = data.round-1;//index从0开始
 
-    var Max1 = Im[data.round] * fN[0] * prev.M;
-    var Max2 = Im[data.round] * fN[1] * prev.M;
-    var Max3 = Im[data.round] * fN[2] * prev.M;
+    var Max1 = Im[round] * fN[0] * prev.M;
+    var Max2 = Im[round] * fN[1] * prev.M;
+    var Max3 = Im[round] * fN[2] * prev.M;
 
     var chip1Num = data.chip1Num;
     var chip2Num = data.chip2Num;
     var chip3Num = data.chip3Num;
 
     if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
-        alert('超过生产限额！');
-        console.log('超过生产限额');
+        //alert('超过生产限额，置位最大值');
+        console.log('超过生产限额, 置为最大值');
     }
     if(chip1Num>Max1) {
         chip1Num = Max1;
@@ -168,17 +170,23 @@ async function produce(userId, data) { //上游需要一次性输入
     var tmpChip2Num = Number(prev.chip2Num) + Number(chip2Num);
     var tmpChip3Num = Number(prev.chip3Num) + Number(chip3Num);
     
-    var Cost1 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip1Num);
-    var Cost2 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip2Num);
-    var Cost3 = It[data.round] * fC[data.round] * Number(prev.T) * Number(prev.chip3Num);
+    var Cost1 = It[round] * fC[0] * Number(prev.T) * Number(chip1Num);
+    var Cost2 = It[round] * fC[1] * Number(prev.T) * Number(chip2Num);
+    var Cost3 = It[round] * fC[2] * Number(prev.T) * Number(chip3Num);
 
-    var totalCost = Cost1 + Cost2 + Cost3;
+    var totalCost = Number(Cost1) + Number(Cost2) + Number(Cost3);
+    var newCurrency = Number(prev.currency) - Number(totalCost);
+
+    if(newCurrency<0) {
+        console.log('余额不足！交易失败');
+        return;
+    }
 
     return User.update({
         chip1Num:tmpChip1Num,
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
-        currency:prev.currency - totalCost,
+        currency:newCurrency,
     }, {
         where: {userId: userId}
     })
@@ -214,7 +222,10 @@ function clear(userId) {
         chip2Num:0,
         chip3Num:0,
         TCost:0,
+        T:1,
         MCost:0,
+        M:1,
+        currency:15000000,
     }, {
         where: {userId: userId}
     })
