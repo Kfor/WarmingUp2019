@@ -58,6 +58,11 @@ var User = sequelize.define('down_stream_user', {
         allowNull: false,
         defaultValue: 0
     },
+    debtMax: {
+        type:Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0
+    },
     
     initCurrency: {//初始资金，用于天使投资计算利润率用
         type:Sequelize.FLOAT,

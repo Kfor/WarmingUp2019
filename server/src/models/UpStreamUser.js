@@ -49,6 +49,12 @@ var User = sequelize.define('up_stream_user', {
         allowNull: false,
         defaultValue: 0
     },
+    debtMax: {
+        type:Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0
+    },
+
     totalStorageCost: {
         type: Sequelize.FLOAT,
         allowNull: false,
@@ -153,7 +159,7 @@ async function produce(userId, data) { //上游需要一次性输入
     var chip3Num = data.chip3Num;
 
     if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
-        //alert('超过生产限额，置位最大值');
+        // alert('超过生产限额，置位最大值');
         console.log('超过生产限额, 置为最大值');
     }
     if(chip1Num>Max1) {

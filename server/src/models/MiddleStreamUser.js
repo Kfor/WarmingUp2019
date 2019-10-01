@@ -54,12 +54,12 @@ var User = sequelize.define('middle_stream_user', {
         defaultValue: 0
     },
 
-    M: {
+    D: {
         type: Sequelize.FLOAT, //美观度投入系数
         allowNull: false,
         defaultValue: 1
     },
-    MCost: {
+    DCost: {
         type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -82,6 +82,11 @@ var User = sequelize.define('middle_stream_user', {
         defaultValue: 0
     },
     debt: {
+        type:Sequelize.FLOAT,
+        allowNull: false,
+        defaultValue: 0
+    },
+    debtMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -127,17 +132,23 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    var tmpM = (1+Number(data.MInvest)/10000000)*Number(prev.M);
-    var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
+    const D1 = [1,1.1,1.05,0.98];
+    const K1 = [1,1.15,0.9,0.95];
 
-    var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
+    var tmpD = D1[data.round]*(1+Number(data.DInvest)/10000000)*Number(prev.D);
+    var tmpK = K1[data.round]*(1+Number(data.KInvest)/10000000)*Number(prev.K);
+
+    var tmpDCost    = Number(prev.DCost) + Number(data.DInvest);
     var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
 
+    var tmpCurrency = Number(prev.currency) - Number(data.DInvest) - Number(data.KInvest);
+
     return User.update({
-        M:tmpM,
+        D:tmpD,
         K:tmpK,
-        MCost:tmpMCost,
+        DCost:tmpDCost,
         KCost:tmpKCost,
+        currency:tmpCurrency,
     },{
         where: {userId: userId}
     })
@@ -168,7 +179,7 @@ async function produce(userId, data) {
         }
     }
 
-    var MCost = (Number(data.kb)*30-Number(prev.M)*20)*7.5 * data.amount;
+    var DCost = (Number(data.kb)*30-Number(prev.D)*20)*7.5 * data.amount;
     var KCost = (Number(data.kc)*30-Number(prev.K)*20)*8.5 * data.amount;
 
     var newPhone = {ka:data.ka,kb:data.kb,kc:data.kc,amount:data.amount};
@@ -203,7 +214,7 @@ async function produce(userId, data) {
     }
 
     return User.update({
-        currency: prev.currency - MCost - KCost,
+        currency: prev.currency - DCost - KCost,
         chip1Num: newChip1,
         chip2Num: newChip2,
         chip3Num: newChip3,

@@ -65,15 +65,15 @@ function sync() {
 /**
  * 添加一个下游到市场的订单
  */
-function addOneRoundSell(userId,inputData) {
+function addOneRoundSell(userId,data) {
     return OneRoundSell.create({
         userId: userId,
-        round: inputData.round,
-        ka: inputData.ka,
-        kb: inputData.kb,
-        kc: inputData.kc,
-        price: inputData.price,
-        amount: inputData.amount,
+        round: data.round,
+        ka: data.ka,
+        kb: data.kb,
+        kc: data.kc,
+        price: data.price,
+        amount: data.amount,
     });
 
 };
