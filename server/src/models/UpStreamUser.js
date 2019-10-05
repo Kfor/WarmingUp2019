@@ -42,7 +42,7 @@ var User = sequelize.define('up_stream_user', {
     currency: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 15000000
     },
     debt: {
         type: Sequelize.FLOAT,
@@ -246,6 +246,15 @@ async function addCurrency(userId,money) {
     }, {
         where: {userId: userId}
     })
+};
+
+async function update(userId,data) {
+    return User.update({
+        chip1Num:data.chip1Num,
+        chip2Num:data.chip2Num,
+        chip3Num:data.chip3Num,
+        currency:data.currency,
+    },{where:{userId:userId}});
 }
 
-module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, debt, addCurrency}
+module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, debt, addCurrency, update}

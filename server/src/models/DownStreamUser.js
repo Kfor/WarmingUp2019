@@ -29,7 +29,8 @@ var User = sequelize.define('down_stream_user', {
     },
     phoneNum: {
         type: Sequelize.JSON,
-        allowNull: true
+        allowNull: false,
+        defaultValue: []
     },
     totalStroageCost: {
         type: Sequelize.FLOAT,
@@ -50,7 +51,7 @@ var User = sequelize.define('down_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 15000000
     },
     
     debt: {
@@ -202,6 +203,13 @@ async function addCurrency(userId,money) {
     }, {
         where: {userId: userId}
     })
+};
+
+async function update(userId,data) {
+    return User.update({
+        phoneNum:data.phoneNum,
+        currency:data.currency,
+    },{where:{userId:userId}});
 }
 
-module.exports = {sync, addUser, findUserByUserId, advertise, sell, debt, clear, init, addCurrency};
+module.exports = {sync, addUser, findUserByUserId, advertise, sell, debt, clear, init, addCurrency, update};

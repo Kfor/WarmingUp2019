@@ -49,30 +49,50 @@ class TopController {
         const type = 'chip'+data.quality+'Num'
 
         if(up[type]<data.num) {
-            alert('库存不足!');
+            //alert('库存不足!');
             console.log('库存不足');
-            upTmp.addCurrency(data.upUserId,autoFine);
-            middleTmp.addCurrency(data.middleUserId,autoFine);
+            upStreamUser.addCurrency(data.upUserId,autoFine);
+            middleStreamUser.addCurrency(data.middleUserId,autoFine);
         }
         else if(middle.currency<Number((data.price)*(data.num))) {
-            alert('余额不足!');
+            //alert('余额不足!');
             console.log('余额不足');
-            upTmp.addCurrency(data.upUserId,autoFine);
-            middleTmp.addCurrency(data.middleUserId,autoFine);
+            upStreamUser.addCurrency(data.upUserId,autoFine);
+            middleStreamUser.addCurrency(data.middleUserId,autoFine);
         }
         else {
-            
-            upStreamUser.update({
-                type: up[type] - data.num,
+            if(data.quality==1) {
+                var new1 = up[type] - Number(data.num);
+            }
+            if(data.quality==2) {
+                var new2 = up[type] - Number(data.num);
+            }
+            if(data.quality==3) {
+                var new3 = up[type] - Number(data.num);
+            }
+            upStreamUser.update(data.upUserId,{
+                chip1Num:new1,
+                chip2Num:new2,
+                chip3Num:new3,
+                
                 currency: up.currency + (data.price)*(data.num),
-            }, {
-                where: {userId:data.upUserId}
             });
-            middleStreamUser.update({
-                type: middle[type] + data.num,
+
+            if(data.quality==1) {
+                var new1 = middle[type] +Number(data.num);
+            }
+            if(data.quality==2) {
+                var new2 = middle[type] + Number(data.num);
+            }
+            if(data.quality==3) {
+                var new3 = middle[type] + Number(data.num);
+            }
+            middleStreamUser.update(data.middleUserId,{
+                chip1Num:new1,
+                chip2Num:new2,
+                chip3Num:new3,
+                
                 currency: middle.currency - (data.price)*(data.num),
-            }, {
-                where: {userId:data.middleUserId}
             })
         }
     
@@ -100,9 +120,9 @@ class TopController {
         const middle = middleTmp.dataValues;
         const downTmp = await downStreamUser.findUserByUserId(data.downUserId);
         const down = downTmp.dataValues;
-        
         var index = -1;
-        for(var i=0;i<middle.phoneNum;i++) { //找到对应型号手机的编号
+        for(var i=0;i<middle.phoneNum.length;i++) { //找到对应型号手机的编号
+            console.log(middle.phoneNum[i])
             if(middle.phoneNum[i].ka==data.ka&&
                 middle.phoneNum[i].kb==data.kb&&
                 middle.phoneNum[i].kc==data.kc) {
@@ -112,22 +132,22 @@ class TopController {
         }
 
         if(index==-1) {
-            alert('无此型号的手机!');
+            //alert('无此型号的手机!');
             console.log('无此型号的手机');
-            downTmp.addCurrency(data.downUserId,autoFine);
-            middleTmp.addCurrency(data.middleUserId,autoFine);
+            downStreamUser.addCurrency(data.downUserId,autoFine);
+            middleStreamUser.addCurrency(data.middleUserId,autoFine);
         }
         else if(middle.phoneNum[index].amount<data.num) {
-            alert('库存不足!');
+            //alert('库存不足!');
             console.log('库存不足');
-            downTmp.addCurrency(data.downUserId,autoFine);
-            middleTmp.addCurrency(data.middleUserId,autoFine);
+            downStreamUser.addCurrency(data.downUserId,autoFine);
+            middleStreamUser.addCurrency(data.middleUserId,autoFine);
         }
         else if(down.currency<Number((data.price)*(data.num))) {
-            alert('余额不足!');
+            //alert('余额不足!');
             console.log('余额不足');
-            downTmp.addCurrency(data.downUserId,autoFine);
-            middleTmp.addCurrency(data.middleUserId,autoFine);
+            downStreamUser.addCurrency(data.downUserId,autoFine);
+            middleStreamUser.addCurrency(data.middleUserId,autoFine);
         }
         else {
             var newMiddlePhone = middle.phoneNum;
@@ -146,17 +166,13 @@ class TopController {
                 newDownPhone.push({ka:data.ka,kb:data.kb,kc:data.kc,amount:data.num});
             }
 
-            middleStreamUser.update({
+            middleStreamUser.update(data.middleUserId,{
                 phoneNum: newMiddlePhone,
-                currency: up.currency + (data.price)*(data.num),
-            }, {
-                where: {userId:data.middleUserId}
+                currency: middle.currency + (data.price)*(data.num),
             });
-            downStreamUser.update({
+            downStreamUser.update(data.downUserId,{
                 phoneNum: newDownPhone,
-                currency: middle.currency - (data.price)*(data.num),
-            }, {
-                where: {userId:data.downUserId}
+                currency: down.currency - (data.price)*(data.num),
             })
         }
 

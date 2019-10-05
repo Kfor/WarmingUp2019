@@ -45,7 +45,8 @@ var User = sequelize.define('middle_stream_user', {
     },
     phoneNum: {
         type: Sequelize.JSON,
-        allowNull: true
+        allowNull: false,
+        defaultValue: [],
     },
 
     totalStroageCost: {
@@ -79,7 +80,7 @@ var User = sequelize.define('middle_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 15000000
     },
     debt: {
         type:Sequelize.FLOAT,
@@ -132,11 +133,14 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    const D1 = [1,1.1,1.05,0.98];
-    const K1 = [1,1.15,0.9,0.95];
+    // const D1 = [1,1.1,1.05,0.98];
+    // const K1 = [1,1.15,0.9,0.95];
 
-    var tmpD = D1[data.round]*(1+Number(data.DInvest)/10000000)*Number(prev.D);
-    var tmpK = K1[data.round]*(1+Number(data.KInvest)/10000000)*Number(prev.K);
+    // var tmpD = D1[data.round]*(1+Number(data.DInvest)/10000000)*Number(prev.D);
+    // var tmpK = K1[data.round]*(1+Number(data.KInvest)/10000000)*Number(prev.K);
+
+    var tmpD = (1+Number(data.DInvest)/10000000)*Number(prev.D);
+    var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
 
     var tmpDCost    = Number(prev.DCost) + Number(data.DInvest);
     var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
@@ -158,38 +162,39 @@ async function produce(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
+    const D1 = [1,1.1,1.05,0.98];
+    const K1 = [1,1.15,0.9,0.95];
+
     if(data.ka==1) {
         if(data.amount>prev.chip1Num) {
-            alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
     
     if(data.ka==2) {
         if(data.amount>prev.chip2Num) {
-            alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
     
     if(data.ka==3) {
         if(data.amount>prev.chip3Num) {
-            alert('超过生产限额！');
             console.log('超过生产限额');
         }
     }
 
-    var DCost = (Number(data.kb)*30-Number(prev.D)*20)*7.5 * data.amount;
-    var KCost = (Number(data.kc)*30-Number(prev.K)*20)*8.5 * data.amount;
+    var DCost = D1[data.round]*(Number(data.kb)*30-Number(prev.D)*20)*7.5 * Number(data.amount);
+    var KCost = K1[data.round]*(Number(data.kc)*30-Number(prev.K)*20)*8.5 * Number(data.amount);
 
-    var newPhone = {ka:data.ka,kb:data.kb,kc:data.kc,amount:data.amount};
+    var newPhone = {ka:Number(data.ka),kb:Number(data.kb),kc:Number(data.kc),amount:Number(data.amount)};
     var hasThis = false;
     var newPhones = prev.phoneNum;
+
     for(var i=0;i<newPhones.length;i++) {
         if(newPhones[i].ka==data.ka&&
             newPhones[i].kb==data.kb&&
             newPhones[i].kc==data.kc) {
-                newPhones[i].amount += data.amount;
+                newPhones[i].amount += Number(data.amount);
                 hasThis = true;
                 break;
             }
@@ -267,6 +272,17 @@ async function addCurrency(userId,money) {
     }, {
         where: {userId: userId}
     })
+};
+
+async function update(userId,data) {
+    return User.update({
+        chip1Num:data.chip1Num,
+        chip2Num:data.chip2Num,
+        chip3Num:data.chip3Num,
+        phoneNum:data.phoneNum,
+        currency:data.currency,
+    },{where:{userId:userId}});
 }
 
-module.exports = {sync, addUser, findUserByUserId, produce, invest, debt, clear, addCurrency};
+
+module.exports = {sync, addUser, findUserByUserId, produce, invest, debt, clear, addCurrency, update};
