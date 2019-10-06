@@ -4,6 +4,10 @@
 const Sequelize = require('sequelize')
 const config = require('../config.js')
 
+
+var round = 1;
+var downGroupList = ['group9','group10','group11','group12'];
+
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     port: config.port,
@@ -54,12 +58,12 @@ var User = sequelize.define('down_stream_user', {
         defaultValue: 15000000
     },
     
-    debt: {
+    loan: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
     },
-    debtMax: {
+    loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -76,8 +80,7 @@ var User = sequelize.define('down_stream_user', {
     angelCut: {//天使投资人收的股权。如果对赌成功，则为0
         type:Sequelize.FLOAT,
         defaultValue: 0
-    }
-
+    },
 
 
 }, {
@@ -153,13 +156,26 @@ async function sell(userId, data) {
     }
 }
 
-async function debt(userId, data) {
+async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpDebt = Number(prev.debt) + Number(data.debt);
-    var tmpCurrency = Number(prev.currency) + Number(data.debt);
+    var tmpLoan = Number(prev.loan) + Number(data.loan);
+    var tmpCurrency = Number(prev.currency) + Number(data.loan);
     return User.update({
-        debt: tmpDebt,
+        loan: tmpLoan,
+        currency: tmpCurrency,
+    }, {
+        where: {userId: userId}
+    })
+};
+
+async function repay(userId, data) {
+    const result = await findUserByUserId(userId);
+    const prev = result.dataValues;
+    var tmpLoan = Number(prev.loan) - Number(data.repay);
+    var tmpCurrency = Number(prev.currency) - Number(data.repay);
+    return User.update({
+        loan: tmpLoan,
         currency: tmpCurrency,
     }, {
         where: {userId: userId}
@@ -210,6 +226,21 @@ async function update(userId,data) {
         phoneNum:data.phoneNum,
         currency:data.currency,
     },{where:{userId:userId}});
-}
+};
 
-module.exports = {sync, addUser, findUserByUserId, advertise, sell, debt, clear, init, addCurrency, update};
+async function endRound() {
+    round += 1;
+    console.log('next round: '+round);
+
+    for (var group of downGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        var tmpLoan = Number(result.dataValues.loan)*1.1;
+        User.update({loan: tmpLoan},{where:{userId:group}});
+    }
+};
+
+async function destroy() {
+    User.destroy({where:{}});
+};
+
+module.exports = {sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, endRound, destroy, repay};

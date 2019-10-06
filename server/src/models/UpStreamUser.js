@@ -1,6 +1,11 @@
 const Sequelize = require('sequelize')
 const config = require('../config.js')
 
+
+var round = 1;
+var upGroupList = ['group1','group2','group3','group4'];
+
+
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     port: config.port,
@@ -44,12 +49,12 @@ var User = sequelize.define('up_stream_user', {
         allowNull: false,
         defaultValue: 15000000
     },
-    debt: {
+    loan: {
         type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
     },
-    debtMax: {
+    loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -93,7 +98,8 @@ var User = sequelize.define('up_stream_user', {
     angelCut: {//天使投资人收的股权。如果对赌成功，则为0
         type:Sequelize.FLOAT,
         defaultValue: 0
-    }
+    },
+    
 }, {
     freezeTableName: true, // use singular table name
     timestamps: false
@@ -148,11 +154,11 @@ async function produce(userId, data) { //上游需要一次性输入
     const Im = [1,1.05,1.0,1.1];//最大生产系数
     const fN = [1000,500,200];//基础产量
     const fC = [100,300,800];//基础成本
-    const round = data.round-1;//index从0开始
+    const tmpRound = round-1;//index从0开始
 
-    var Max1 = Im[round] * fN[0] * prev.M;
-    var Max2 = Im[round] * fN[1] * prev.M;
-    var Max3 = Im[round] * fN[2] * prev.M;
+    var Max1 = Im[tmpRound] * fN[0] * prev.M;
+    var Max2 = Im[tmpRound] * fN[1] * prev.M;
+    var Max3 = Im[tmpRound] * fN[2] * prev.M;
 
     var chip1Num = data.chip1Num;
     var chip2Num = data.chip2Num;
@@ -176,9 +182,9 @@ async function produce(userId, data) { //上游需要一次性输入
     var tmpChip2Num = Number(prev.chip2Num) + Number(chip2Num);
     var tmpChip3Num = Number(prev.chip3Num) + Number(chip3Num);
     
-    var Cost1 = It[round] * fC[0] * Number(prev.T) * Number(chip1Num);
-    var Cost2 = It[round] * fC[1] * Number(prev.T) * Number(chip2Num);
-    var Cost3 = It[round] * fC[2] * Number(prev.T) * Number(chip3Num);
+    var Cost1 = It[tmpRound] * fC[0] * Number(prev.T) * Number(chip1Num);
+    var Cost2 = It[tmpRound] * fC[1] * Number(prev.T) * Number(chip2Num);
+    var Cost3 = It[tmpRound] * fC[2] * Number(prev.T) * Number(chip3Num);
 
     var totalCost = Number(Cost1) + Number(Cost2) + Number(Cost3);
     var newCurrency = Number(prev.currency) - Number(totalCost);
@@ -198,13 +204,26 @@ async function produce(userId, data) { //上游需要一次性输入
     })
 };
 
-async function debt(userId, data) {
+async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpDebt = Number(prev.debt) + Number(data.debt);
-    var tmpCurrency = Number(prev.currency) + Number(data.debt);
+    var tmpLoan = Number(prev.loan) + Number(data.loan);
+    var tmpCurrency = Number(prev.currency) + Number(data.loan);
     return User.update({
-        debt: tmpDebt,
+        loan: tmpLoan,
+        currency: tmpCurrency,
+    }, {
+        where: {userId: userId}
+    })
+};
+
+async function repay(userId, data) {
+    const result = await findUserByUserId(userId);
+    const prev = result.dataValues;
+    var tmpLoan = Number(prev.loan) - Number(data.repay);
+    var tmpCurrency = Number(prev.currency) - Number(data.repay);
+    return User.update({
+        loan: tmpLoan,
         currency: tmpCurrency,
     }, {
         where: {userId: userId}
@@ -255,6 +274,23 @@ async function update(userId,data) {
         chip3Num:data.chip3Num,
         currency:data.currency,
     },{where:{userId:userId}});
-}
+};
 
-module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, debt, addCurrency, update}
+
+async function endRound() {
+    round += 1;
+    console.log('next round: '+round);
+
+    for (var group of upGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        var tmpLoan = Number(result.dataValues.loan)*1.1;
+        User.update({loan: tmpLoan},{where:{userId:group}});
+    }
+};
+
+async function destroy() {
+    User.destroy({where:{}});
+};
+
+
+module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, destroy, repay}

@@ -6,20 +6,22 @@ upStreamUser.sync();
 upStreamUser.addUser('group1')
 upStreamUser.addUser('group2')
 upStreamUser.addUser('group3')
+upStreamUser.addUser('group4')
 
 
 var middleStreamUser = require('./models/MiddleStreamUser');
 middleStreamUser.sync();
-middleStreamUser.addUser('group4')
 middleStreamUser.addUser('group5')
 middleStreamUser.addUser('group6')
 middleStreamUser.addUser('group7')
+middleStreamUser.addUser('group8')
 
 var downStreamUser = require('./models/DownStreamUser');
 downStreamUser.sync();
-downStreamUser.addUser('group8')
 downStreamUser.addUser('group9')
 downStreamUser.addUser('group10')
+downStreamUser.addUser('group11')
+downStreamUser.addUser('group12')
 
 var oneRoundSell = require('./models/OneRoundSell');
 oneRoundSell.sync();

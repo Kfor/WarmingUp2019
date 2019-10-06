@@ -4,6 +4,11 @@
 const Sequelize = require('sequelize')
 const config = require('../config.js')
 
+
+var round = 1;
+var middleGroupList = ['group5','group6','group7','group8'];
+
+
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     port: config.port,
@@ -82,12 +87,12 @@ var User = sequelize.define('middle_stream_user', {
         allowNull: false,
         defaultValue: 15000000
     },
-    debt: {
+    loan: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
     },
-    debtMax: {
+    loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -105,8 +110,7 @@ var User = sequelize.define('middle_stream_user', {
     angelCut: {//天使投资人收的股权。如果对赌成功，则为0
         type:Sequelize.FLOAT,
         defaultValue: 0
-    }
-
+    },
 
 }, {
     freezeTableName: true, // use singular table name
@@ -183,8 +187,8 @@ async function produce(userId, data) {
         }
     }
 
-    var DCost = D1[data.round]*(Number(data.kb)*30-Number(prev.D)*20)*7.5 * Number(data.amount);
-    var KCost = K1[data.round]*(Number(data.kc)*30-Number(prev.K)*20)*8.5 * Number(data.amount);
+    var DCost = D1[round-1]*(Number(data.kb)*30-Number(prev.D)*20)*7.5 * Number(data.amount);
+    var KCost = K1[round-1]*(Number(data.kc)*30-Number(prev.K)*20)*8.5 * Number(data.amount);
 
     var newPhone = {ka:Number(data.ka),kb:Number(data.kb),kc:Number(data.kc),amount:Number(data.amount)};
     var hasThis = false;
@@ -230,13 +234,26 @@ async function produce(userId, data) {
 };
 
 
-async function debt(userId, data) {
+async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpDebt = Number(prev.debt) + Number(data.debt);
-    var tmpCurrency = Number(prev.currency) + Number(data.debt);
+    var tmpLoan = Number(prev.loan) + Number(data.loan);
+    var tmpCurrency = Number(prev.currency) + Number(data.loan);
     return User.update({
-        debt: tmpDebt,
+        loan: tmpLoan,
+        currency: tmpCurrency,
+    }, {
+        where: {userId: userId}
+    })
+};
+
+async function repay(userId, data) {
+    const result = await findUserByUserId(userId);
+    const prev = result.dataValues;
+    var tmpLoan = Number(prev.loan) - Number(data.repay);
+    var tmpCurrency = Number(prev.currency) - Number(data.repay);
+    return User.update({
+        loan: tmpLoan,
         currency: tmpCurrency,
     }, {
         where: {userId: userId}
@@ -282,7 +299,22 @@ async function update(userId,data) {
         phoneNum:data.phoneNum,
         currency:data.currency,
     },{where:{userId:userId}});
-}
+};
+
+async function endRound() {
+    round += 1;
+    console.log('next round: '+round);
+
+    for (var group of middleGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        var tmpLoan = Number(result.dataValues.loan)*1.1;
+        User.update({loan: tmpLoan},{where:{userId:group}});
+    }
+};
+
+async function destroy() {
+    User.destroy({where:{}});
+};
 
 
-module.exports = {sync, addUser, findUserByUserId, produce, invest, debt, clear, addCurrency, update};
+module.exports = {sync, addUser, findUserByUserId, produce, invest, loan, clear, addCurrency, update, endRound, destroy, repay};

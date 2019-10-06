@@ -45,13 +45,23 @@ class UserController {
     };
   };
   
-  async debt(ctx) {
+  async loan(ctx) {
     const data = ctx.request.query;
-    User.debt(data.userId, data);
+    User.loan(data.userId, data);
 
     ctx.body = {
       status: 200,
-      infoText: 'Finished debt!',
+      infoText: 'Finished loan!',
+    };
+  };
+  
+  async repay(ctx) {
+    const data = ctx.request.query;
+    User.repay(data.userId, data);
+
+    ctx.body = {
+      status: 200,
+      infoText: 'Finished repay!',
     };
   };
 

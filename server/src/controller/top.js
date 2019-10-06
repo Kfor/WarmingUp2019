@@ -5,9 +5,13 @@ var downStreamUser = require('../models/DownStreamUser')
 var oneRoundSell = require('../models/OneRoundSell')
 
 var autoFine = -20;
+var round = 1;
+var upGroupList = ['group1','group2','group3','group4'];
+var middleGroupList = ['group5','group6','group7','group8'];
+var downGroupList = ['group9','group10','group11','group12'];
+
 class TopController {
     
-
 
     async test(ctx) {
         ctx.body = {
@@ -173,7 +177,7 @@ class TopController {
             downStreamUser.update(data.downUserId,{
                 phoneNum: newDownPhone,
                 currency: down.currency - (data.price)*(data.num),
-            })
+            });
         }
 
         ctx.body = {
@@ -195,20 +199,20 @@ class TopController {
         // 然后根据结果算出分配结果
         // 根据分配结果返回维护用户表
 
-        const oneTurnInputRaw = await oneRoundSell.getAllSell(data.round);
+        const oneTurnInputRaw = await oneRoundSell.getAllSell(round);
         // console.log(oneTurnInputRaw[0].dataValues);
         var oneTurnInput = [];
         for(var i=0;i<oneTurnInputRaw.length;i++) {
             var one = oneTurnInputRaw[i].dataValues;
             
             var t = await downStreamUser.findUserByUserId(one.userId);
-            console.log(t.dataValues);
+            // console.log(t.dataValues);
             var tmpAd = t.dataValues.ad;
             one.ad = tmpAd;
             oneTurnInput.push(one);
         }
         // console.log(oneTurnInput);
-        var result = oneRoundSell.distributeMarket(data.round,oneTurnInput);
+        var result = oneRoundSell.distributeMarket(round,oneTurnInput);
         console.log(result);
         
         for(var i=0;i<result.length;i++) {
@@ -220,15 +224,13 @@ class TopController {
                 if(newPhone[j].ka==result[i].ka&&
                     newPhone[j].kb==result[i].kb&&
                     newPhone[j].kc==result[i].kc) {
-                        newPhone[j].amount -= result[i].amount;
+                        newPhone[j].amount -= result[i].actualMarket;
                     }
             }
 
-            downStreamUser.update({
-                currency:tmp.dataValues.currency + result[i].amount*result[i].price,
-                phoneNum:newDownPhone,
-            }, {
-                where:{userId:tmpUserId}
+            downStreamUser.update(tmpUserId,{
+                currency:tmp.dataValues.currency + result[i].actualMarket*result[i].price,
+                phoneNum:newPhone,
             })
         }
 
@@ -260,13 +262,18 @@ class TopController {
         };
       };
 
+    
+    
       /**
        * 结束按钮
        * @param data = {}
        */
       async oneRound(ctx) {
-        const data = ctx.request.query;
-        
+        upStreamUser.endRound();
+        middleStreamUser.endRound();
+        downStreamUser.endRound();
+        endRound();
+
         ctx.body = {
             status: 200,
             infoText: 'Finished OneRound!',
@@ -284,10 +291,10 @@ class TopController {
         const data = ctx.request.query;
         const result = data.userId;
 
-        if(result in ['group1','group2','group3']) {
+        if(result in upGroupList) {
             upStreamUser.addCurrency(result,(-1)*data.fine)
         }
-        else if(result in ['group4','group5','group6','group7']) {
+        else if(result in middleGroupList) {
             middleStreamUser.addCurrency(result,(-1)*data.fine)
         }
         else {
@@ -311,10 +318,10 @@ class TopController {
         const data = ctx.request.query;
         const result = data.userId;
 
-        if(result in ['group1','group2','group3']) {
+        if(result in upGroupList) {
             upStreamUser.addCurrency(result,data.money)
         }
-        else if(result in ['group4','group5','group6','group7']) {
+        else if(result in middleGroupList) {
             middleStreamUser.addCurrency(result,data.money)
         }
         else {
@@ -326,6 +333,50 @@ class TopController {
             infoText: 'Finished Add!',
         };
       };
+        
+    async endRound() {
+        round += 1;
+        console.log('next round: '+round);
+    };
+
+    async reset(ctx) {
+        round = 1;
+            
+        var upStreamUser = require('../models/UpStreamUser');
+        upStreamUser.sync();
+        upStreamUser.destroy();
+        upStreamUser.addUser('group1')
+        upStreamUser.addUser('group2')
+        upStreamUser.addUser('group3')
+        upStreamUser.addUser('group4')
+
+
+        var middleStreamUser = require('../models/MiddleStreamUser');
+        middleStreamUser.sync();
+        middleStreamUser.destroy();
+        middleStreamUser.addUser('group5')
+        middleStreamUser.addUser('group6')
+        middleStreamUser.addUser('group7')
+        middleStreamUser.addUser('group8')
+
+        var downStreamUser = require('../models/DownStreamUser');
+        downStreamUser.sync();
+        downStreamUser.destroy();
+        downStreamUser.addUser('group9')
+        downStreamUser.addUser('group10')
+        downStreamUser.addUser('group11')
+        downStreamUser.addUser('group12')
+
+        var oneRoundSell = require('../models/OneRoundSell');
+        oneRoundSell.sync();
+        oneRoundSell.destroy();
+        oneRoundSell.addOneRoundSell('test',{userId:'test',ka:0,kb:0,kc:0,amount:0,price:0,round:0});
+
+        ctx.body = {
+            status: 200,
+            infoText: 'RESET DONE!',
+        };
+    }
 
 }
 
