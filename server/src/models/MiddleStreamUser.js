@@ -172,18 +172,21 @@ async function produce(userId, data) {
     if(data.ka==1) {
         if(data.amount>prev.chip1Num) {
             console.log('超过生产限额');
+            return;
         }
     }
     
     if(data.ka==2) {
         if(data.amount>prev.chip2Num) {
             console.log('超过生产限额');
+            return;
         }
     }
     
     if(data.ka==3) {
         if(data.amount>prev.chip3Num) {
             console.log('超过生产限额');
+            return;
         }
     }
 

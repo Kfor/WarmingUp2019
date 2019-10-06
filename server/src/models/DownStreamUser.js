@@ -126,7 +126,7 @@ async function advertise(userId, data) {
 }
 
 /**
- * 售卖手机到市场。注意，这里只针对User进行维护，而没有订单的维护
+ * 售卖手机到市场。注意，这里没有实际修改数据，只是判断是否输入合理
  */
 async function sell(userId, data) {
     const result = await findUserByUserId(userId);
@@ -137,22 +137,17 @@ async function sell(userId, data) {
         if(phones[i].ka==data.ka&&phones[i].kb==data.kb
             &&phones[i].kc==data.kc&&Number(phones[i].amount>=Number(data.amount))) {
                 valid = true;
-            //    phones[i].amount -= data.amount;
             }
     }
 
 //    if (onePhone == null) 
     if(!valid){
         console.log('Invalid Input!');
-        alert('Invalid Input!');
+//        alert('Invalid Input!');
+        return;
     }
     else {
-        // 注意，这里只有User表的维护，没有订单的维护
-        return User.update({
-            phoneNum: phones,
-        }, {
-            where: {userId:userId}
-        });
+        return;
     }
 }
 

@@ -9,9 +9,9 @@ var round = 1;
 var upGroupList = ['group1','group2','group3','group4'];
 var middleGroupList = ['group5','group6','group7','group8'];
 var downGroupList = ['group9','group10','group11','group12'];
+var dealBetweenList = [];//用来记录组间借贷的array
 
 class TopController {
-    
 
     async test(ctx) {
         ctx.body = {
@@ -255,7 +255,18 @@ class TopController {
         const data = ctx.request.query;
         var valid = true;
 
-    
+        dealBetweenList.push({
+            userId1: data.userId1,
+            userId2: data.userId2,
+            money: data.money,
+            returnMoney: data.returnMoney,
+            startTurn: Number(round),
+            endTurn: Number(round)+Number(data.turnsAfter)
+        });
+
+        this.add(userId1, -Number(data.money));
+        this.add(userId2, Number(data.money));
+
         ctx.body = {
             status: 200,
             infoText: 'Finished DealBetween!',
@@ -273,6 +284,13 @@ class TopController {
         middleStreamUser.endRound();
         downStreamUser.endRound();
         endRound();
+
+        for(let i in dealBetweenList) {
+            if(dealBetweenList[i].endTurn==round) {
+                this.add(dealBetweenList[i].userId1,Number(dealBetweenList[i].returnMoney));
+                this.add(dealBetweenList[i].userId2,-Number(dealBetweenList[i].returnMoney));
+            }
+        }
 
         ctx.body = {
             status: 200,
