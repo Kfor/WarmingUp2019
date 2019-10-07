@@ -32,6 +32,7 @@ module.exports = (router) => {
     .post('/top/fine', topController.fine)
     .post('/top/add', topController.add)
     .post('/top/reset', topController.reset)
+    .get('/top/test', topController.test)
 
     
     //for test

@@ -15,7 +15,13 @@ class TopController {
 
     async test(ctx) {
         ctx.body = {
-            key :'hhh',
+            id: '1234561',
+            name: '矿泉水 550ml',
+            barcode: '12421432143214321',
+            price: '2.00',
+            num: '1',
+            amount: '2.00',
+            status: 200
         }
     }
     /** TODO
@@ -354,11 +360,12 @@ class TopController {
         
     async endRound() {
         round += 1;
-        console.log('next round: '+round);
+        console.log('to next round: '+round);
     };
 
     async reset(ctx) {
         round = 1;
+        console.log('Reset to round '+round);
             
         var upStreamUser = require('../models/UpStreamUser');
         upStreamUser.sync();

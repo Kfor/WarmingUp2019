@@ -126,11 +126,14 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId)
     const prev = result.dataValues
 
-    var tmpT = (1-Number(data.TInvest)/10000000)*Number(prev.T);
-    var tmpM = (1-Number(data.MInvest)/10000000)*Number(prev.M);
+    //var tmpT = (1-Number(data.TInvest)/10000000)*Number(prev.T);
+    //var tmpM = (1-Number(data.MInvest)/10000000)*Number(prev.M);
 
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
+
+    var tmpT = 0.4 + 0.6/Number(1+Math.exp(tmpTCost/6000000-2));
+    var tmpM = 1 + 4/Number(1+Math.exp(2*(2-tmpMCost/6000000)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
 
@@ -151,9 +154,9 @@ async function produce(userId, data) { //上游需要一次性输入
     const prev = result.dataValues;
 
     const It = [1.0,0.9,1.08,1.1];//芯片成本事件
-    const Im = [1,1.05,1.0,1.1];//最大生产系数
-    const fN = [1000,500,200];//基础产量
-    const fC = [100,300,800];//基础成本
+    const Im = [1,1.05,0.9,1.1];//最大生产系数
+    const fN = [5000,3000,1500];//基础产量
+    const fC = [300,800,1500];//基础成本
     const tmpRound = round-1;//index从0开始
 
     var Max1 = Im[tmpRound] * fN[0] * prev.M;

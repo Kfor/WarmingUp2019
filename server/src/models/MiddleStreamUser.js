@@ -137,12 +137,6 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    // const D1 = [1,1.1,1.05,0.98];
-    // const K1 = [1,1.15,0.9,0.95];
-
-    // var tmpD = D1[data.round]*(1+Number(data.DInvest)/10000000)*Number(prev.D);
-    // var tmpK = K1[data.round]*(1+Number(data.KInvest)/10000000)*Number(prev.K);
-
     var tmpD = (1+Number(data.DInvest)/10000000)*Number(prev.D);
     var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
 
