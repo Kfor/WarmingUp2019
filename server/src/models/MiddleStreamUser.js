@@ -137,11 +137,14 @@ async function invest(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    var tmpD = (1+Number(data.DInvest)/10000000)*Number(prev.D);
-    var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
+    // var tmpD = (1+Number(data.DInvest)/10000000)*Number(prev.D);
+    // var tmpK = (1+Number(data.KInvest)/10000000)*Number(prev.K);
 
     var tmpDCost    = Number(prev.DCost) + Number(data.DInvest);
     var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
+
+    var tmpD = 0.4 + 0.6/Number(1+Math.exp(3*(tmpDCost/6000000-1.3)));
+    var tmpK = 0.4 + 0.6/Number(1+Math.exp(3*(tmpKCost/6000000-1.3)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.DInvest) - Number(data.KInvest);
 
@@ -184,8 +187,8 @@ async function produce(userId, data) {
         }
     }
 
-    var DCost = D1[round-1]*(Number(data.kb)*30-Number(prev.D)*20)*7.5 * Number(data.amount);
-    var KCost = K1[round-1]*(Number(data.kc)*30-Number(prev.K)*20)*8.5 * Number(data.amount);
+    var DCost = D1[round-1]*Number(prev.D)* Number(data.amount);
+    var KCost = K1[round-1]*Number(prev.K)* Number(data.amount);
 
     var newPhone = {ka:Number(data.ka),kb:Number(data.kb),kc:Number(data.kc),amount:Number(data.amount)};
     var hasThis = false;
