@@ -147,7 +147,7 @@ async function sell(userId, data) {
         return;
     }
     else {
-        return;
+        return round;
     }
 }
 
