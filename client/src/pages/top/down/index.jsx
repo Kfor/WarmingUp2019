@@ -189,27 +189,6 @@ class Down extends Component {
             {/*  )}*/}
             {/*</FormItem>*/}
             <FormItem
-              {...formItemLayout}
-              label={<FormattedMessage id="exchange-down.round.label" />}
-            >
-              {getFieldDecorator('round', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({
-                      id: 'exchange-down.round.required',
-                    }),
-                  },
-                ],
-              })(
-                <Input
-                  placeholder={formatMessage({
-                    id: 'exchange-down.round.placeholder',
-                  })}
-                />,
-              )}
-            </FormItem>
-            <FormItem
               {...submitFormLayout}
               style={{
                 marginTop: 32,

@@ -2,7 +2,7 @@ import request from '@/utils/request';
 
 export async function fakeSubmitForm(params) {
   console.log(params)
-  return request('/api/top/angelInvest?'+'userId='+params.id_object+'&money='+params.money, {
+  return request('/api/upstream/debt?'+'userId='+ params.userId +'&debt='+ params.debt, {
     method: 'POST',
     data: params,
   });

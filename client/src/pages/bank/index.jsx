@@ -21,14 +21,14 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-class Penalty extends Component {
+class Bank extends Component {
   handleSubmit = e => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'penalty/submitRegularForm',
+          type: 'bank/submitRegularForm',
           payload: values,
         });
       }
@@ -74,7 +74,7 @@ class Penalty extends Component {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="penalty.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="bank.basic.description" />}>
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -83,38 +83,38 @@ class Penalty extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.title.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="bank.userId.label" />}>
               {getFieldDecorator('userId', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'penalty.title.required',
+                      id: 'bank.userId.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'penalty.title.placeholder',
+                    id: 'bank.userId.placeholder',
                   })}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.money.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="bank.debt.label" />}>
               {getFieldDecorator('debt', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'penalty.money.required',
+                      id: 'bank.debt.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'penalty.money.placeholder',
+                    id: 'bank.debt.placeholder',
                   })}
                 />,
               )}
@@ -126,14 +126,14 @@ class Penalty extends Component {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="penalty.form.submit" />
+                <FormattedMessage id="bank.form.submit" />
               </Button>
               <Button
                 style={{
                   marginLeft: 8,
                 }}
               >
-                <FormattedMessage id="penalty.form.save" />
+                <FormattedMessage id="bank.form.save" />
               </Button>
             </FormItem>
           </Form>
@@ -145,6 +145,6 @@ class Penalty extends Component {
 
 export default Form.create()(
   connect(({ loading }) => ({
-    submitting: loading.effects['penalty/submitRegularForm'],
-  }))(Penalty),
+    submitting: loading.effects['bank/submitRegularForm'],
+  }))(Bank),
 );

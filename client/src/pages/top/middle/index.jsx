@@ -130,7 +130,7 @@ class Middle extends Component {
               {...formItemLayout}
               label={<FormattedMessage id="exchange-middle.performance.label" />}
             >
-              {getFieldDecorator('performance', {
+              {getFieldDecorator('ka', {
                 rules: [
                   {
                     required: true,
@@ -215,7 +215,7 @@ class Middle extends Component {
               {...formItemLayout}
               label={<FormattedMessage id="exchange-middle.count.label" />}
             >
-              {getFieldDecorator('count', {
+              {getFieldDecorator('num', {
                 rules: [
                   {
                     required: true,

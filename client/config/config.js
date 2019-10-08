@@ -114,8 +114,8 @@ export default {
               component: './Welcome',
             },
 
-            
-              
+
+
                 {
                   name: '上游公司',
                   icon: 'dollar',
@@ -224,9 +224,9 @@ export default {
                   ],
                 },
 
-              
-            
-            
+
+
+
                     {
                       path: '/angel',
                       name: '天使投资轮',
@@ -244,13 +244,13 @@ export default {
                       icon: 'pound',
                       path: '/profile/basic',
                       component: './profile/basic',
-                    }, 
+                    },
                     {
                       path: '/',
                       icon: 'dollar',
                       name: '组间交易',
                       routes: [
-                        
+
                         {
                           path: '/top/up',
                           component: './top/up',
@@ -267,13 +267,13 @@ export default {
                           component: './top/down',
                         },
 
-                        
-                  
+
+
                         {
                           name: '组间资产交流',
-                          path: '/credit',
+                          path: '/top/fine',
                           // icon: 'pound',
-                          component: './credit',
+                          component: './top/credit',
                         },
                       ],
                     },
@@ -282,13 +282,13 @@ export default {
                     //       redirect: '../',
                     //     },
 
-                    
-                  
-           
-            
 
-               
-            
+
+
+
+
+
+
             {
               component: './404',
             },
