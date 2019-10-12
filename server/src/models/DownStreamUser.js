@@ -147,8 +147,12 @@ async function sell(userId, data) {
         return;
     }
     else {
-        return round;
+        return;
     }
+}
+
+function getRound() {
+    return round;
 }
 
 async function loan(userId, data) {
@@ -230,7 +234,15 @@ async function endRound() {
     for (var group of downGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;
-        User.update({loan: tmpLoan},{where:{userId:group}});
+        var phones = result.dataValues.phoneNum;
+        var sum = 0;
+        for (let i in phones) {
+            sum += Number(phones[i].amount);
+        }
+        
+        var tmpStorageCost = sum*20;//20是手机库存单价
+
+        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
     }
 };
 
@@ -238,4 +250,4 @@ async function destroy() {
     User.destroy({where:{}});
 };
 
-module.exports = {sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, endRound, destroy, repay};
+module.exports = {getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, endRound, destroy, repay};

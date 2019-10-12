@@ -85,7 +85,7 @@ class TopController {
                 chip2Num:new2,
                 chip3Num:new3,
                 
-                currency: up.currency + (data.price)*(data.num),
+                currency: up.currency + Number((data.price)*(data.num)),
             });
 
             if(data.quality==1) {
@@ -161,7 +161,7 @@ class TopController {
         }
         else {
             var newMiddlePhone = middle.phoneNum;
-            newMiddlePhone[index].amount -= data.num;
+            newMiddlePhone[index].amount -= Number(data.num);
             var newDownPhone = down.phoneNum;
             var downHasThisPhone = false;
             for(var i=0;i<newDownPhone.length;i++) {
@@ -169,7 +169,7 @@ class TopController {
                     newDownPhone[i].kb==data.kb&&
                     newDownPhone[i].kc==data.kc) {
                         downHasThisPhone = true;
-                        newDownPhone[i].amount += data.num;
+                        newDownPhone[i].amount += Number(data.num);
                     }
             }
             if(! downHasThisPhone) {
@@ -178,11 +178,11 @@ class TopController {
 
             middleStreamUser.update(data.middleUserId,{
                 phoneNum: newMiddlePhone,
-                currency: middle.currency + (data.price)*(data.num),
+                currency: middle.currency + Number((data.price)*(data.num)),
             });
             downStreamUser.update(data.downUserId,{
                 phoneNum: newDownPhone,
-                currency: down.currency - (data.price)*(data.num),
+                currency: down.currency - Number((data.price)*(data.num)),
             });
         }
 
@@ -230,12 +230,12 @@ class TopController {
                 if(newPhone[j].ka==result[i].ka&&
                     newPhone[j].kb==result[i].kb&&
                     newPhone[j].kc==result[i].kc) {
-                        newPhone[j].amount -= result[i].actualMarket;
+                        newPhone[j].amount -= Math.ceil(Number(result[i].actualMarket));
                     }
             }
 
             downStreamUser.update(tmpUserId,{
-                currency:tmp.dataValues.currency + result[i].actualMarket*result[i].price,
+                currency:tmp.dataValues.currency + Number(result[i].actualMarket*result[i].price),
                 phoneNum:newPhone,
             })
         }
@@ -289,8 +289,10 @@ class TopController {
         upStreamUser.endRound();
         middleStreamUser.endRound();
         downStreamUser.endRound();
-        endRound();
+        round += 1;
+        console.log('to next round: '+round);
 
+        // 处理组间借贷问题
         for(let i in dealBetweenList) {
             if(dealBetweenList[i].endTurn==round) {
                 this.add(dealBetweenList[i].userId1,Number(dealBetweenList[i].returnMoney));
@@ -358,10 +360,6 @@ class TopController {
         };
       };
         
-    async endRound() {
-        round += 1;
-        console.log('to next round: '+round);
-    };
 
     async reset(ctx) {
         round = 1;
@@ -395,7 +393,7 @@ class TopController {
         var oneRoundSell = require('../models/OneRoundSell');
         oneRoundSell.sync();
         oneRoundSell.destroy();
-        oneRoundSell.addOneRoundSell('test',{userId:'test',ka:0,kb:0,kc:0,amount:0,price:0,round:0});
+        oneRoundSell.addOneRoundSell('test',{userId:'test',ka:0,kb:0,kc:0,amount:0,price:0,round:1});
 
         ctx.body = {
             status: 200,

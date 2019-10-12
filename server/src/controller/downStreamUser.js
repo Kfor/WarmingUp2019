@@ -16,8 +16,9 @@ class UserController {
 
   async sell(ctx) {
     const data = ctx.request.query;
-    round = User.sell(data.userId, data);
-    data.round = round;
+    var round = User.sell(data.userId, data);
+    data.round = User.getRound();
+    console.log(data)
     OneRoundSell.addOneRoundSell(data.userId, data);
     
     ctx.body = {

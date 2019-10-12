@@ -132,10 +132,11 @@ async function invest(userId, data) {
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
 
-    var tmpT = 0.4 + 0.6/Number(1+Math.exp(tmpTCost/6000000-2));
+    var tmpT = 0.4 + 0.6/Number(1+Math.exp(3*(tmpTCost/6000000-1.6)));
     var tmpM = 1 + 4/Number(1+Math.exp(2*(2-tmpMCost/6000000)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
+    console.log(tmpCurrency)
 
 
     return User.update({
@@ -287,7 +288,10 @@ async function endRound() {
     for (var group of upGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;
-        User.update({loan: tmpLoan},{where:{userId:group}});
+        var tmpStorageCost = Number(result.dataValues.chip1Num+
+            result.dataValues.chip2Num+result.dataValues.chip3Num)*10;//10是每个芯片库存单价
+
+        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
     }
 };
 

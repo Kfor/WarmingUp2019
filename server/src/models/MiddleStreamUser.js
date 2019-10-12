@@ -308,7 +308,18 @@ async function endRound() {
     for (var group of middleGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;
-        User.update({loan: tmpLoan},{where:{userId:group}});
+        var phones = result.dataValues.phoneNum;
+        var sum = 0;
+        for (let i in phones) {
+            sum += Number(phones[i].amount);
+        }
+
+        var tmpStorageCost = Number(result.dataValues.chip1Num+
+            result.dataValues.chip2Num+result.dataValues.chip3Num)*20+
+            sum*10;//20是每个芯片库存单价,10是手机库存单价
+        
+
+        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
     }
 };
 

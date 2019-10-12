@@ -100,7 +100,7 @@ var marketPcoef = [[3,3,3],
                 [3,1,1.5],
                 [1,1,1.5]];
 
-var priceExpect = [7000,5000,4000,3000,1000];
+var priceExpect = [6000,4000,3000,5000,1500];
 
 var MarketCapacity = [[4000,5000,5000,4000,10000],//第一年
                     [5000,6500,6500,5000,12000],
@@ -202,8 +202,8 @@ function distributeMarket(turn, oneTurnInputJSON) {
 
             oneTurnInput[index]['actualMarket'] = thisActualMarket;
             
-            sumOfComp -= thisComp;
-            mThisTurnType -= thisActualMarket;
+            sumOfComp -= Number(thisComp);
+            mThisTurnType -= Number(thisActualMarket);
         }
     }
     console.log(oneTurnInput)
