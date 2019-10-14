@@ -15,15 +15,17 @@ class TopController {
 
     async test(ctx) {
         ctx.body = {
-            id: '1234561',
-            name: '矿泉水 550ml',
-            barcode: '12421432143214321',
-            price: '2.00',
-            num: '1',
-            amount: '2.00',
-            status: 200
-        }
-    }
+            status: 200,
+            basicProgress: 
+                [{key: '5',
+                time: '2017-10-01 12:00',
+                rate: '发起退货申请',
+                status: 'success',
+                operator: '用户23333wo',
+                cost: '5mins',}]
+        };
+        console.log(ctx.body);
+    };
     /** TODO
      * 天使投资
      * @param  data = {
