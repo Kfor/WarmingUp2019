@@ -1,6 +1,14 @@
 var User = require('../models/MiddleStreamUser')
 
 class UserController {
+  async middleprofile(ctx) {
+    const data = ctx.request.query;
+    const result = await User.findUserByUserId(data.userId);
+    console.log(result.dataValues)
+    ctx.body = {
+      userInfo:result.dataValues
+    };
+  }
 
   async produce(ctx) {
     const data = ctx.request.query;

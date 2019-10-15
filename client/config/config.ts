@@ -96,6 +96,10 @@ export default {
       ],
     },
     {
+      path:'/',
+      redirect:'/admin',
+    },
+    {
       path: '/admin',
       component: '../layouts/SecurityLayout',
       routes: [
@@ -104,35 +108,81 @@ export default {
           component: '../layouts/BasicLayout',
           // authority: ['admin', 'user'],
           routes: [
+            // {
+            //   path: '/admin',
+            //   redirect: '/admin/welcome',
+            // },
+            // {
+            //   name: 'orderlist',
+            //   path: '/admin/orderlist',
+            //   component: './admin/orderList',
+            // },
+            // {
+            //   name: 'inputorder',
+            //   path: '/admin/inputorder',
+            //   component: './admin/inputOrder',
+            // },
+            // {
+            //   name: 'display',
+            //   path: '/admin/display',
+            //   component: './admin/display',
+            // },
+            // {
+            //   name: 'angelinvest',
+            //   path: '/admin/angelinvest',
+            //   component: './admin/angelInvest',
+            // },
+            // {
+            //   name: 'fine',
+            //   path: '/admin/fine',
+            //   component: './admin/fine',
+            // },
             {
-              path: '/admin',
-              redirect: '/admin/welcome',
+              path: '/admin/angelInvest',
+              name: '天使投资轮',
+              icon: 'smile',
+              component: './admin/Angel',
             },
             {
-              name: 'orderlist',
-              path: '/admin/orderlist',
-              component: './admin/orderList',
+              path: '/admin/deal',
+              icon: 'dollar',
+              name: '组间交易',
+              routes: [
+                {
+                  path: '/admin/deal/dealUpMiddle',
+                  component: './admin/top/up',
+                  name: '上中游交易',
+                },
+                {
+                  name: '中下游交易',
+                  path: '/admin/deal/dealMiddleDown',
+                  component: './admin/top/middle',
+                },
+                {
+                  name: '下游市场交易',
+                  path: '/admin/deal/dealDown',
+                  component: './admin/top/down',
+                },
+                {
+                  name: '组间资产交流',
+                  path: '/admin/deal/dealBetween',
+                  // icon: 'pound',
+                  component: './admin/credit',
+                },
+              ],
             },
             {
-              name: 'inputorder',
-              path: '/admin/inputorder',
-              component: './admin/inputOrder',
+              name: '游戏罚款',
+              path: '/admin/penalty',
+              icon: 'warning',
+              component: './admin/penalty',
             },
             {
-              name: 'display',
-              path: '/admin/display',
-              component: './admin/display',
-            },
-            {
-              name: 'angelinvest',
-              path: '/admin/angelinvest',
-              component: './admin/angelInvest',
-            },
-            {
-              name: 'fine',
-              path: '/admin/fine',
-              component: './admin/fine',
-            },
+              name: '信息监控',
+              icon: 'pound',
+              path: '/admin/profile/basic',
+              component: './admin/profile/basic',
+            }, 
             {
               component: './404',
             },

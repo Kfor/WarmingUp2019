@@ -242,7 +242,12 @@ async function endRound() {
         
         var tmpStorageCost = sum*20;//20是手机库存单价
 
-        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
+
+        User.update({
+            loan: tmpLoan, 
+            currency: result.dataValues.currency - tmpStorageCost, 
+            totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+        },{where:{userId:group}});
     }
 };
 

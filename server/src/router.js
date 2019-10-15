@@ -12,16 +12,19 @@ module.exports = (router) => {
     .post('/upstream/produce', upStreamUserController.produce)//userId,chip1Num,chip2Num,chip3Num
     .post('/upstream/loan', upStreamUserController.loan)//userId,loan
     .post('/upstream/repay', upStreamUserController.repay)//userId,repay
+    .get('/upstream/upprofile', upStreamUserController.upprofile)//userId
 
     .post('/middlestream/invest', middleStreamUserController.invest)//userId,DInvest,KInvest
     .post('/middlestream/produce', middleStreamUserController.produce)//userId,ka,kb,kc,amount
     .post('/middlestream/loan', middleStreamUserController.loan)//userId,loan
     .post('/middlestream/repay', middleStreamUserController.repay)//userId,repay
+    .get('/middlestream/middleprofile', middleStreamUserController.middleprofile)//userId
 
     .post('/downstream/advertise', downStreamUserController.advertise)//userId,adInvest
     .post('/downstream/sell', downStreamUserController.sell)//userId,ka,kb,kc,price,amount
     .post('/downstream/loan', downStreamUserController.loan)//userId,loan
     .post('/downstream/repay', downStreamUserController.repay)//userId,repay
+    .get('/downstream/downprofile', downStreamUserController.downprofile)//userId
 
     .post('/top/angelInvest', topController.angelInvest)//userId,money
     .post('/top/dealUpMiddle', topController.dealUpMiddle)//upUserId,middleUserId,quality,price,num
@@ -32,7 +35,8 @@ module.exports = (router) => {
     .post('/top/fine', topController.fine)//userId,fine
     .post('/top/add', topController.add)//userId,money
     .post('/top/reset', topController.reset)//不需要参数，用于重置数据库
-    .get('/top/test', topController.test)//test
+    .get('/top/topprofile', topController.topprofile)
+
 
     
     //for test

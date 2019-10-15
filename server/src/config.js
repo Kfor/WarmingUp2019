@@ -1,5 +1,5 @@
 var Sequelize = require("sequelize");
- var config = {
+var config = {
     database: 'itp',
     username: 'itp',
     password: 'itp2019',

@@ -4,7 +4,15 @@ var User = require('../models/DownStreamUser')
 var OneRoundSell = require('../models/OneRoundSell')
 
 class UserController {
-  
+  async downprofile(ctx) {
+    const data = ctx.request.query;
+    const result = await User.findUserByUserId(data.userId);
+    console.log(result.dataValues)
+    ctx.body = {
+      userInfo:result.dataValues
+    };
+  }
+
   async advertise(ctx) {
       const data = ctx.request.query;
       User.advertise(data.userId, data);

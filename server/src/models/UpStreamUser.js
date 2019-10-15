@@ -290,8 +290,12 @@ async function endRound() {
         var tmpLoan = Number(result.dataValues.loan)*1.1;
         var tmpStorageCost = Number(result.dataValues.chip1Num+
             result.dataValues.chip2Num+result.dataValues.chip3Num)*10;//10是每个芯片库存单价
-
-        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
+        
+        User.update({
+            loan: tmpLoan, 
+            currency: result.dataValues.currency - tmpStorageCost, 
+            totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+        },{where:{userId:group}});
     }
 };
 

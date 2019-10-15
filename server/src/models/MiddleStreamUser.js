@@ -208,6 +208,8 @@ async function produce(userId, data) {
         newPhones.push(newPhone);
     }
 
+    console.log(newPhones)
+    console.log(prev.currency)
     var newChip1 = prev.chip1Num;
     var newChip2 = prev.chip2Num;
     var newChip3 = prev.chip3Num;
@@ -319,8 +321,13 @@ async function endRound() {
             sum*10;//20是每个芯片库存单价,10是手机库存单价
         
 
-        User.update({loan: tmpLoan, currency: result.dataValues.currency - tmpStorageCost},{where:{userId:group}});
-    }
+
+            User.update({
+                loan: tmpLoan, 
+                currency: result.dataValues.currency - tmpStorageCost, 
+                totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+            },{where:{userId:group}});    
+        }
 };
 
 async function destroy() {

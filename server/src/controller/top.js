@@ -12,6 +12,9 @@ var downGroupList = ['group9','group10','group11','group12'];
 var dealBetweenList = [];//用来记录组间借贷的array
 
 class TopController {
+    async topprofile(ctx) {
+        
+    }
 
     async test(ctx) {
         ctx.body = {
