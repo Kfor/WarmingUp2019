@@ -24,19 +24,19 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-interface FineProps extends FormComponentProps {
+interface DealDownProps extends FormComponentProps {
   submitting: boolean;
   dispatch: Dispatch<any>;
 }
 
-class Fine extends Component<FineProps> {
+class DealDown extends Component<DealDownProps> {
   handleSubmit = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'adminFine/submitRegularForm',
+          type: 'adminAndinputOrderAnddealDown/submitRegularForm',
           payload: values,
         });
       }
@@ -68,7 +68,7 @@ class Fine extends Component<FineProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="penalty.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="exchange-down.basic.description" />}>
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -77,42 +77,6 @@ class Fine extends Component<FineProps> {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.title.label" />}>
-              {getFieldDecorator('userId', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({
-                      id: 'penalty.title.required',
-                    }),
-                  },
-                ],
-              })(
-                <Input
-                  placeholder={formatMessage({
-                    id: 'penalty.title.placeholder',
-                  })}
-                />,
-              )}
-            </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.money.label" />}>
-              {getFieldDecorator('fine', {
-                rules: [
-                  {
-                    required: true,
-                    message: formatMessage({
-                      id: 'penalty.money.required',
-                    }),
-                  },
-                ],
-              })(
-                <Input
-                  placeholder={formatMessage({
-                    id: 'penalty.money.placeholder',
-                  })}
-                />,
-              )}
-            </FormItem>
             <FormItem
               {...submitFormLayout}
               style={{
@@ -120,14 +84,7 @@ class Fine extends Component<FineProps> {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="penalty.form.submit" />
-              </Button>
-              <Button
-                style={{
-                  marginLeft: 8,
-                }}
-              >
-                <FormattedMessage id="penalty.form.save" />
+                <FormattedMessage id="exchange-down.form.submit" />
               </Button>
             </FormItem>
           </Form>
@@ -137,8 +94,8 @@ class Fine extends Component<FineProps> {
   }
 }
 
-export default Form.create<FineProps>()(
+export default Form.create<DealDownProps>()(
   connect(({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
-    submitting: loading.effects['adminFine/submitRegularForm'],
-  }))(Fine),
+    submitting: loading.effects['adminAndinputOrderAnddealDown/submitRegularForm'],
+  }))(DealDown),
 );

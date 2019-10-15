@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 
 export async function fakeSubmitForm(params: any) {
-  return request('/api/top/angelInvest?' + 'userId=' + params.id_object + 'money=' + params.money, {
+  return request('/api/top/dealDown', {
     method: 'POST',
     data: params,
   });

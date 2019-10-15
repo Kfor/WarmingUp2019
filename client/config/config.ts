@@ -78,163 +78,142 @@ export default {
     defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
   },
   hash: true,
+  history: 'hash',
   targets: {
     ie: 11,
   },
   devtool: isAntDesignProPreview ? 'source-map' : false,
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
+    // {
+    //   path: '/user/login',
+    //   component: '../layouts/UserLayout',
+    //   routes: [
+    //     {
+    //       name: 'login',
+    //       path: '/user/login',
+    //       component: './user/login',
+    //     },
+    //   ],
+    // },
     {
-      path: '/user/login',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          name: 'login',
-          path: '/user/login',
-          component: './user/login',
-        },
-      ],
-    },
-    {
-      path:'/',
-      redirect:'/admin',
+      path: '/',
+      redirect: '/admin/display',
     },
     {
       path: '/admin',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout',
+      // authority: ['admin', 'user'],
       routes: [
         {
-          path: '/admin',
-          component: '../layouts/BasicLayout',
-          // authority: ['admin', 'user'],
-          routes: [
-            // {
-            //   path: '/admin',
-            //   redirect: '/admin/welcome',
-            // },
-            // {
-            //   name: 'orderlist',
-            //   path: '/admin/orderlist',
-            //   component: './admin/orderList',
-            // },
-            // {
-            //   name: 'inputorder',
-            //   path: '/admin/inputorder',
-            //   component: './admin/inputOrder',
-            // },
-            // {
-            //   name: 'display',
-            //   path: '/admin/display',
-            //   component: './admin/display',
-            // },
-            // {
-            //   name: 'angelinvest',
-            //   path: '/admin/angelinvest',
-            //   component: './admin/angelInvest',
-            // },
-            // {
-            //   name: 'fine',
-            //   path: '/admin/fine',
-            //   component: './admin/fine',
-            // },
-            {
-              path: '/admin/angelInvest',
-              name: '天使投资轮',
-              icon: 'smile',
-              component: './admin/Angel',
-            },
-            {
-              path: '/admin/deal',
-              icon: 'dollar',
-              name: '组间交易',
-              routes: [
-                {
-                  path: '/admin/deal/dealUpMiddle',
-                  component: './admin/top/up',
-                  name: '上中游交易',
-                },
-                {
-                  name: '中下游交易',
-                  path: '/admin/deal/dealMiddleDown',
-                  component: './admin/top/middle',
-                },
-                {
-                  name: '下游市场交易',
-                  path: '/admin/deal/dealDown',
-                  component: './admin/top/down',
-                },
-                {
-                  name: '组间资产交流',
-                  path: '/admin/deal/dealBetween',
-                  // icon: 'pound',
-                  component: './admin/credit',
-                },
-              ],
-            },
-            {
-              name: '游戏罚款',
-              path: '/admin/penalty',
-              icon: 'warning',
-              component: './admin/penalty',
-            },
-            {
-              name: '信息监控',
-              icon: 'pound',
-              path: '/admin/profile/basic',
-              component: './admin/profile/basic',
-            }, 
-            {
-              component: './404',
-            },
-          ],
+          name: 'orderlist',
+          path: '/admin/orderlist',
+          component: './admin/orderList',
         },
+        {
+          name: 'dealupmiddle',
+          icon: 'smile',
+          path: '/admin/inputorder/dealupmiddle',
+          component: './admin/inputOrder/dealUpMiddle',
+        },
+        {
+          name: 'dealmiddledown',
+          icon: 'smile',
+          path: '/admin/inputorder/dealmiddledown',
+          component: './admin/inputOrder/dealMiddleDown',
+        },
+        {
+          name: 'dealdown',
+          icon: 'smile',
+          path: '/admin/inputorder/dealdown',
+          component: './admin/inputOrder/dealDown',
+        },
+        {
+          name: 'dealbetween',
+          icon: 'smile',
+          path: '/admin/inputorder/dealbetween',
+          component: './admin/inputOrder/dealBetween',
+        },
+
+        {
+          name: 'display',
+          path: '/admin/display',
+          component: './admin/display',
+        },
+        {
+          name: 'angelinvest',
+          path: '/admin/angelinvest',
+          component: './admin/angelInvest',
+        },
+        {
+          name: 'fine',
+          path: '/admin/fine',
+          component: './admin/fine',
+        },
+        {
+          name: 'controller',
+          icon: 'smile',
+          path: '/admin/controller',
+          component: './admin/controller',
+        },
+        // {
+        //   name: 'gotoup',
+        //   path: 'admin/gotoup',
+        //   redirect: '/up/upinput?userId=group1'
+        // },
+        // {
+        //   name: 'gotomiddle',
+        //   path: 'admin/gotomiddle',
+        //   redirect: '/middle/middleinput?userId=group5'
+        // },
+        // {
+        //   name: 'gotodown',
+        //   path: 'admin/gotodown',
+        //   redirect: '/down/downinput?userId=group9'
+        // },
         {
           component: './404',
         },
       ],
     },
+
     {
       path: '/up',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout',
+      hideInBreadcrumb: true,
+      // authority: ['admin', 'user'],
       routes: [
         {
           path: '/up',
-          component: '../layouts/BasicLayout',
-          // authority: ['admin', 'user'],
-          routes: [
-            {
-              path: '/up',
-              redirect: '/up/upinput',
-            },
-            {
-              name: 'upinput',
-              path: '/up/upinput',
-              component: './up/upInput',
-            },
-            {
-              name: 'upprofile',
-              path: '/up/upprofile',
-              component: './up/upProfile',
-            },
-            {
-              name: 'updisplay',
-              path: '/up/updisplay',
-              component: './up/updisplay',
-            },
-            
-            {
-              component: './404',
-            },
-          ],
+          redirect: '/up/upinput',
         },
+        {
+          name: 'upinput',
+          path: '/up/upinput',
+          component: './up/upInput',
+          hideInBreadcrumb: true,
+        },
+        {
+          name: 'upprofile',
+          path: '/up/upprofile',
+          component: './up/upProfile',
+          hideInBreadcrumb: true,
+        },
+        // {
+        //   name: 'updisplay',
+        //   path: '/up/updisplay',
+        //   component: './up/updisplay',
+        //   hideInBreadcrumb: true,
+        // },
         {
           component: './404',
         },
       ],
     },
+
     {
       path: '/upstream',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout', ///
       routes: [
         {
           path: '/upstream',
@@ -259,62 +238,57 @@ export default {
         },
       ],
     },
+
     {
       path: '/middle',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout',
+      // authority: ['admin', 'user'],
       routes: [
         {
           path: '/middle',
-          component: '../layouts/BasicLayout',
-          // authority: ['admin', 'user'],
-          routes: [
-            {
-              path: '/middle',
-              redirect: '/middle/middleinput',
-            },
-            {
-              name: 'middleinput',
-              path: '/middle/middleinput',
-              component: './middle/middleInput',
-            },
-            {
-              name: 'middleprofile',
-              path: '/middle/middleprofile',
-              component: './middle/middleProfile',
-            },
-            {
-              name: 'middledisplay',
-              path: '/middle/middledisplay',
-              component: './middle/middledisplay',
-            },
-            
-            {
-              component: './404',
-            },
-          ],
+          redirect: '/middle/middleinput',
         },
+        {
+          name: 'middleinput',
+          path: '/middle/middleinput',
+          component: './middle/middleInput',
+          hideInBreadcrumb: true,
+        },
+        {
+          name: 'middleprofile',
+          path: '/middle/middleprofile',
+          component: './middle/middleProfile',
+          hideInBreadcrumb: true,
+        },
+        // {
+        //   name: 'middledisplay',
+        //   path: '/middle/middledisplay',
+        //   component: './middle/middledisplay',
+        //   hideInBreadcrumb: true,
+        // },
         {
           component: './404',
         },
       ],
     },
+
     {
       path: '/middlestream',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout', ///
       routes: [
         {
           path: '/middlestream',
           component: '../layouts/BasicLayout',
           // authority: ['admin', 'user'],
           routes: [
-              {
-                name: 'workplace',
-                icon: 'smile',
-                path: '/middlestream',
-                component: './middle/workplace',
-                hideInMenu: true,
-                hideInBreadcrumb: true,
-              },
+            {
+              name: 'workplace',
+              icon: 'smile',
+              path: '/middlestream',
+              component: './middle/workplace',
+              hideInMenu: true,
+              hideInBreadcrumb: true,
+            },
             {
               component: './404',
             },
@@ -327,61 +301,53 @@ export default {
     },
     {
       path: '/down',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout',
+      // authority: ['admin', 'user'],
       routes: [
         {
           path: '/down',
-          component: '../layouts/BasicLayout',
-          // authority: ['admin', 'user'],
-          routes: [
-            {
-              path: '/down',
-              redirect: '/down/downinput',
-            },
-            {
-              name: 'downinput',
-              path: '/down/downinput',
-              component: './down/downInput',
-            },
-            {
-              name: 'downprofile',
-              path: '/down/downprofile',
-              component: './down/downProfile',
-            },
-            {
-              name: 'downdisplay',
-              path: '/down/downdisplay',
-              component: './down/downdisplay',
-            },
-            
-            {
-              component: './404',
-            },
-          ],
+          redirect: '/down/downinput',
         },
+        {
+          name: 'downinput',
+          path: '/down/downinput',
+          component: './down/downInput',
+          hideInBreadcrumb: true,
+        },
+        {
+          name: 'downprofile',
+          path: '/down/downprofile',
+          component: './down/downProfile',
+          hideInBreadcrumb: true,
+        },
+        // {
+        //   name: 'downdisplay',
+        //   path: '/down/downdisplay',
+        //   component: './down/downdisplay',
+        //   hideInBreadcrumb: true,
+        // },
         {
           component: './404',
         },
-        
       ],
     },
     {
       path: '/downstream',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BasicLayout', ///
       routes: [
         {
           path: '/downstream',
           component: '../layouts/BasicLayout',
           // authority: ['admin', 'user'],
           routes: [
-              {
-                name: 'workplace',
-                icon: 'smile',
-                path: '/downstream',
-                component: './down/workplace',
-                hideInMenu: true,
-                hideInBreadcrumb: true,
-              },
+            {
+              name: 'workplace',
+              icon: 'smile',
+              path: '/downstream',
+              component: './down/workplace',
+              hideInMenu: true,
+              hideInBreadcrumb: true,
+            },
             {
               component: './404',
             },
@@ -416,7 +382,7 @@ export default {
         resourcePath: string;
       },
       _: string,
-      localName: string
+      localName: string,
     ) => {
       if (
         context.resourcePath.includes('node_modules') ||

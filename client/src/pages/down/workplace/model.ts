@@ -24,7 +24,7 @@ export interface ModelType {
   };
   effects: {
     init: Effect;
-    fetchUserCurrent: Effect;
+    // fetchUserCurrent: Effect;
     fetchProjectNotice: Effect;
     fetchActivitiesList: Effect;
     fetchChart: Effect;
@@ -46,15 +46,15 @@ const Model: ModelType = {
       yield put({ type: 'fetchActivitiesList' });
       yield put({ type: 'fetchChart' });
     },
-    *fetchUserCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
-      yield put({
-        type: 'save',
-        payload: {
-          currentUser: response,
-        },
-      });
-    },
+    // *fetchUserCurrent(_, { call, put }) {
+    //   const response = yield call(queryCurrent);
+    //   yield put({
+    //     type: 'save',
+    //     payload: {
+    //       currentUser: response,
+    //     },
+    //   });
+    // },
     *fetchProjectNotice(_, { call, put }) {
       const response = yield call(queryProjectNotice);
       yield put({
