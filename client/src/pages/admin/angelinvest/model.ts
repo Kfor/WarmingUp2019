@@ -16,7 +16,7 @@ export interface ModelType {
   };
 }
 const Model: ModelType = {
-  namespace: 'adminAndangelinvest',
+  namespace: 'adminAngelInvest',
 
   state: {},
 

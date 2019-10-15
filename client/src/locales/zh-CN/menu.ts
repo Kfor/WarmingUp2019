@@ -47,4 +47,13 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.updisplay': '分析图表',
+  'menu.upprofile': '详细数据',
+  'menu.upinput': '操作台',
+  'menu.middledisplay': '分析图表',
+  'menu.middleprofile': '详细数据',
+  'menu.middleinput': '操作台',
+  'menu.downdisplay': '分析图表',
+  'menu.downprofile': '详细数据',
+  'menu.downinput': '操作台',
 };

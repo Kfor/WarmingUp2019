@@ -18,7 +18,7 @@ const plugins: IPlugin[] = [
       },
       locale: {
         // default false
-        enable: true,
+        enable: false,
         // default zh-CN
         default: 'zh-CN',
         // default true, when it is true, will use `navigator.language` overwrite default
@@ -85,7 +85,7 @@ export default {
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
-      path: '/user',
+      path: '/user/login',
       component: '../layouts/UserLayout',
       routes: [
         {
@@ -96,96 +96,242 @@ export default {
       ],
     },
     {
-      path: '/',
+      path: '/admin',
       component: '../layouts/SecurityLayout',
       routes: [
         {
-          path: '/',
+          path: '/admin',
           component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
+          // authority: ['admin', 'user'],
           routes: [
             {
-              path: '/',
-              redirect: '/welcome',
+              path: '/admin',
+              redirect: '/admin/welcome',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
-              icon: 'smile',
-              component: './Welcome',
+              name: 'orderlist',
+              path: '/admin/orderlist',
+              component: './admin/orderList',
+            },
+            {
+              name: 'inputorder',
+              path: '/admin/inputorder',
+              component: './admin/inputOrder',
+            },
+            {
+              name: 'display',
+              path: '/admin/display',
+              component: './admin/display',
             },
             {
               name: 'angelinvest',
-              icon: 'smile',
               path: '/admin/angelinvest',
-              component: './admin/angelinvest',
+              component: './admin/angelInvest',
             },
             {
               name: 'fine',
-              icon: 'smile',
               path: '/admin/fine',
               component: './admin/fine',
             },
             {
-              name: 'profile',
-              icon: 'smile',
-              path: '/upstream/profile',
-              component: './upstream/profile',
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
+      path: '/up',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/up',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+            {
+              path: '/up',
+              redirect: '/up/upinput',
             },
             {
-              name: 'analysis',
-              icon: 'smile',
-              path: '/upstream/analysis',
-              component: './upstream/analysis',
+              name: 'upinput',
+              path: '/up/upinput',
+              component: './up/upInput',
             },
             {
-              name: 'upstream',
+              name: 'upprofile',
+              path: '/up/upprofile',
+              component: './up/upProfile',
+            },
+            {
+              name: 'updisplay',
+              path: '/up/updisplay',
+              component: './up/updisplay',
+            },
+            
+            {
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
+      path: '/upstream',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/upstream',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+            {
+              name: 'workplace',
               icon: 'smile',
               path: '/upstream',
-              component: './upstream',
+              component: './up/workplace',
+              hideInMenu: true,
+              hideInBreadcrumb: true,
             },
             {
-              name: 'profile',
-              icon: 'smile',
-              path: '/middlestream/profile',
-              component: './middlestream/profile',
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
+      path: '/middle',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/middle',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+            {
+              path: '/middle',
+              redirect: '/middle/middleinput',
             },
             {
-              name: 'analysis',
-              icon: 'smile',
-              path: '/middlestream/analysis',
-              component: './middlestream/analysis',
+              name: 'middleinput',
+              path: '/middle/middleinput',
+              component: './middle/middleInput',
             },
             {
-              name: 'middlestream',
-              icon: 'smile',
-              path: '/middlestream',
-              component: './middlestream',
+              name: 'middleprofile',
+              path: '/middle/middleprofile',
+              component: './middle/middleProfile',
             },
             {
-              name: 'profile',
-              icon: 'smile',
-              path: '/downstream/profile',
-              component: './downstream/profile',
+              name: 'middledisplay',
+              path: '/middle/middledisplay',
+              component: './middle/middledisplay',
+            },
+            
+            {
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
+      path: '/middlestream',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/middlestream',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+              {
+                name: 'workplace',
+                icon: 'smile',
+                path: '/middlestream',
+                component: './middle/workplace',
+                hideInMenu: true,
+                hideInBreadcrumb: true,
+              },
+            {
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
+      path: '/down',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/down',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+            {
+              path: '/down',
+              redirect: '/down/downinput',
             },
             {
-              name: 'analysis',
-              icon: 'smile',
-              path: '/downstream/analysis',
-              component: './downstream/analysis',
+              name: 'downinput',
+              path: '/down/downinput',
+              component: './down/downInput',
             },
             {
-              name: 'downstream',
-              icon: 'smile',
-              path: '/downstream',
-              component: './downstream',
+              name: 'downprofile',
+              path: '/down/downprofile',
+              component: './down/downProfile',
             },
             {
-              name: 'analysis',
-              icon: 'smile',
-              path: '/admin/analysis',
-              component: './admin/analysis',
+              name: 'downdisplay',
+              path: '/down/downdisplay',
+              component: './down/downdisplay',
             },
+            
+            {
+              component: './404',
+            },
+          ],
+        },
+        {
+          component: './404',
+        },
+        
+      ],
+    },
+    {
+      path: '/downstream',
+      component: '../layouts/SecurityLayout',
+      routes: [
+        {
+          path: '/downstream',
+          component: '../layouts/BasicLayout',
+          // authority: ['admin', 'user'],
+          routes: [
+              {
+                name: 'workplace',
+                icon: 'smile',
+                path: '/downstream',
+                component: './down/workplace',
+                hideInMenu: true,
+                hideInBreadcrumb: true,
+              },
             {
               component: './404',
             },
@@ -248,13 +394,13 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  /*
   proxy: {
-    '/server/api/': {
-      target: 'https://preview.pro.ant.design/',
+    '/api': {
+      target: 'http://localhost:8000',
       changeOrigin: true,
-      pathRewrite: { '^/server': '' },
+      pathRewrite: {
+        '^/server': '',
+      },
     },
   },
-  */
 } as IConfig;

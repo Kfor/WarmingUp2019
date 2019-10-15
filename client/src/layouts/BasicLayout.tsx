@@ -59,13 +59,6 @@ const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
           textAlign: 'center',
         }}
       >
-        <a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://www.netlify.com/img/global/badges/netlify-color-bg.svg"
-            width="82px"
-            alt="netlify logo"
-          />
-        </a>
       </div>
     </>
   );
@@ -79,6 +72,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   useEffect(() => {
     if (dispatch) {
+      console.log(props.location.query.userId);
       dispatch({
         type: 'user/fetchCurrent',
       });
@@ -108,7 +102,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         if (menuItemProps.isUrl) {
           return defaultDom;
         }
-        return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+        return <Link to={menuItemProps.path+'?userId='+props.location.query.userId}>{defaultDom}</Link>;
       }}
       breadcrumbRender={(routers = []) => [
         {
@@ -131,7 +125,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       footerRender={footerRender}
       menuDataRender={menuDataRender}
       formatMessage={formatMessage}
-      rightContentRender={rightProps => <RightContent {...rightProps} />}
+//      rightContentRender={rightProps => <RightContent {...rightProps} />}
       {...props}
       {...settings}
     >

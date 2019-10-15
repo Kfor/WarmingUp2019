@@ -4,17 +4,18 @@ import { Reducer } from 'redux';
 import { queryCurrent, query as queryUsers } from '@/services/user';
 
 export interface CurrentUser {
-  avatar?: string;
+  // avatar?: string;
   name?: string;
-  title?: string;
-  group?: string;
-  signature?: string;
-  tags?: {
-    key: string;
-    label: string;
-  }[];
+  // title?: string;
+  // group?: string;
+  // signature?: string;
+  // tags?: {
+  //   key: string;
+  //   label: string;
+  // }[];
   userid?: string;
-  unreadCount?: number;
+  userId1?: string;
+  // unreadCount?: number;
 }
 
 export interface UserModelState {

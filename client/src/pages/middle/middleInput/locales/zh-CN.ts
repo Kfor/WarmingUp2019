@@ -1,0 +1,90 @@
+export default {
+
+
+  'middle-middleinput.basic.description':
+    '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入',
+
+  'middle-middleinput.userId.label': '公司序号',
+  'middle-middleinput.userId.placeholder': '公司序号',
+
+  'middle-middleinput.DInvest.label': '本轮的设计投入',
+  'middle-middleinput.DInvest.placeholder': '本轮的设计投入',
+  'middle-middleinput.KInvest.label': '本轮的功能模块投入',
+  'middle-middleinput.KInvest.placeholder': '本轮的功能模块投入',
+
+
+  'middle-middleinput.ka.label':'芯片类型',
+  'middle-middleinput.ka.placeholder': '本款手机计划的芯片类型',
+  'middle-middleinput.kb.label': '功能值',
+  'middle-middleinput.kb.placeholder': '本款手机计划的功能值',
+  'middle-middleinput.kc.label': '美观值',
+  'middle-middleinput.kc.placeholder': '本款手机计划的美观值',
+  'middle-middleinput.amount.label':'数量',
+  'middle-middleinput.amount.placeholder':'本款手机计划的生产量',
+
+  'middle-middleinput.loan.label': '本轮贷款',
+  'middle-middleinput.loan.placeholder': '本轮的计划贷款',
+
+  'middle-middleinput.repay.label': '本轮还款',
+  'middle-middleinput.repay.placeholder': '本轮的计划还款',
+
+
+
+  'middle-middleinput.basic.title': '基础表单',
+//  'middle-middleinput.basic.description':
+  //  '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
+
+  'middle-middleinput.email.required': '请输入邮箱地址！',
+  'middle-middleinput.email.wrong-format': '邮箱地址格式错误！',
+  'middle-middleinput.userName.required': '请输入用户名!',
+  'middle-middleinput.password.required': '请输入密码！',
+  'middle-middleinput.password.twice': '两次输入的密码不匹配!',
+  'middle-middleinput.strength.msg': '请至少输入 6 个字符。请不要使用容易被猜到的密码。',
+  'middle-middleinput.strength.strong': '强度：强',
+  'middle-middleinput.strength.medium': '强度：中',
+  'middle-middleinput.strength.short': '强度：太短',
+  'middle-middleinput.confirm-password.required': '请确认密码！',
+  'middle-middleinput.phone-number.required': '请输入手机号！',
+  'middle-middleinput.phone-number.wrong-format': '手机号格式错误！',
+  'middle-middleinput.verification-code.required': '请输入验证码！',
+  'middle-middleinput.title.required': '请输入标题',
+  'middle-middleinput.date.required': '请选择起止日期',
+  'middle-middleinput.goal.required': '请输入目标描述',
+  'middle-middleinput.standard.required': '请输入衡量标准',
+
+  'middle-middleinput.form.get-captcha': '获取验证码',
+  'middle-middleinput.captcha.second': '秒',
+  'middle-middleinput.form.optional': '（选填）',
+  'middle-middleinput.form.submit': '提交',
+  'middle-middleinput.form.save': '保存',
+  'middle-middleinput.email.placeholder': '邮箱',
+  'middle-middleinput.password.placeholder': '至少6位密码，区分大小写',
+  'middle-middleinput.confirm-password.placeholder': '确认密码',
+  'middle-middleinput.phone-number.placeholder': '手机号',
+  'middle-middleinput.verification-code.placeholder': '验证码',
+  'middle-middleinput.title.label': '标题',
+  'middle-middleinput.title.placeholder': '给目标起个名字',
+  'middle-middleinput.date.label': '起止日期',
+  'middle-middleinput.placeholder.start': '开始日期',
+  'middle-middleinput.placeholder.end': '结束日期',
+  'middle-middleinput.goal.label': '目标描述',
+  'middle-middleinput.goal.placeholder': '请输入你的阶段性工作目标',
+  'middle-middleinput.standard.label': '衡量标准',
+  'middle-middleinput.standard.placeholder': '请输入衡量标准',
+  'middle-middleinput.client.label': '客户',
+  'middle-middleinput.label.tooltip': '目标的服务对象',
+  'middle-middleinput.client.placeholder': '请描述你服务的客户，内部客户直接 @姓名／工号',
+  'middle-middleinput.invites.label': '邀评人',
+  'middle-middleinput.invites.placeholder': '请直接 @姓名／工号，最多可邀请 5 人',
+  'middle-middleinput.weight.label': '权重',
+  'middle-middleinput.weight.placeholder': '请输入',
+  'middle-middleinput.public.label': '目标公开',
+  'middle-middleinput.label.help': '客户、邀评人默认被分享',
+  'middle-middleinput.radio.public': '公开',
+  'middle-middleinput.radio.partially-public': '部分公开',
+  'middle-middleinput.radio.private': '不公开',
+  'middle-middleinput.publicUsers.placeholder': '公开给',
+  'middle-middleinput.option.A': '同事甲',
+  'middle-middleinput.option.B': '同事乙',
+  'middle-middleinput.option.C': '同事丙',
+};

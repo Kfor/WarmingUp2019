@@ -24,19 +24,19 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-interface AngelinvestProps extends FormComponentProps {
+interface AngelInvestProps extends FormComponentProps {
   submitting: boolean;
   dispatch: Dispatch<any>;
 }
 
-class Angelinvest extends Component<AngelinvestProps> {
+class AngelInvest extends Component<AngelInvestProps> {
   handleSubmit = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'adminAndangelinvest/submitRegularForm',
+          type: 'adminAngelInvest/submitRegularForm',
           payload: values,
         });
       }
@@ -68,68 +68,68 @@ class Angelinvest extends Component<AngelinvestProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="adminandangelinvest.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="admin-angelinvest.basic.description" />}>
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandangelinvest.title.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-angelinvest.title.label" />}>
               {getFieldDecorator('title', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandangelinvest.title.required' }),
+                    message: formatMessage({ id: 'admin-angelinvest.title.required' }),
                   },
                 ],
-              })(<Input placeholder={formatMessage({ id: 'adminandangelinvest.title.placeholder' })} />)}
+              })(<Input placeholder={formatMessage({ id: 'admin-angelinvest.title.placeholder' })} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandangelinvest.date.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-angelinvest.date.label" />}>
               {getFieldDecorator('date', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandangelinvest.date.required' }),
+                    message: formatMessage({ id: 'admin-angelinvest.date.required' }),
                   },
                 ],
               })(
                 <RangePicker
                   style={{ width: '100%' }}
                   placeholder={[
-                    formatMessage({ id: 'adminandangelinvest.placeholder.start' }),
-                    formatMessage({ id: 'adminandangelinvest.placeholder.end' }),
+                    formatMessage({ id: 'admin-angelinvest.placeholder.start' }),
+                    formatMessage({ id: 'admin-angelinvest.placeholder.end' }),
                   ]}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandangelinvest.goal.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-angelinvest.goal.label" />}>
               {getFieldDecorator('goal', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandangelinvest.goal.required' }),
+                    message: formatMessage({ id: 'admin-angelinvest.goal.required' }),
                   },
                 ],
               })(
                 <TextArea
                   style={{ minHeight: 32 }}
-                  placeholder={formatMessage({ id: 'adminandangelinvest.goal.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-angelinvest.goal.placeholder' })}
                   rows={4}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="adminandangelinvest.standard.label" />}
+              label={<FormattedMessage id="admin-angelinvest.standard.label" />}
             >
               {getFieldDecorator('standard', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandangelinvest.standard.required' }),
+                    message: formatMessage({ id: 'admin-angelinvest.standard.required' }),
                   },
                 ],
               })(
                 <TextArea
                   style={{ minHeight: 32 }}
-                  placeholder={formatMessage({ id: 'adminandangelinvest.standard.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-angelinvest.standard.placeholder' })}
                   rows={4}
                 />,
               )}
@@ -138,10 +138,10 @@ class Angelinvest extends Component<AngelinvestProps> {
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandangelinvest.client.label" />
+                  <FormattedMessage id="admin-angelinvest.client.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandangelinvest.form.optional" />
-                    <Tooltip title={<FormattedMessage id="adminandangelinvest.label.tooltip" />}>
+                    <FormattedMessage id="admin-angelinvest.form.optional" />
+                    <Tooltip title={<FormattedMessage id="admin-angelinvest.label.tooltip" />}>
                       <Icon type="info-circle-o" style={{ marginRight: 4 }} />
                     </Tooltip>
                   </em>
@@ -149,38 +149,38 @@ class Angelinvest extends Component<AngelinvestProps> {
               }
             >
               {getFieldDecorator('client')(
-                <Input placeholder={formatMessage({ id: 'adminandangelinvest.client.placeholder' })} />,
+                <Input placeholder={formatMessage({ id: 'admin-angelinvest.client.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandangelinvest.invites.label" />
+                  <FormattedMessage id="admin-angelinvest.invites.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandangelinvest.form.optional" />
+                    <FormattedMessage id="admin-angelinvest.form.optional" />
                   </em>
                 </span>
               }
             >
               {getFieldDecorator('invites')(
-                <Input placeholder={formatMessage({ id: 'adminandangelinvest.invites.placeholder' })} />,
+                <Input placeholder={formatMessage({ id: 'admin-angelinvest.invites.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandangelinvest.weight.label" />
+                  <FormattedMessage id="admin-angelinvest.weight.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandangelinvest.form.optional" />
+                    <FormattedMessage id="admin-angelinvest.form.optional" />
                   </em>
                 </span>
               }
             >
               {getFieldDecorator('weight')(
                 <InputNumber
-                  placeholder={formatMessage({ id: 'adminandangelinvest.weight.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-angelinvest.weight.placeholder' })}
                   min={0}
                   max={100}
                 />,
@@ -189,8 +189,8 @@ class Angelinvest extends Component<AngelinvestProps> {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="adminandangelinvest.public.label" />}
-              help={<FormattedMessage id="adminandangelinvest.label.help" />}
+              label={<FormattedMessage id="admin-angelinvest.public.label" />}
+              help={<FormattedMessage id="admin-angelinvest.label.help" />}
             >
               <div>
                 {getFieldDecorator('public', {
@@ -198,13 +198,13 @@ class Angelinvest extends Component<AngelinvestProps> {
                 })(
                   <Radio.Group>
                     <Radio value="1">
-                      <FormattedMessage id="adminandangelinvest.radio.public" />
+                      <FormattedMessage id="admin-angelinvest.radio.public" />
                     </Radio>
                     <Radio value="2">
-                      <FormattedMessage id="adminandangelinvest.radio.partially-public" />
+                      <FormattedMessage id="admin-angelinvest.radio.partially-public" />
                     </Radio>
                     <Radio value="3">
-                      <FormattedMessage id="adminandangelinvest.radio.private" />
+                      <FormattedMessage id="admin-angelinvest.radio.private" />
                     </Radio>
                   </Radio.Group>,
                 )}
@@ -212,20 +212,20 @@ class Angelinvest extends Component<AngelinvestProps> {
                   {getFieldDecorator('publicUsers')(
                     <Select
                       mode="multiple"
-                      placeholder={formatMessage({ id: 'adminandangelinvest.publicUsers.placeholder' })}
+                      placeholder={formatMessage({ id: 'admin-angelinvest.publicUsers.placeholder' })}
                       style={{
                         margin: '8px 0',
                         display: getFieldValue('public') === '2' ? 'block' : 'none',
                       }}
                     >
                       <Option value="1">
-                        <FormattedMessage id="adminandangelinvest.option.A" />
+                        <FormattedMessage id="admin-angelinvest.option.A" />
                       </Option>
                       <Option value="2">
-                        <FormattedMessage id="adminandangelinvest.option.B" />
+                        <FormattedMessage id="admin-angelinvest.option.B" />
                       </Option>
                       <Option value="3">
-                        <FormattedMessage id="adminandangelinvest.option.C" />
+                        <FormattedMessage id="admin-angelinvest.option.C" />
                       </Option>
                     </Select>,
                   )}
@@ -234,10 +234,10 @@ class Angelinvest extends Component<AngelinvestProps> {
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="adminandangelinvest.form.submit" />
+                <FormattedMessage id="admin-angelinvest.form.submit" />
               </Button>
               <Button style={{ marginLeft: 8 }}>
-                <FormattedMessage id="adminandangelinvest.form.save" />
+                <FormattedMessage id="admin-angelinvest.form.save" />
               </Button>
             </FormItem>
           </Form>
@@ -247,8 +247,8 @@ class Angelinvest extends Component<AngelinvestProps> {
   }
 }
 
-export default Form.create<AngelinvestProps>()(
+export default Form.create<AngelInvestProps>()(
   connect(({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
-    submitting: loading.effects['adminAndangelinvest/submitRegularForm'],
-  }))(Angelinvest),
+    submitting: loading.effects['adminAngelInvest/submitRegularForm'],
+  }))(AngelInvest),
 );

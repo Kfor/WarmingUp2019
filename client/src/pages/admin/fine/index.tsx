@@ -36,7 +36,7 @@ class Fine extends Component<FineProps> {
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'adminAndfine/submitRegularForm',
+          type: 'adminFine/submitRegularForm',
           payload: values,
         });
       }
@@ -68,68 +68,68 @@ class Fine extends Component<FineProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="adminandfine.basic.description" />}>
+      <PageHeaderWrapper content={<FormattedMessage id="admin-fine.basic.description" />}>
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandfine.title.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-fine.title.label" />}>
               {getFieldDecorator('title', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandfine.title.required' }),
+                    message: formatMessage({ id: 'admin-fine.title.required' }),
                   },
                 ],
-              })(<Input placeholder={formatMessage({ id: 'adminandfine.title.placeholder' })} />)}
+              })(<Input placeholder={formatMessage({ id: 'admin-fine.title.placeholder' })} />)}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandfine.date.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-fine.date.label" />}>
               {getFieldDecorator('date', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandfine.date.required' }),
+                    message: formatMessage({ id: 'admin-fine.date.required' }),
                   },
                 ],
               })(
                 <RangePicker
                   style={{ width: '100%' }}
                   placeholder={[
-                    formatMessage({ id: 'adminandfine.placeholder.start' }),
-                    formatMessage({ id: 'adminandfine.placeholder.end' }),
+                    formatMessage({ id: 'admin-fine.placeholder.start' }),
+                    formatMessage({ id: 'admin-fine.placeholder.end' }),
                   ]}
                 />,
               )}
             </FormItem>
-            <FormItem {...formItemLayout} label={<FormattedMessage id="adminandfine.goal.label" />}>
+            <FormItem {...formItemLayout} label={<FormattedMessage id="admin-fine.goal.label" />}>
               {getFieldDecorator('goal', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandfine.goal.required' }),
+                    message: formatMessage({ id: 'admin-fine.goal.required' }),
                   },
                 ],
               })(
                 <TextArea
                   style={{ minHeight: 32 }}
-                  placeholder={formatMessage({ id: 'adminandfine.goal.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-fine.goal.placeholder' })}
                   rows={4}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="adminandfine.standard.label" />}
+              label={<FormattedMessage id="admin-fine.standard.label" />}
             >
               {getFieldDecorator('standard', {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'adminandfine.standard.required' }),
+                    message: formatMessage({ id: 'admin-fine.standard.required' }),
                   },
                 ],
               })(
                 <TextArea
                   style={{ minHeight: 32 }}
-                  placeholder={formatMessage({ id: 'adminandfine.standard.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-fine.standard.placeholder' })}
                   rows={4}
                 />,
               )}
@@ -138,10 +138,10 @@ class Fine extends Component<FineProps> {
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandfine.client.label" />
+                  <FormattedMessage id="admin-fine.client.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandfine.form.optional" />
-                    <Tooltip title={<FormattedMessage id="adminandfine.label.tooltip" />}>
+                    <FormattedMessage id="admin-fine.form.optional" />
+                    <Tooltip title={<FormattedMessage id="admin-fine.label.tooltip" />}>
                       <Icon type="info-circle-o" style={{ marginRight: 4 }} />
                     </Tooltip>
                   </em>
@@ -149,38 +149,38 @@ class Fine extends Component<FineProps> {
               }
             >
               {getFieldDecorator('client')(
-                <Input placeholder={formatMessage({ id: 'adminandfine.client.placeholder' })} />,
+                <Input placeholder={formatMessage({ id: 'admin-fine.client.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandfine.invites.label" />
+                  <FormattedMessage id="admin-fine.invites.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandfine.form.optional" />
+                    <FormattedMessage id="admin-fine.form.optional" />
                   </em>
                 </span>
               }
             >
               {getFieldDecorator('invites')(
-                <Input placeholder={formatMessage({ id: 'adminandfine.invites.placeholder' })} />,
+                <Input placeholder={formatMessage({ id: 'admin-fine.invites.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
               label={
                 <span>
-                  <FormattedMessage id="adminandfine.weight.label" />
+                  <FormattedMessage id="admin-fine.weight.label" />
                   <em className={styles.optional}>
-                    <FormattedMessage id="adminandfine.form.optional" />
+                    <FormattedMessage id="admin-fine.form.optional" />
                   </em>
                 </span>
               }
             >
               {getFieldDecorator('weight')(
                 <InputNumber
-                  placeholder={formatMessage({ id: 'adminandfine.weight.placeholder' })}
+                  placeholder={formatMessage({ id: 'admin-fine.weight.placeholder' })}
                   min={0}
                   max={100}
                 />,
@@ -189,8 +189,8 @@ class Fine extends Component<FineProps> {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="adminandfine.public.label" />}
-              help={<FormattedMessage id="adminandfine.label.help" />}
+              label={<FormattedMessage id="admin-fine.public.label" />}
+              help={<FormattedMessage id="admin-fine.label.help" />}
             >
               <div>
                 {getFieldDecorator('public', {
@@ -198,13 +198,13 @@ class Fine extends Component<FineProps> {
                 })(
                   <Radio.Group>
                     <Radio value="1">
-                      <FormattedMessage id="adminandfine.radio.public" />
+                      <FormattedMessage id="admin-fine.radio.public" />
                     </Radio>
                     <Radio value="2">
-                      <FormattedMessage id="adminandfine.radio.partially-public" />
+                      <FormattedMessage id="admin-fine.radio.partially-public" />
                     </Radio>
                     <Radio value="3">
-                      <FormattedMessage id="adminandfine.radio.private" />
+                      <FormattedMessage id="admin-fine.radio.private" />
                     </Radio>
                   </Radio.Group>,
                 )}
@@ -212,20 +212,20 @@ class Fine extends Component<FineProps> {
                   {getFieldDecorator('publicUsers')(
                     <Select
                       mode="multiple"
-                      placeholder={formatMessage({ id: 'adminandfine.publicUsers.placeholder' })}
+                      placeholder={formatMessage({ id: 'admin-fine.publicUsers.placeholder' })}
                       style={{
                         margin: '8px 0',
                         display: getFieldValue('public') === '2' ? 'block' : 'none',
                       }}
                     >
                       <Option value="1">
-                        <FormattedMessage id="adminandfine.option.A" />
+                        <FormattedMessage id="admin-fine.option.A" />
                       </Option>
                       <Option value="2">
-                        <FormattedMessage id="adminandfine.option.B" />
+                        <FormattedMessage id="admin-fine.option.B" />
                       </Option>
                       <Option value="3">
-                        <FormattedMessage id="adminandfine.option.C" />
+                        <FormattedMessage id="admin-fine.option.C" />
                       </Option>
                     </Select>,
                   )}
@@ -234,10 +234,10 @@ class Fine extends Component<FineProps> {
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="adminandfine.form.submit" />
+                <FormattedMessage id="admin-fine.form.submit" />
               </Button>
               <Button style={{ marginLeft: 8 }}>
-                <FormattedMessage id="adminandfine.form.save" />
+                <FormattedMessage id="admin-fine.form.save" />
               </Button>
             </FormItem>
           </Form>
@@ -249,6 +249,6 @@ class Fine extends Component<FineProps> {
 
 export default Form.create<FineProps>()(
   connect(({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
-    submitting: loading.effects['adminAndfine/submitRegularForm'],
+    submitting: loading.effects['adminFine/submitRegularForm'],
   }))(Fine),
 );

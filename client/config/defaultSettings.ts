@@ -43,8 +43,8 @@ export interface DefaultSettings {
 }
 
 export default {
-  navTheme: 'dark',
-  primaryColor: '#1890FF',
+  navTheme: 'light',
+  primaryColor: '#B61E1D',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
   fixedHeader: false,
@@ -54,7 +54,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: 'ITP Warming Up',
   pwa: false,
   iconfontUrl: '',
 } as DefaultSettings;
