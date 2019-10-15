@@ -13,8 +13,8 @@ export interface ModelType {
   namespace: string;
   state: AnalysisData;
   effects: {
-    fetch: Effect;
-    fetchSalesData: Effect;
+    // fetch: Effect;
+    // fetchSalesData: Effect;
   };
   reducers: {
     save: Reducer<AnalysisData>;
@@ -41,22 +41,22 @@ const Model: ModelType = {
   state: initState,
 
   effects: {
-    *fetch(_, { call, put }) {
-      const response = yield call(fakeChartData);
-      yield put({
-        type: 'save',
-        payload: response,
-      });
-    },
-    *fetchSalesData(_, { call, put }) {
-      const response = yield call(fakeChartData);
-      yield put({
-        type: 'save',
-        payload: {
-          salesData: response.salesData,
-        },
-      });
-    },
+    // *fetch(_, { call, put }) {
+    //   const response = yield call(fakeChartData);
+    //   yield put({
+    //     type: 'save',
+    //     payload: response,
+    //   });
+    // },
+    // *fetchSalesData(_, { call, put }) {
+    //   const response = yield call(fakeChartData);
+    //   yield put({
+    //     type: 'save',
+    //     payload: {
+    //       salesData: response.salesData,
+    //     },
+    //   });
+    // },
   },
 
   reducers: {
