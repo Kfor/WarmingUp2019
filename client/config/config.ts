@@ -156,21 +156,21 @@ export default {
           path: '/admin/controller',
           component: './admin/controller',
         },
-        // {
-        //   name: 'gotoup',
-        //   path: 'admin/gotoup',
-        //   redirect: '/up/upinput?userId=group1'
-        // },
-        // {
-        //   name: 'gotomiddle',
-        //   path: 'admin/gotomiddle',
-        //   redirect: '/middle/middleinput?userId=group5'
-        // },
-        // {
-        //   name: 'gotodown',
-        //   path: 'admin/gotodown',
-        //   redirect: '/down/downinput?userId=group9'
-        // },
+        {
+          name: 'gotoup',
+          path: 'admin/gotoup',
+          redirect: '/up/upinput?userId=group1',
+        },
+        {
+          name: 'gotomiddle',
+          path: 'admin/gotomiddle',
+          redirect: '/middle/middleinput?userId=group5',
+        },
+        {
+          name: 'gotodown',
+          path: 'admin/gotodown',
+          redirect: '/down/downinput?userId=group9',
+        },
         {
           component: './404',
         },
