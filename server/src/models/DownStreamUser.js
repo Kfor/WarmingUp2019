@@ -36,7 +36,7 @@ var User = sequelize.define('down_stream_user', {
         allowNull: false,
         defaultValue: []
     },
-    totalStroageCost: {
+    totalStorageCost: {
         type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
@@ -66,7 +66,7 @@ var User = sequelize.define('down_stream_user', {
     loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1000000
     },
     
     initCurrency: {//初始资金，用于天使投资计算利润率用
@@ -164,14 +164,20 @@ function getRound() {
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpLoan = Number(prev.loan) + Number(data.loan);
-    var tmpCurrency = Number(prev.currency) + Number(data.loan);
-    return User.update({
-        loan: tmpLoan,
-        currency: tmpCurrency,
-    }, {
-        where: {userId: userId}
-    })
+    if(Number(data.loan)<Number(prev.loanMax)) {
+        var tmpLoan = Number(prev.loan) + Number(data.loan);
+        var tmpCurrency = Number(prev.currency) + Number(data.loan);
+        return User.update({
+            loan: tmpLoan,
+            loanMax: Number(prev.loanMax) - tmpLoan,
+            currency: tmpCurrency,
+        }, {
+            where: {userId: userId}
+        });
+    }
+    else {
+        console.log('超过借贷上限');
+    }
 };
 
 async function repay(userId, data) {
@@ -246,6 +252,7 @@ async function endRound() {
             sum += Number(phones[i].amount);
         }
         
+
         var tmpStorageCost = sum*20;//20是手机库存单价
 
 
@@ -254,7 +261,25 @@ async function endRound() {
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
             thisProfit: 0,//每到一轮，就要置位0
-            lastProfit: Number(prev.thisProfit),
+            lastProfit: Number(result.thisProfit),
+        },{where:{userId:group}});
+    }
+};
+
+
+async function updateLoanMax(data) {
+    for (var group of downGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        for(let i in data) {
+            if(data[i].userId==result.dataValues.userId) {
+                var tmpLoanMax = data[i].loanMax;
+                break;
+            }
+        }
+
+        User.update({
+            rank: data.rank,
+            loanMax: tmpLoanMax,
         },{where:{userId:group}});
     }
 };
@@ -263,4 +288,4 @@ async function destroy() {
     User.destroy({where:{}});
 };
 
-module.exports = {getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, endRound, destroy, repay};
+module.exports = {getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update,updateLoanMax, endRound, destroy, repay};

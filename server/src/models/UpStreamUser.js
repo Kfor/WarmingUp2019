@@ -57,7 +57,7 @@ var User = sequelize.define('up_stream_user', {
     loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 1000000
     },
 
     totalStorageCost: {
@@ -219,14 +219,20 @@ async function produce(userId, data) { //上游需要一次性输入
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    var tmpLoan = Number(prev.loan) + Number(data.loan);
-    var tmpCurrency = Number(prev.currency) + Number(data.loan);
-    return User.update({
-        loan: tmpLoan,
-        currency: tmpCurrency,
-    }, {
-        where: {userId: userId}
-    })
+    if(Number(data.loan)<Number(prev.loanMax)) {
+        var tmpLoan = Number(prev.loan) + Number(data.loan);
+        var tmpCurrency = Number(prev.currency) + Number(data.loan);
+        return User.update({
+            loan: tmpLoan,
+            loanMax: Number(prev.loanMax) - tmpLoan,
+            currency: tmpCurrency,
+        }, {
+            where: {userId: userId}
+        });
+    }
+    else {
+        console.log('超过借贷上限');
+    }
 };
 
 async function repay(userId, data) {
@@ -299,12 +305,30 @@ async function endRound() {
         var tmpStorageCost = Number(result.dataValues.chip1Num+
             result.dataValues.chip2Num+result.dataValues.chip3Num)*10;//10是每个芯片库存单价
         
+
         User.update({
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
             thisProfit: 0,//每到一轮，就要置位0
-            lastProfit: Number(prev.thisProfit),
+            lastProfit: Number(result.thisProfit),
+        },{where:{userId:group}});
+    }
+};
+
+async function updateLoanMax(data) {
+    for (var group of upGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        for(let i in data) {
+            if(data[i].userId==result.dataValues.userId) {
+                var tmpLoanMax = data[i].loanMax;
+                break;
+            }
+        }
+
+        User.update({
+            rank: data.rank,
+            loanMax: tmpLoanMax,
         },{where:{userId:group}});
     }
 };
@@ -314,4 +338,4 @@ async function destroy() {
 };
 
 
-module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, destroy, repay}
+module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, updateLoanMax, destroy, repay}
