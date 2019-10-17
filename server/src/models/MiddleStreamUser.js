@@ -103,6 +103,10 @@ var User = sequelize.define('middle_stream_user', {
         type:Sequelize.FLOAT,
         defaultValue: 0
     },
+    thisProfit: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+    },
     lastProfit: {//上一轮的利润
         type:Sequelize.FLOAT,
         defaultValue: 0
@@ -147,6 +151,7 @@ async function invest(userId, data) {
     var tmpK = 0.4 + 0.6/Number(1+Math.exp(3*(tmpKCost/6000000-1.3)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.DInvest) - Number(data.KInvest);
+    var tmpProfit = Number(prev.thisProfit) - Number(data.DInvest) - Number(data.KInvest);
 
     return User.update({
         D:tmpD,
@@ -154,6 +159,7 @@ async function invest(userId, data) {
         DCost:tmpDCost,
         KCost:tmpKCost,
         currency:tmpCurrency,
+        thisProfit:tmpProfit,
     },{
         where: {userId: userId}
     })
@@ -224,12 +230,15 @@ async function produce(userId, data) {
         newChip3 -= data.amount;
     }
 
+    var tmpProfit = Number(prev.thisProfit) - Number(data.DInvest) - Number(data.KInvest);
+
     return User.update({
         currency: prev.currency - DCost - KCost,
         chip1Num: newChip1,
         chip2Num: newChip2,
         chip3Num: newChip3,
         phoneNum: newPhones,
+        thisProfit: tmpProfit,
     },{
         where: {userId: userId}
     })
@@ -321,11 +330,12 @@ async function endRound() {
             sum*10;//20是每个芯片库存单价,10是手机库存单价
         
 
-
             User.update({
                 loan: tmpLoan, 
                 currency: result.dataValues.currency - tmpStorageCost, 
                 totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+                thisProfit: 0,//每到一轮，就要置位0
+                lastProfit: Number(prev.thisProfit),   
             },{where:{userId:group}});    
         }
 };

@@ -91,6 +91,10 @@ var User = sequelize.define('up_stream_user', {
         type:Sequelize.FLOAT,
         defaultValue: 0
     },
+    thisProfit: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+    },
     lastProfit: {//上一轮的利润
         type:Sequelize.FLOAT,
         defaultValue: 0
@@ -136,6 +140,7 @@ async function invest(userId, data) {
     var tmpM = 1 + 4/Number(1+Math.exp(2*(2-tmpMCost/6000000)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
+    var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
     console.log(tmpCurrency)
 
 
@@ -145,6 +150,7 @@ async function invest(userId, data) {
         TCost:tmpTCost,
         MCost:tmpMCost,
         currency:tmpCurrency,
+        thisProfit:tmpProfit,
     }, {
         where: {userId: userId}
     })
@@ -192,6 +198,7 @@ async function produce(userId, data) { //上游需要一次性输入
 
     var totalCost = Number(Cost1) + Number(Cost2) + Number(Cost3);
     var newCurrency = Number(prev.currency) - Number(totalCost);
+    var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
 
     if(newCurrency<0) {
         console.log('余额不足！交易失败');
@@ -203,6 +210,7 @@ async function produce(userId, data) { //上游需要一次性输入
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
         currency:newCurrency,
+        thisProfit:tmpProfit,
     }, {
         where: {userId: userId}
     })
@@ -295,6 +303,8 @@ async function endRound() {
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+            thisProfit: 0,//每到一轮，就要置位0
+            lastProfit: Number(prev.thisProfit),
         },{where:{userId:group}});
     }
 };

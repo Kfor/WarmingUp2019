@@ -89,7 +89,7 @@ class TopController {
                 chip1Num:new1,
                 chip2Num:new2,
                 chip3Num:new3,
-                
+                thisProfit: up.thisProfit + Number((data.price)*(data.num)),
                 currency: up.currency + Number((data.price)*(data.num)),
             });
 
@@ -106,7 +106,7 @@ class TopController {
                 chip1Num:new1,
                 chip2Num:new2,
                 chip3Num:new3,
-                
+                thisProfit: middle.thisProfit - Number((data.price)*(data.num)),
                 currency: middle.currency - (data.price)*(data.num),
             })
         }
@@ -183,10 +183,12 @@ class TopController {
 
             middleStreamUser.update(data.middleUserId,{
                 phoneNum: newMiddlePhone,
+                thisProfit: middle.thisProfit + Number((data.price)*(data.num)),
                 currency: middle.currency + Number((data.price)*(data.num)),
             });
             downStreamUser.update(data.downUserId,{
                 phoneNum: newDownPhone,
+                thisProfit: down.thisProfit - Number((data.price)*(data.num));
                 currency: down.currency - Number((data.price)*(data.num)),
             });
         }
@@ -241,6 +243,7 @@ class TopController {
 
             downStreamUser.update(tmpUserId,{
                 currency:tmp.dataValues.currency + Number(result[i].actualMarket*result[i].price),
+                thisProfit:tmp.dataValues.thisProfit + Number(result[i].actualMarket*result[i].price),
                 phoneNum:newPhone,
             })
         }

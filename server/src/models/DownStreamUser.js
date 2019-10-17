@@ -73,6 +73,10 @@ var User = sequelize.define('down_stream_user', {
         type:Sequelize.FLOAT,
         defaultValue: 0
     },
+    thisProfit: {
+        type: Sequelize.FLOAT,
+        defaultValue: 0,
+    },
     lastProfit: {//上一轮的利润
         type:Sequelize.FLOAT,
         defaultValue: 0
@@ -116,6 +120,8 @@ async function advertise(userId, data) {
     var tmpAd = Number(prev.ad)*(1+Number(data.adInvest)/10000000);
 
     var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
+    var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
+
     return User.update({
         adCost: tmpAdCost,
         ad: tmpAd,
@@ -247,6 +253,8 @@ async function endRound() {
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
+            thisProfit: 0,//每到一轮，就要置位0
+            lastProfit: Number(prev.thisProfit),
         },{where:{userId:group}});
     }
 };
