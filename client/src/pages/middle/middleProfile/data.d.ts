@@ -5,7 +5,7 @@ export interface Phone {
   amount: number;
 }
 export interface UserInfo {
-  userInfo:{
+  userInfo: {
     userId: string;
     chip1Num: number;
     chip2Num: number;
@@ -19,8 +19,8 @@ export interface UserInfo {
     K: number;
     KCost: number;
     phoneNum: Phone[];
-    initCurrency: number;
+    angelInvest: number;
     lastProfit: number;
     angelCut: number;
-  }
+  };
 }

@@ -1,7 +1,21 @@
 export default {
   'adminandinputorderanddealmiddledown.basic.title': '基础表单',
-  'adminandinputorderanddealmiddledown.basic.description':
-    '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
+  'adminandinputorderanddealmiddledown.basic.description': '表单页',
+
+  'adminandinputorderanddealmiddledown.middle_id.label': '中游公司',
+  'adminandinputorderanddealmiddledown.middle_id.placeholder': '请输入',
+  'adminandinputorderanddealmiddledown.down_id.label': '下游公司',
+  'adminandinputorderanddealmiddledown.down_id.placeholder': '请输入',
+  'adminandinputorderanddealmiddledown.performance.label': 'ka',
+  'adminandinputorderanddealmiddledown.performance.placeholder': 'ka',
+  'adminandinputorderanddealmiddledown.appearance.label': 'kb',
+  'adminandinputorderanddealmiddledown.appearance.placeholder': 'kb',
+  'adminandinputorderanddealmiddledown.function.label': 'kc',
+  'adminandinputorderanddealmiddledown.function.placeholder': 'kc',
+  'adminandinputorderanddealmiddledown.price.label': '价格',
+  'adminandinputorderanddealmiddledown.price.placeholder': '请输入价格',
+  'adminandinputorderanddealmiddledown.count.label': '数量',
+  'adminandinputorderanddealmiddledown.count.placeholder': '请输入数量',
 
   'adminandinputorderanddealmiddledown.email.required': '请输入邮箱地址！',
   'adminandinputorderanddealmiddledown.email.wrong-format': '邮箱地址格式错误！',

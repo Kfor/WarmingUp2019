@@ -32,7 +32,8 @@ interface DownInputProps extends FormComponentProps {
   submitting1: boolean;
   submitting2: boolean;
   submitting3: boolean;
-  user: CurrentUser; dispatch: Dispatch<any>;
+  user: CurrentUser;
+  dispatch: Dispatch<any>;
 }
 
 class DownInput extends Component<DownInputProps> {
@@ -48,11 +49,11 @@ class DownInput extends Component<DownInputProps> {
 
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-      console.log('inner', this.props)
+      console.log('inner', this.props);
 
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
       if (!err) {
-        console.log('values', values)
+        console.log('values', values);
         dispatch({
           type: 'downDownInput/submitRegularForm1',
           payload: values,
@@ -64,15 +65,14 @@ class DownInput extends Component<DownInputProps> {
   handleSubmit2 = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
-
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       //console.log('inner',this.props.currentUser)
 
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
 
       if (!err) {
-        console.log('values', values)
+        console.log('values', values);
         dispatch({
           type: 'downDownInput/submitRegularForm2',
           payload: values,
@@ -84,14 +84,13 @@ class DownInput extends Component<DownInputProps> {
   handleSubmit3 = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
-
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-      console.log('inner', this.props)
+      console.log('inner', this.props);
 
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
       if (!err) {
-        console.log('values', values)
+        console.log('values', values);
         dispatch({
           type: 'downDownInput/submitRegularForm3',
           payload: values,
@@ -127,18 +126,15 @@ class DownInput extends Component<DownInputProps> {
       <PageHeaderWrapper content={<FormattedMessage id="down-downinput.basic.description" />}>
         <GridContent>
           <React.Fragment>
-
             <Row
               gutter={8}
               type="flex"
-              align='bottom'
+              align="bottom"
               style={{
                 marginTop: 24,
               }}
             >
-
               <Col span={8}>
-
                 <Card bordered={true}>
                   <Form
                     onSubmit={this.handleSubmit1}
@@ -147,14 +143,11 @@ class DownInput extends Component<DownInputProps> {
                       marginTop: 8,
                     }}
                   >
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.adInvest.label" />}
                     >
-                      {getFieldDecorator('adInvest', {
-
-                      })(
+                      {getFieldDecorator('adInvest', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.adInvest.placeholder',
@@ -172,7 +165,6 @@ class DownInput extends Component<DownInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting1}>
                         <FormattedMessage id="down-downinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
@@ -184,14 +176,11 @@ class DownInput extends Component<DownInputProps> {
                       marginTop: 8,
                     }}
                   >
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.loan.label" />}
                     >
-                      {getFieldDecorator('loan', {
-
-                      })(
+                      {getFieldDecorator('loan', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.loan.placeholder',
@@ -204,9 +193,7 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.repay.label" />}
                     >
-                      {getFieldDecorator('repay', {
-
-                      })(
+                      {getFieldDecorator('repay', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.repay.placeholder',
@@ -214,7 +201,6 @@ class DownInput extends Component<DownInputProps> {
                         />,
                       )}
                     </FormItem>
-
 
                     <FormItem
                       {...submitFormLayout}
@@ -225,7 +211,6 @@ class DownInput extends Component<DownInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting3}>
                         <FormattedMessage id="down-downinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
@@ -240,15 +225,11 @@ class DownInput extends Component<DownInputProps> {
                       marginTop: 8,
                     }}
                   >
-
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.ka.label" />}
                     >
-                      {getFieldDecorator('ka', {
-
-                      })(
+                      {getFieldDecorator('ka', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.ka.placeholder',
@@ -260,9 +241,7 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.kb.label" />}
                     >
-                      {getFieldDecorator('kb', {
-
-                      })(
+                      {getFieldDecorator('kb', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.kb.placeholder',
@@ -274,9 +253,7 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.kc.label" />}
                     >
-                      {getFieldDecorator('kc', {
-
-                      })(
+                      {getFieldDecorator('kc', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.kc.placeholder',
@@ -290,9 +267,7 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.price.label" />}
                     >
-                      {getFieldDecorator('price', {
-
-                      })(
+                      {getFieldDecorator('price', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.price.placeholder',
@@ -305,9 +280,7 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.amount.label" />}
                     >
-                      {getFieldDecorator('amount', {
-
-                      })(
+                      {getFieldDecorator('amount', {})(
                         <Input
                           placeholder={formatMessage({
                             id: 'down-downinput.amount.placeholder',
@@ -325,16 +298,10 @@ class DownInput extends Component<DownInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting2}>
                         <FormattedMessage id="down-downinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
               </Col>
-
-              <Col span={8}>
-                
-              </Col>
-
             </Row>
           </React.Fragment>
         </GridContent>
@@ -344,10 +311,18 @@ class DownInput extends Component<DownInputProps> {
 }
 
 export default Form.create<DownInputProps>()(
-  connect(({ user, loading }: { loading: { effects: { [key: string]: boolean } }, user: ConnectState }) => ({
-    submitting1: loading.effects['downDownInput/submitRegularForm1'],
-    submitting2: loading.effects['downDownInput/submitRegularForm2'],
-    submitting3: loading.effects['downDownInput/submitRegularForm3'],
-    currentUser: user.currentUser,
-  }))(DownInput)
+  connect(
+    ({
+      user,
+      loading,
+    }: {
+      loading: { effects: { [key: string]: boolean } };
+      user: ConnectState;
+    }) => ({
+      submitting1: loading.effects['downDownInput/submitRegularForm1'],
+      submitting2: loading.effects['downDownInput/submitRegularForm2'],
+      submitting3: loading.effects['downDownInput/submitRegularForm3'],
+      currentUser: user.currentUser,
+    }),
+  )(DownInput),
 );

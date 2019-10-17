@@ -85,7 +85,7 @@ var User = sequelize.define('middle_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 15000000
+        defaultValue: 0
     },
     loan: {
         type:Sequelize.FLOAT,
@@ -97,9 +97,15 @@ var User = sequelize.define('middle_stream_user', {
         allowNull: false,
         defaultValue: 1000000
     },
+    rank: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    },
+
 
     
-    initCurrency: {//初始资金，用于天使投资计算利润率用
+    angelInvest: {//初始资金，用于天使投资计算利润率用
         type:Sequelize.FLOAT,
         defaultValue: 0
     },
@@ -113,7 +119,7 @@ var User = sequelize.define('middle_stream_user', {
     },
     angelCut: {//天使投资人收的股权。如果对赌成功，则为0
         type:Sequelize.FLOAT,
-        defaultValue: 0
+        defaultValue: -1
     },
 
 }, {
@@ -314,6 +320,8 @@ async function update(userId,data) {
         chip3Num:data.chip3Num,
         phoneNum:data.phoneNum,
         currency:data.currency,
+        thisProfit:data.thisProfit,
+        angelCut:data.angelCut,
     },{where:{userId:userId}});
 };
 
@@ -351,12 +359,13 @@ async function updateLoanMax(data) {
         for(let i in data) {
             if(data[i].userId==result.dataValues.userId) {
                 var tmpLoanMax = data[i].loanMax;
+                var tmpRank = data[i].rank;
                 break;
             }
         }
 
         User.update({
-            rank: data.rank,
+            rank: tmpRank,
             loanMax: tmpLoanMax,
         },{where:{userId:group}});
     }

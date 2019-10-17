@@ -1,5 +1,5 @@
 export interface UserInfo {
-  userInfo:{
+  userInfo: {
     userId: string;
     chip1Num: number;
     chip2Num: number;
@@ -12,8 +12,8 @@ export interface UserInfo {
     TCost: number;
     M: number;
     MCost: number;
-    initCurrency: number;
+    angelInvest: number;
     lastProfit: number;
     angelCut: number;
-  }
+  };
 }

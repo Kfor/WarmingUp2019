@@ -68,7 +68,9 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="exchange-middle.basic.description" />}>
+      <PageHeaderWrapper
+        content={<FormattedMessage id="adminandinputorderanddealmiddledown.basic.description" />}
+      >
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -79,42 +81,42 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
           >
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.middle_id.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.middle_id.required',
+                      id: 'adminandinputorderanddealmiddledown.middle_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.middle_id.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.middle_id.placeholder',
                   })}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.down_id.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.down_id.label" />}
             >
               {getFieldDecorator('down_id', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.down_id.required',
+                      id: 'adminandinputorderanddealmiddledown.down_id.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.down_id.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.down_id.placeholder',
                   })}
                 />,
               )}
@@ -122,63 +124,65 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
 
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.performance.label" />}
+              label={
+                <FormattedMessage id="adminandinputorderanddealmiddledown.performance.label" />
+              }
             >
               {getFieldDecorator('performance', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.performance.required',
+                      id: 'adminandinputorderanddealmiddledown.performance.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.performance.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.performance.placeholder',
                   })}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.appearance.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.appearance.label" />}
             >
               {getFieldDecorator('appearance', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.appearance.required',
+                      id: 'adminandinputorderanddealmiddledown.appearance.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.appearance.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.appearance.placeholder',
                   })}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.function.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.function.label" />}
             >
               {getFieldDecorator('function', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.function.required',
+                      id: 'adminandinputorderanddealmiddledown.function.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.function.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.function.placeholder',
                   })}
                 />,
               )}
@@ -186,42 +190,42 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
 
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.price.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.price.label" />}
             >
               {getFieldDecorator('price', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.price.required',
+                      id: 'adminandinputorderanddealmiddledown.price.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.price.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.price.placeholder',
                   })}
                 />,
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label={<FormattedMessage id="exchange-middle.count.label" />}
+              label={<FormattedMessage id="adminandinputorderanddealmiddledown.count.label" />}
             >
               {getFieldDecorator('count', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'exchange-middle.count.required',
+                      id: 'adminandinputorderanddealmiddledown.count.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'exchange-middle.count.placeholder',
+                    id: 'adminandinputorderanddealmiddledown.count.placeholder',
                   })}
                 />,
               )}
@@ -234,7 +238,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="exchange-middle.form.submit" />
+                <FormattedMessage id="adminandinputorderanddealmiddledown.form.submit" />
               </Button>
             </FormItem>
           </Form>

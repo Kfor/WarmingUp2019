@@ -28,7 +28,7 @@ class Angel extends Component {
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         dispatch({
-          type: 'angel/submitRegularForm',
+          type: 'adminAngelInvest/submitRegularForm',
           payload: values,
         });
       }
@@ -83,20 +83,20 @@ class Angel extends Component {
               marginTop: 8,
             }}
           >
-            <FormItem {...formItemLayout} label={<FormattedMessage id="angel.id_object.label" />}>
-              {getFieldDecorator('id_object', {
+            <FormItem {...formItemLayout} label={<FormattedMessage id="angel.userId.label" />}>
+              {getFieldDecorator('userId', {
                 rules: [
                   {
                     required: true,
                     message: formatMessage({
-                      id: 'angel.id_object.required',
+                      id: 'angel.userId.required',
                     }),
                   },
                 ],
               })(
                 <Input
                   placeholder={formatMessage({
-                    id: 'angel.id_object.placeholder',
+                    id: 'angel.userId.placeholder',
                   })}
                 />,
               )}
@@ -145,6 +145,6 @@ class Angel extends Component {
 
 export default Form.create()(
   connect(({ loading }: { loading: { effects: { [key: string]: boolean } } }) => ({
-    submitting: loading.effects['angel/submitRegularForm'],
+    submitting: loading.effects['adminAngelInvest/submitRegularForm'],
   }))(Angel),
 );

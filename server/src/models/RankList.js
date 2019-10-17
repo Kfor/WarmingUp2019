@@ -35,7 +35,7 @@ var Rank = sequelize.define('rank_list', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 15000000
+        defaultValue: 0
     },
     
     loan: {
@@ -90,11 +90,14 @@ async function update(list) {
             where:{userId:data.userId}
         });
     }
-    
 };
+
+async function findAll() {
+    return Rank.findAll();
+}
 
 async function destroy() {
-    User.destroy({where:{}});
+    Rank.destroy({where:{}});
 };
 
-module.exports = {sync,addRankItem,update,destroy}
+module.exports = {sync,addRankItem,update,destroy,findAll}

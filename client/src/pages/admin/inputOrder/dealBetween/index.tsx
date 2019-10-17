@@ -180,13 +180,6 @@ class DealBetween extends Component<DealBetweenProps> {
               <Button type="primary" htmlType="submit" loading={submitting}>
                 <FormattedMessage id="credit.form.submit" />
               </Button>
-              <Button
-                style={{
-                  marginLeft: 8,
-                }}
-              >
-                <FormattedMessage id="credit.form.save" />
-              </Button>
             </FormItem>
           </Form>
         </Card>

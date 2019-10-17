@@ -68,7 +68,9 @@ class DealDown extends Component<DealDownProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="exchange-down.basic.description" />}>
+      <PageHeaderWrapper
+        content={<FormattedMessage id="adminandinputorderanddealdown.basic.description" />}
+      >
         <Card bordered={false}>
           <Form
             onSubmit={this.handleSubmit}
@@ -84,7 +86,7 @@ class DealDown extends Component<DealDownProps> {
               }}
             >
               <Button type="primary" htmlType="submit" loading={submitting}>
-                <FormattedMessage id="exchange-down.form.submit" />
+                <FormattedMessage id="adminandinputorderanddealdown.form.submit" />
               </Button>
             </FormItem>
           </Form>

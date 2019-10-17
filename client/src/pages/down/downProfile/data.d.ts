@@ -5,7 +5,7 @@ export interface Phone {
   amount: number;
 }
 export interface UserInfo {
-  userInfo:{
+  userInfo: {
     userId: string;
     currency: number;
     loan: number;
@@ -14,8 +14,8 @@ export interface UserInfo {
     ad: number;
     adCost: number;
     phoneNum: Phone[];
-    initCurrency: number;
+    angelInvest: number;
     lastProfit: number;
     angelCut: number;
-  }
+  };
 }

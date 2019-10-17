@@ -5,7 +5,7 @@ var downStreamUser = require('../models/DownStreamUser')
 var oneRoundSell = require('../models/OneRoundSell')
 var rankList = require('../models/RankList')
 
-var autoFine = -20;
+var autoFine = -200000;
 var round = 1;
 var upGroupList = ['group1', 'group2', 'group3', 'group4'];
 var middleGroupList = ['group5', 'group6', 'group7', 'group8'];
@@ -15,7 +15,15 @@ var dealBetweenList = [];//用来记录组间借贷的array
 
 class TopController {
     async topprofile(ctx) {
-
+        var all = await rankList.findAll();
+        var result = []
+        for(let i in all) {
+            result.push(all[i].dataValues);
+        }
+        ctx.body = {
+            status: 200,
+            userRank: result,
+        }
     }
 
     async test(ctx) {
@@ -42,10 +50,36 @@ class TopController {
      */
     async angelInvest(ctx) {
         const data = ctx.request.query;
+        const result = data.userId;
+        const money = data.angelInvest;
+        for(let one of upGroupList){
+            if (result == one) {
+                upStreamUser.update(one,{
+                    currency: Number(money),
+                    angelInvest: Number(money),
+                })
+            }
+        }
+        for(let one of middleGroupList){
+            if (result == one) {
+                middleStreamUser.update(one,{
+                    currency: Number(money),
+                    angelInvest: Number(money),
+                })
+            }
+        }
+        for(let one of downGroupList) {
+            if (result == one) {
+                downStreamUser.update(one,{
+                    currency: Number(money),
+                    angelInvest: Number(money),
+                })
+            }
+        }
 
         ctx.body = {
             status: 200,
-            infoText: 'Finished Produce!',
+            infoText: 'Finished Angel Invest!',
         };
     };
 
@@ -361,7 +395,6 @@ class TopController {
                     tmpInfo.currency = oneGroup.dataValues.currency;
                     tmpInfo.loan = oneGroup.dataValues.loan;
                     tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
-                    console.log(oneGroup)
                 }
             }
             for(let one of downGroupList) {
@@ -379,10 +412,13 @@ class TopController {
             return b.currency - a.currency;
         }
         tmpRankList.sort(sortBy);
-        for (let i in tmpRankList) {
-            tmpRankList[i].rank = Number(i)+1 ;
-            tmpRankList[i].loanMax = (13 - (Number(i) + 1)) / 12 * Number(1000000);
-        }            
+        for (let i=0;i<tmpRankList.length;i++) {
+            if(i!=0 && tmpRankList[i].currency==tmpRankList[i-1].currency)
+                tmpRankList[i].rank = tmpRankList[i-1].rank;
+            else
+                tmpRankList[i].rank = Number(i)+1;
+            tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
+        } 
         rankList.update(tmpRankList);
 
         console.log('rankList',tmpRankList)
@@ -437,6 +473,90 @@ class TopController {
                     if (userId2 == one) {
                         downStreamUser.addCurrency(userId2, -1*Number(money));
                     }
+                }
+            }
+        }
+
+
+        if(round==1) {//处理天使投资的问题。此为第一轮结束的时候
+            for(let one of upGroupList) {
+                var tmpGroup = await upStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(Number(result.lastProfit)>0.5*Number(result.angelInvest)) {
+                    upStreamUser.update(one,{
+                        currency: Number(result.currency)+0.3*Number(result.angelInvest),
+                        angelInvest: 1.3*Number(result.angelInvest),
+                        angelCut: -1,
+                    })
+                }
+                else{
+                    upStreamUser.update(one,{
+                        angelCut: 0,
+                    })
+                }
+            }
+            for(let one of middleGroupList) {
+                var tmpGroup = await middleStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(Number(result.lastProfit)>0.5*Number(result.angelInvest)) {
+                    middleStreamUser.update(one,{
+                        currency: Number(result.currency)+0.3*Number(result.angelInvest),
+                        angelInvest: 1.3*Number(result.angelInvest),
+                        angelCut: -1,
+                    })
+                }
+                else{
+                    middleStreamUser.update(one,{
+                        angelCut: 0,
+                    })
+                }
+            }
+            for(let one of downGroupList) {
+                var tmpGroup = await downStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(Number(result.lastProfit)>0.5*Number(result.angelInvest)) {
+                    downStreamUser.update(one,{
+                        currency: Number(result.currency)+0.3*Number(result.angelInvest),
+                        angelInvest: 1.3*Number(result.angelInvest),
+                        angelCut: -1,
+                    })
+                }
+                else{
+                    downStreamUser.update(one,{
+                        angelCut: 0,
+                    })
+                }
+            }
+        }
+        else{//非第一轮的情况，考虑是否angelcut
+            for(let one of upGroupList) {
+                var tmpGroup = await upStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(result.angelCut>-1){//需要angelCut
+                    var x = 0.8*(0.5-result.lastProfit/Number(result.angelInvest));
+                    upStreamUser.update(one,{
+                        currency: result.currency - Number(x*result.lastProfit),
+                    })
+                }
+            }
+            for(let one of middleGroupList) {
+                var tmpGroup = await middleStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(result.angelCut>-1){//需要angelCut
+                    var x = 0.8*(0.5-result.lastProfit/Number(result.angelInvest));
+                    middleStreamUser.update(one,{
+                        currency: result.currency - Number(x*result.lastProfit),
+                    })
+                }
+            }
+            for(let one of downGroupList) {
+                var tmpGroup = await downStreamUser.findUserByUserId(one);
+                var result = tmpGroup.dataValues;
+                if(result.angelCut>-1){//需要angelCut
+                    var x = 0.8*(0.5-result.lastProfit/Number(result.angelInvest));
+                    downStreamUser.update(one,{
+                        currency: result.currency - Number(x*result.lastProfit),
+                    })
                 }
             }
         }
@@ -549,7 +669,6 @@ class TopController {
         var oneRoundSell = require('../models/OneRoundSell');
         oneRoundSell.sync();
         oneRoundSell.destroy();
-        oneRoundSell.addOneRoundSell('test', { userId: 'test', ka: 0, kb: 0, kc: 0, amount: 0, price: 0, round: 1 });
 
         var rankList = require('../models/RankList');
         rankList.sync();
