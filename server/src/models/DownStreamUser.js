@@ -268,8 +268,8 @@ async function endRound() {
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
-            thisProfit: 0,//每到一轮，就要置位0
-            lastProfit: Number(result.thisProfit),
+            //thisProfit: 0,//每到一轮，就要置位0
+            //lastProfit: Number(result.thisProfit),
         },{where:{userId:group}});
     }
 };
