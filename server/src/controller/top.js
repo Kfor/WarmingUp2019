@@ -146,7 +146,7 @@ class TopController {
                 chip2Num: new2,
                 chip3Num: new3,
                 //thisProfit: middle.thisProfit - Number((data.price) * (data.num)),
-                currency: middle.currency - (data.price) * (data.num),
+                currency: middle.currency - Number((data.price) * (data.num)),
             })
         }
 
@@ -205,7 +205,7 @@ class TopController {
         }
         else {
             var newMiddlePhone = middle.phoneNum;
-            newMiddlePhone[index].amount -= Number(data.num);
+            newMiddlePhone[index].amount = Number(newMiddlePhone[index].amount)-Number(data.num);
             var newDownPhone = down.phoneNum;
             var downHasThisPhone = false;
             for (var i = 0; i < newDownPhone.length; i++) {
@@ -213,21 +213,21 @@ class TopController {
                     newDownPhone[i].kb == data.kb &&
                     newDownPhone[i].kc == data.kc) {
                     downHasThisPhone = true;
-                    newDownPhone[i].amount += Number(data.num);
+                    newDownPhone[i].amount = Number(newDownPhone[i].amount)+Number(data.num);
                 }
             }
             if (!downHasThisPhone) {
-                newDownPhone.push({ ka: data.ka, kb: data.kb, kc: data.kc, amount: data.num });
+                newDownPhone.push({ ka: data.ka, kb: data.kb, kc: data.kc, amount: Number(data.num) });
             }
 
             middleStreamUser.update(data.middleUserId, {
                 phoneNum: newMiddlePhone,
-                thisProfit: middle.thisProfit + Number((data.price) * (data.num)),
+                //thisProfit: middle.thisProfit + Number((data.price) * (data.num)),
                 currency: middle.currency + Number((data.price) * (data.num)),
             });
             downStreamUser.update(data.downUserId, {
                 phoneNum: newDownPhone,
-                thisProfit: down.thisProfit - Number((data.price) * (data.num)),
+                //thisProfit: down.thisProfit - Number((data.price) * (data.num)),
                 currency: down.currency - Number((data.price) * (data.num)),
             });
         }
