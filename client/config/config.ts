@@ -141,11 +141,11 @@ export default {
             },
           ],
         },
-        {
-          name: 'display',
-          path: '/admin/display',
-          component: './admin/display',
-        },
+        // {
+        //   name: 'display',
+        //   path: '/admin/display',
+        //   component: './admin/display',
+        // },
         {
           name: 'angelinvest',
           path: '/admin/angelinvest',

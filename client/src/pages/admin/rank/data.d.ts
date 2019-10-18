@@ -8,4 +8,5 @@ export interface UserInfo {
 }
 export interface UserRank {
   userRank: UserInfo[];
+  round: number;
 }

@@ -78,6 +78,9 @@ class Rank extends Component<RankProps, RankState> {
     return (
       <PageHeaderWrapper>
         <Card bordered={false}>
+          <Descriptions.Item label="Rank">{userRank.round}</Descriptions.Item>
+        </Card>
+        <Card bordered={false}>
           <div className={styles.title}>Rank</div>
           <Table
             style={{ marginBottom: 24 }}
