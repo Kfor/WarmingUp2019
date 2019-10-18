@@ -105,22 +105,22 @@ var User = sequelize.define('middle_stream_user', {
 
 
     
-    angelInvest: {//初始资金，用于天使投资计算利润率用
-        type:Sequelize.FLOAT,
-        defaultValue: 0
-    },
-    thisProfit: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0,
-    },
-    lastProfit: {//上一轮的利润
-        type:Sequelize.FLOAT,
-        defaultValue: 0
-    },
-    angelCut: {//天使投资人收的股权。如果对赌成功，则为0
-        type:Sequelize.FLOAT,
-        defaultValue: -1
-    },
+    // angelInvest: {//初始资金，用于天使投资计算利润率用
+    //     type:Sequelize.FLOAT,
+    //     defaultValue: 0
+    // },
+    // thisProfit: {
+    //     type: Sequelize.FLOAT,
+    //     defaultValue: 0,
+    // },
+    // lastProfit: {//上一轮的利润
+    //     type:Sequelize.FLOAT,
+    //     defaultValue: 0
+    // },
+    // angelCut: {//天使投资人收的股权。如果对赌成功，则为0
+    //     type:Sequelize.FLOAT,
+    //     defaultValue: -1
+    // },
 
 }, {
     freezeTableName: true, // use singular table name
