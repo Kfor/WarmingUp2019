@@ -165,7 +165,7 @@ async function invest(userId, data) {
         DCost:tmpDCost,
         KCost:tmpKCost,
         currency:tmpCurrency,
-        thisProfit:tmpProfit,
+        //thisProfit:tmpProfit,
     },{
         where: {userId: userId}
     })
@@ -244,7 +244,7 @@ async function produce(userId, data) {
         chip2Num: newChip2,
         chip3Num: newChip3,
         phoneNum: newPhones,
-        thisProfit: tmpProfit,
+        //thisProfit: tmpProfit,
     },{
         where: {userId: userId}
     })

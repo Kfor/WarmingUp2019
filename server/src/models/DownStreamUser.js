@@ -242,7 +242,7 @@ async function update(userId,data) {
     return User.update({
         phoneNum:data.phoneNum,
         currency:data.currency,
-        angelCut:data.angelCut,
+        //angelCut:data.angelCut,
         //thisProfit:data.thisProfit,
     },{where:{userId:userId}});
 };

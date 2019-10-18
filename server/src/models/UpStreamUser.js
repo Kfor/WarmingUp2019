@@ -155,7 +155,7 @@ async function invest(userId, data) {
         TCost:tmpTCost,
         MCost:tmpMCost,
         currency:tmpCurrency,
-        thisProfit:tmpProfit,
+        //thisProfit:tmpProfit,
     }, {
         where: {userId: userId}
     })
@@ -215,7 +215,7 @@ async function produce(userId, data) { //上游需要一次性输入
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
         currency:newCurrency,
-        thisProfit:tmpProfit,
+        //thisProfit:tmpProfit,
     }, {
         where: {userId: userId}
     })
@@ -297,7 +297,7 @@ async function update(userId,data) {
         chip3Num:data.chip3Num,
         currency:data.currency,
         //thisProfit:data.thisProfit,
-        angelCut:data.angelCut,
+        //angelCut:data.angelCut,
     },{where:{userId:userId}});
 };
 
