@@ -320,7 +320,7 @@ async function update(userId,data) {
         chip3Num:data.chip3Num,
         phoneNum:data.phoneNum,
         currency:data.currency,
-        thisProfit:data.thisProfit,
+        //thisProfit:data.thisProfit,
         angelCut:data.angelCut,
     },{where:{userId:userId}});
 };

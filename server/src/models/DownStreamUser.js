@@ -243,7 +243,7 @@ async function update(userId,data) {
         phoneNum:data.phoneNum,
         currency:data.currency,
         angelCut:data.angelCut,
-        thisProfit:data.thisProfit,
+        //thisProfit:data.thisProfit,
     },{where:{userId:userId}});
 };
 

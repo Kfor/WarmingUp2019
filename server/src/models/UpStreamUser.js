@@ -296,7 +296,7 @@ async function update(userId,data) {
         chip2Num:data.chip2Num,
         chip3Num:data.chip3Num,
         currency:data.currency,
-        thisProfit:data.thisProfit,
+        //thisProfit:data.thisProfit,
         angelCut:data.angelCut,
     },{where:{userId:userId}});
 };
