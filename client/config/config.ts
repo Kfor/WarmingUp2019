@@ -98,7 +98,7 @@ export default {
     // },
     {
       path: '/',
-      redirect: '/admin/display',
+      redirect: '/admin/rank',
     },
     {
       path: '/admin',
