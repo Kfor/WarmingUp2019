@@ -1,6 +1,4 @@
 export default {
-
-
   'middle-middleinput.basic.description':
     '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入',
 
@@ -12,15 +10,14 @@ export default {
   'middle-middleinput.KInvest.label': '本轮的功能模块投入',
   'middle-middleinput.KInvest.placeholder': '本轮的功能模块投入',
 
-
-  'middle-middleinput.ka.label':'芯片类型',
+  'middle-middleinput.ka.label': '芯片类型',
   'middle-middleinput.ka.placeholder': '本款手机计划的芯片类型',
-  'middle-middleinput.kb.label': '功能值',
-  'middle-middleinput.kb.placeholder': '本款手机计划的功能值',
-  'middle-middleinput.kc.label': '美观值',
-  'middle-middleinput.kc.placeholder': '本款手机计划的美观值',
-  'middle-middleinput.amount.label':'数量',
-  'middle-middleinput.amount.placeholder':'本款手机计划的生产量',
+  'middle-middleinput.kb.label': '美观值',
+  'middle-middleinput.kb.placeholder': '本款手机计划的美观值',
+  'middle-middleinput.kc.label': '功能值',
+  'middle-middleinput.kc.placeholder': '本款手机计划的功能值',
+  'middle-middleinput.amount.label': '数量',
+  'middle-middleinput.amount.placeholder': '本款手机计划的生产量',
 
   'middle-middleinput.loan.label': '本轮贷款',
   'middle-middleinput.loan.placeholder': '本轮的计划贷款',
@@ -28,10 +25,8 @@ export default {
   'middle-middleinput.repay.label': '本轮还款',
   'middle-middleinput.repay.placeholder': '本轮的计划还款',
 
-
-
   'middle-middleinput.basic.title': '基础表单',
-//  'middle-middleinput.basic.description':
+  //  'middle-middleinput.basic.description':
   //  '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
 
   'middle-middleinput.email.required': '请输入邮箱地址！',

@@ -253,7 +253,7 @@ async function produce(userId, data) {
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    if(Number(data.loan)<Number(prev.loanMax)) {
+    if(Number(data.loan)<=Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
         return User.update({
