@@ -31,6 +31,7 @@ const users = [
     title: 'currency',
     dataIndex: 'currency',
     key: 'currency',
+    sorter: (a, b) => a.currency - b.currency,
   },
   {
     title: 'loan',

@@ -414,7 +414,7 @@ class TopController {
         }
         tmpRankList.sort(sortBy);
         for (let i=0;i<tmpRankList.length;i++) {
-            if(i!=0 && tmpRankList[i].currency==tmpRankList[i-1].currency)
+            if(i!=0 && tmpRankList[i].currency===tmpRankList[i-1].currency)
                 tmpRankList[i].rank = tmpRankList[i-1].rank;
             else
                 tmpRankList[i].rank = Number(i)+1;
