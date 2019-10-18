@@ -77,9 +77,9 @@ class Rank extends Component<RankProps, RankState> {
 
     return (
       <PageHeaderWrapper>
-        <Card bordered={false}>
-          <Descriptions title="">
-            <Descriptions.Item label="Rank">{round}</Descriptions.Item>
+        <Card bordered={true}>
+          <Descriptions title="this">
+            <Descriptions.Item label="round: ">{round}</Descriptions.Item>
           </Descriptions>
         </Card>
         <Card bordered={false}>
