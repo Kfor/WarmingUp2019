@@ -78,8 +78,8 @@ class Rank extends Component<RankProps, RankState> {
     return (
       <PageHeaderWrapper>
         <Card bordered={true}>
-          <Descriptions title="this">
-            <Descriptions.Item label="round: ">{round}</Descriptions.Item>
+          <Descriptions title="">
+            <Descriptions.Item label="">这是第{round}轮</Descriptions.Item>
           </Descriptions>
         </Card>
         <Card bordered={false}>
