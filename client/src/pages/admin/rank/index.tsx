@@ -73,12 +73,14 @@ class Rank extends Component<RankProps, RankState> {
 
   render() {
     const { adminAndrank, loading } = this.props;
-    const { userRank } = adminAndrank;
+    const { userRank, round } = adminAndrank;
 
     return (
       <PageHeaderWrapper>
         <Card bordered={false}>
-          <Descriptions.Item label="Rank">{userRank.round}</Descriptions.Item>
+          <Descriptions title="">
+            <Descriptions.Item label="Rank">{round}</Descriptions.Item>
+          </Descriptions>
         </Card>
         <Card bordered={false}>
           <div className={styles.title}>Rank</div>

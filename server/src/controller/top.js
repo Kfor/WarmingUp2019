@@ -23,6 +23,7 @@ class TopController {
         ctx.body = {
             status: 200,
             userRank: result,
+            round: round,
         }
     }
 
