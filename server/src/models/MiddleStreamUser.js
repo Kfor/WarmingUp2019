@@ -85,7 +85,7 @@ var User = sequelize.define('middle_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 10000000
     },
     loan: {
         type:Sequelize.FLOAT,

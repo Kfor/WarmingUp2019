@@ -35,7 +35,7 @@ var Rank = sequelize.define('rank_list', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 10000000
     },
     
     loan: {

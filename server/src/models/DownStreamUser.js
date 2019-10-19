@@ -55,7 +55,7 @@ var User = sequelize.define('down_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 10000000
     },
     
     loan: {
