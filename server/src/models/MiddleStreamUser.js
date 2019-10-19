@@ -6,7 +6,7 @@ const config = require('../config.js')
 const Round = require('./Round')
 
 
-var middleGroupList = ['group5','group6','group7','group8'];
+var middleGroupList = ['group4','group5','group6','group7'];
 
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
@@ -85,7 +85,7 @@ var User = sequelize.define('middle_stream_user', {
     currency: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 10000000
+        defaultValue: 12000000
     },
     loan: {
         type:Sequelize.FLOAT,
@@ -95,7 +95,7 @@ var User = sequelize.define('middle_stream_user', {
     loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 1000000
+        defaultValue: 0
     },
     rank: {
         type: Sequelize.INTEGER,
@@ -153,8 +153,8 @@ async function invest(userId, data) {
     var tmpDCost    = Number(prev.DCost) + Number(data.DInvest);
     var tmpKCost    = Number(prev.KCost) + Number(data.KInvest);
 
-    var tmpD = 0.4 + 0.6/Number(1+Math.exp(3*(tmpDCost/6000000-1.3)));
-    var tmpK = 0.4 + 0.6/Number(1+Math.exp(3*(tmpKCost/6000000-1.3)));
+    var tmpD = 0.4 + 0.6/Number(1+Math.exp(8*(tmpDCost/10000000-0.4)));
+    var tmpK = 0.4 + 0.6/Number(1+Math.exp(8*(tmpKCost/10000000-0.4)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.DInvest) - Number(data.KInvest);
     var tmpProfit = Number(prev.thisProfit) - Number(data.DInvest) - Number(data.KInvest);
@@ -180,8 +180,8 @@ async function produce(userId, data) {
 
     const D1 = [1,1.1,1.05,0.98];
     const K1 = [1,1.15,0.9,0.95];
-    const DFund = [150,300,450];
-    const KFund = [150,400,650];
+    const DFund = [150,350,550];
+    const KFund = [150,450,750];
 
     if(data.ka==1) {
         if(data.amount>prev.chip1Num) {

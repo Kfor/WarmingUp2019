@@ -6,7 +6,7 @@ const config = require('../config.js')
 const Round = require('./Round')
 
 
-var downGroupList = ['group9', 'group10', 'group11', 'group12'];
+var downGroupList = ['group8', 'group9', 'group10', 'group11', 'group12'];
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
@@ -55,7 +55,7 @@ var User = sequelize.define('down_stream_user', {
     currency: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 10000000
+        defaultValue: 12000000
     },
 
     loan: {
@@ -66,7 +66,7 @@ var User = sequelize.define('down_stream_user', {
     loanMax: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 1000000
+        defaultValue: 0
     },
     rank: {
         type: Sequelize.INTEGER,

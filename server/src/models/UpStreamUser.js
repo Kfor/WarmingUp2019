@@ -4,7 +4,7 @@ const Round = require('./Round')
 
 
 
-var upGroupList = ['group1','group2','group3','group4'];
+var upGroupList = ['group1','group2','group3'];
 
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
@@ -48,7 +48,7 @@ var User = sequelize.define('up_stream_user', {
     currency: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 10000000
+        defaultValue: 12000000
     },
     loan: {
         type: Sequelize.FLOAT,
@@ -58,7 +58,7 @@ var User = sequelize.define('up_stream_user', {
     loanMax: {
         type:Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 1000000
+        defaultValue: 0
     },
 
     totalStorageCost: {
@@ -142,11 +142,11 @@ async function invest(userId, data) {
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
 
-    var tmpT = 0.4 + 0.6/Number(1+Math.exp(3*(tmpTCost/6000000-1.6)));
-    var tmpM = 1 + 4/Number(1+Math.exp(2*(2-tmpMCost/6000000)));
+    var tmpT = 0.4 + 0.6/Number(1+Math.exp(8*(tmpTCost/10000000-0.4)));
+    var tmpM = 0.45 + 4.55/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
 
     var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
-    var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
+    // var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
     console.log(tmpCurrency)
 
 
@@ -170,7 +170,7 @@ async function produce(userId, data) { //上游需要一次性输入
 
     const It = [1.0,0.9,1.08,1.1];//芯片成本事件
     const Im = [1,1.05,0.9,1.1];//最大生产系数
-    const fN = [5000,3000,1500];//基础产量
+    const fN = [8000,6000,1500];//基础产量
     const fC = [300,800,1500];//基础成本
     const tmpRound = round-1;//index从0开始
 
