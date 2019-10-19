@@ -18,22 +18,22 @@ interface MiddleProfileState {
 
 const phoneColumns = [
   {
-    title: 'ka',
+    title: '性能值ka',
     dataIndex: 'ka',
     key: 'ka',
   },
   {
-    title: 'kb',
+    title: '美观值kb',
     dataIndex: 'kb',
     key: 'kb',
   },
   {
-    title: 'kc',
+    title: '功能值kc',
     dataIndex: 'kc',
     key: 'kc',
   },
   {
-    title: 'amount',
+    title: '数量',
     dataIndex: 'amount',
     key: 'amount',
   },
@@ -53,22 +53,19 @@ const phoneColumns = [
     loading: loading.effects['middleMiddleProfile/fetchBasic'],
   }),
 )
-class MiddleProfile extends Component<
-  MiddleProfileProps,
-  MiddleProfileState
-> {
+class MiddleProfile extends Component<MiddleProfileProps, MiddleProfileState> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'middleMiddleProfile/fetchBasic',
-      payload: {userId:this.props.location.query.userId}
+      payload: { userId: this.props.location.query.userId },
     });
   }
 
   render() {
     const { middleMiddleProfile, loading } = this.props;
     const { userInfo } = middleMiddleProfile;
-    
+
     return (
       <PageHeaderWrapper>
         <Card bordered={false}>

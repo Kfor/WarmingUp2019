@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Input, Modal, Radio, Select, Steps } from 'antd';
+import { Button, DatePicker, Form, InputNumber, Modal, Radio, Select, Steps } from 'antd';
 import React, { Component } from 'react';
 
 import { FormComponentProps } from 'antd/es/form';
@@ -20,7 +20,7 @@ export interface UpdateFormProps extends FormComponentProps {
 }
 const FormItem = Form.Item;
 const { Step } = Steps;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 const { Option } = Select;
 const RadioGroup = Radio.Group;
 
@@ -161,7 +161,7 @@ class UpdateForm extends Component<UpdateFormProps, UpdateFormState> {
         {form.getFieldDecorator('name', {
           rules: [{ required: true, message: '请输入规则名称！' }],
           initialValue: formVals.name,
-        })(<Input placeholder="请输入" />)}
+        })(<InputNumber defaultValue={0} placeholder="请输入" />)}
       </FormItem>,
       <FormItem key="desc" {...this.formLayout} label="规则描述">
         {form.getFieldDecorator('desc', {

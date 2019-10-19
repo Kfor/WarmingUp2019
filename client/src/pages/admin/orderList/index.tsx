@@ -8,7 +8,7 @@ import {
   Dropdown,
   Form,
   Icon,
-  Input,
+  InputNumber,
   InputNumber,
   Menu,
   Row,
@@ -311,7 +311,7 @@ class TableList extends Component<TableListProps, TableListState> {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="规则名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('name')(<InputNumber defaultValue={0} placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -351,7 +351,7 @@ class TableList extends Component<TableListProps, TableListState> {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="规则名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('name')(<InputNumber defaultValue={0} placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -366,7 +366,9 @@ class TableList extends Component<TableListProps, TableListState> {
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="调用次数">
-              {getFieldDecorator('number')(<InputNumber style={{ width: '100%' }} />)}
+              {getFieldDecorator('number')(
+                <InputNumber defaultValue={0} style={{ width: '100%' }} />,
+              )}
             </FormItem>
           </Col>
         </Row>

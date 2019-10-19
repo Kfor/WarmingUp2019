@@ -149,13 +149,14 @@ async function sell(userId, data) {
         if(phones[i].ka==data.ka&&phones[i].kb==data.kb
             &&phones[i].kc==data.kc&&Number(phones[i].amount>=Number(data.amount))) {
                 valid = true;
+                phones[i].amount = Number(phones[i].amount)-Number(data.amount);
             }
     }
 
 //    if (onePhone == null) 
     if(!valid){
-        console.log('Invalid Input!');
-//        alert('Invalid Input!');
+        console.log('Invalid InputNumber!');
+//        alert('Invalid InputNumber!');
         return;
     }
     else {
@@ -173,6 +174,7 @@ async function loan(userId, data) {
     if(Number(data.loan)<=Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
+        console.log('tmpCu',tmpCurrency);
         return User.update({
             loan: tmpLoan,
             loanMax: Number(prev.loanMax) - tmpLoan,
@@ -257,7 +259,7 @@ async function endRound() {
         var phones = result.dataValues.phoneNum;
         var sum = 0;
         for (let i in phones) {
-            sum += Number(phones[i].amount);
+            sum = Number(sum) + Number(phones[i].amount);
         }
         
 

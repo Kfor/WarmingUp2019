@@ -22,7 +22,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface DealBetweenProps extends FormComponentProps {
   submitting: boolean;
@@ -124,7 +124,8 @@ class DealBetween extends Component<DealBetweenProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'credit.money.placeholder',
                   })}
@@ -145,7 +146,8 @@ class DealBetween extends Component<DealBetweenProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'credit.returnMoney.placeholder',
                   })}
@@ -163,7 +165,8 @@ class DealBetween extends Component<DealBetweenProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'credit.circle.placeholder',
                   })}

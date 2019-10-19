@@ -130,7 +130,7 @@ function calSumOfCompValue(input, indexList, num) {
     // 计算各个玩家的g之和
     var sum = 0;
     for (var i=0;i<num;i++) {
-        sum += input[indexList[i]].compValue;
+        sum = Number(sum) + Number(input[indexList[i]].compValue);
     }
     return sum;
 }
@@ -202,8 +202,8 @@ function distributeMarket(turn, oneTurnInputJSON) {
 
             oneTurnInput[index]['actualMarket'] = thisActualMarket;
             
-            sumOfComp -= Number(thisComp);
-            mThisTurnType -= Number(thisActualMarket);
+            sumOfComp = Number(sumOfComp) - Number(thisComp);
+            mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
         }
     }
     console.log(oneTurnInput)

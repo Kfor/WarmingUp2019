@@ -1,4 +1,4 @@
-import { AutoComplete, Icon, Input } from 'antd';
+import { AutoComplete, Icon, InputNumber } from 'antd';
 import { AutoCompleteProps, DataSourceItemType } from 'antd/es/auto-complete';
 import React, { Component } from 'react';
 
@@ -46,7 +46,7 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
     return null;
   }
 
-  private inputRef: Input | null = null;
+  private inputRef: InputNumber | null = null;
 
   constructor(props: HeaderSearchProps) {
     super(props);
@@ -130,7 +130,8 @@ export default class HeaderSearch extends Component<HeaderSearchProps, HeaderSea
           value={value}
           onChange={this.onChange}
         >
-          <Input
+          <InputNumber
+            defaultValue={0}
             ref={node => {
               this.inputRef = node;
             }}

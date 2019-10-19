@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, InputNumber, Row } from 'antd';
 import React, { Component } from 'react';
 import { FormComponentProps } from 'antd/es/form';
 import { GetFieldDecoratorOptions } from 'antd/es/form/Form';
@@ -149,7 +149,9 @@ class WrapFormItem extends Component<LoginItemProps, LoginItemState> {
         <FormItem>
           <Row gutter={8}>
             <Col span={16}>
-              {getFieldDecorator(name, options)(<Input {...customProps} {...inputProps} />)}
+              {getFieldDecorator(name, options)(
+                <InputNumber defaultValue={0} {...customProps} {...inputProps} />,
+              )}
             </Col>
             <Col span={8}>
               <Button
@@ -167,7 +169,9 @@ class WrapFormItem extends Component<LoginItemProps, LoginItemState> {
     }
     return (
       <FormItem>
-        {getFieldDecorator(name, options)(<Input {...customProps} {...otherProps} />)}
+        {getFieldDecorator(name, options)(
+          <InputNumber defaultValue={0} {...customProps} {...otherProps} />,
+        )}
       </FormItem>
     );
   }

@@ -19,7 +19,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 class Angel extends Component {
   handleSubmit = e => {
@@ -112,7 +112,8 @@ class Angel extends Component {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'angel.money.placeholder',
                   })}

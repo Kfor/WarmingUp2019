@@ -140,8 +140,7 @@ export default {
               component: './admin/inputOrder/dealBetween',
             },
           ],
-        },
-        // {
+        }, // {
         //   name: 'display',
         //   path: '/admin/display',
         //   component: './admin/display',
@@ -188,6 +187,12 @@ export default {
               redirect: '/down/downinput?userId=group9',
             },
           ],
+        },
+        {
+          name: 'test',
+          icon: 'smile',
+          path: '/admin/test',
+          component: './admin/test',
         },
         {
           component: './404',

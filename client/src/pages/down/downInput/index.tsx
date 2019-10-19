@@ -4,7 +4,7 @@ import {
   DatePicker,
   Form,
   Icon,
-  Input,
+  InputNumber,
   InputNumber,
   Radio,
   Select,
@@ -26,7 +26,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface DownInputProps extends FormComponentProps {
   submitting1: boolean;
@@ -147,8 +147,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.adInvest.label" />}
                     >
-                      {getFieldDecorator('adInvest', {})(
-                        <Input
+                      {getFieldDecorator('adInvest', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.adInvest.placeholder',
                           })}
@@ -180,8 +183,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.loan.label" />}
                     >
-                      {getFieldDecorator('loan', {})(
-                        <Input
+                      {getFieldDecorator('loan', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.loan.placeholder',
                           })}
@@ -193,8 +199,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.repay.label" />}
                     >
-                      {getFieldDecorator('repay', {})(
-                        <Input
+                      {getFieldDecorator('repay', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.repay.placeholder',
                           })}
@@ -229,8 +238,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.ka.label" />}
                     >
-                      {getFieldDecorator('ka', {})(
-                        <Input
+                      {getFieldDecorator('ka', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.ka.placeholder',
                           })}
@@ -241,8 +253,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.kb.label" />}
                     >
-                      {getFieldDecorator('kb', {})(
-                        <Input
+                      {getFieldDecorator('kb', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.kb.placeholder',
                           })}
@@ -253,8 +268,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.kc.label" />}
                     >
-                      {getFieldDecorator('kc', {})(
-                        <Input
+                      {getFieldDecorator('kc', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.kc.placeholder',
                           })}
@@ -267,8 +285,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.price.label" />}
                     >
-                      {getFieldDecorator('price', {})(
-                        <Input
+                      {getFieldDecorator('price', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.price.placeholder',
                           })}
@@ -280,8 +301,11 @@ class DownInput extends Component<DownInputProps> {
                       {...formItemLayout}
                       label={<FormattedMessage id="down-downinput.amount.label" />}
                     >
-                      {getFieldDecorator('amount', {})(
-                        <Input
+                      {getFieldDecorator('amount', {
+                        initialValue: 0,
+                      })(
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'down-downinput.amount.placeholder',
                           })}

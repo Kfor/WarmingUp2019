@@ -177,6 +177,8 @@ async function produce(userId, data) {
 
     const D1 = [1,1.1,1.05,0.98];
     const K1 = [1,1.15,0.9,0.95];
+    const DFund = [150,300,450];
+    const KFund = [150,400,650];
 
     if(data.ka==1) {
         if(data.amount>prev.chip1Num) {
@@ -198,9 +200,15 @@ async function produce(userId, data) {
             return;
         }
     }
+    console.log(D1[round-1]);
+    console.log(prev.D);
 
-    var DCost = D1[round-1]*Number(prev.D)* Number(data.amount);
-    var KCost = K1[round-1]*Number(prev.K)* Number(data.amount);
+    console.log(K1[round-1]);
+    console.log(prev.K);
+    console.log(data.amount);
+
+    var DCost = D1[round-1]*Number(prev.D)* Number(data.amount)*Number(DFund[data.ka-1]);
+    var KCost = K1[round-1]*Number(prev.K)* Number(data.amount)*Number(KFund[data.ka-1]);
 
     var newPhone = {ka:Number(data.ka),kb:Number(data.kb),kc:Number(data.kc),amount:Number(data.amount)};
     var hasThis = false;
@@ -210,7 +218,7 @@ async function produce(userId, data) {
         if(newPhones[i].ka==data.ka&&
             newPhones[i].kb==data.kb&&
             newPhones[i].kc==data.kc) {
-                newPhones[i].amount += Number(data.amount);
+                newPhones[i].amount = Number(newPhones[i].amount) + Number(data.amount);
                 hasThis = true;
                 break;
             }
@@ -227,19 +235,23 @@ async function produce(userId, data) {
     var newChip3 = prev.chip3Num;
 
     if(data.ka==1) {
-        newChip1 -= data.amount;
+        newChip1 = newChip1 - Number(data.amount);
     }
     if(data.ka==2) {
-        newChip2 -= data.amount;
+        newChip2 = newChip2 - Number(data.amount);
     }
     if(data.ka==3) {
-        newChip3 -= data.amount;
+        newChip3 = newChip3 - Number(data.amount);
     }
 
-    var tmpProfit = Number(prev.thisProfit) - Number(data.DInvest) - Number(data.KInvest);
+    var tmpProfit = 
+    //Number(prev.thisProfit) - 
+    Number(data.DInvest) - Number(data.KInvest);
+    console.log('DCost',DCost);
+    console.log('KCost',KCost);
 
     return User.update({
-        currency: prev.currency - DCost - KCost,
+        currency: Number(prev.currency - DCost - KCost),
         chip1Num: newChip1,
         chip2Num: newChip2,
         chip3Num: newChip3,
@@ -321,7 +333,7 @@ async function update(userId,data) {
         phoneNum:data.phoneNum,
         currency:data.currency,
         //thisProfit:data.thisProfit,
-        angelCut:data.angelCut,
+        //angelCut:data.angelCut,
     },{where:{userId:userId}});
 };
 
@@ -335,7 +347,7 @@ async function endRound() {
         var phones = result.dataValues.phoneNum;
         var sum = 0;
         for (let i in phones) {
-            sum += Number(phones[i].amount);
+            sum = Number(sum) + Number(phones[i].amount);
         }
 
         var tmpStorageCost = Number(result.dataValues.chip1Num+

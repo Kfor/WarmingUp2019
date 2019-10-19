@@ -4,7 +4,7 @@ import {
   DatePicker,
   Form,
   Icon,
-  Input,
+  InputNumber,
   InputNumber,
   Radio,
   Select,
@@ -22,7 +22,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface ControllerProps extends FormComponentProps {
   submitting1: boolean;

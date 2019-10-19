@@ -4,13 +4,12 @@ import {
   DatePicker,
   Form,
   Icon,
-  Input,
+  InputNumber,
   InputNumber,
   Radio,
   Select,
   Tooltip,
   Table,
-
 } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
@@ -27,7 +26,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface MiddleInputProps extends FormComponentProps {
   submitting1: boolean;
@@ -50,10 +49,9 @@ class MiddleInput extends Component<MiddleInputProps> {
 
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
       if (!err) {
-        console.log(values)
+        console.log(values);
         dispatch({
           type: 'middleMiddleInput/submitRegularForm1',
           payload: values,
@@ -65,11 +63,9 @@ class MiddleInput extends Component<MiddleInputProps> {
   handleSubmit2 = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
-
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
 
       if (!err) {
         dispatch({
@@ -83,11 +79,9 @@ class MiddleInput extends Component<MiddleInputProps> {
   handleSubmit3 = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
-
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-
-      values.userId = this.props.location.query.userId
+      values.userId = this.props.location.query.userId;
       if (!err) {
         dispatch({
           type: 'middleMiddleInput/submitRegularForm3',
@@ -122,23 +116,19 @@ class MiddleInput extends Component<MiddleInputProps> {
       },
     };
 
-
     return (
       <PageHeaderWrapper content={<FormattedMessage id="middle-middleinput.basic.description" />}>
         <GridContent>
           <React.Fragment>
-
             <Row
               gutter={8}
               type="flex"
-              align='bottom'
+              align="bottom"
               style={{
                 marginTop: 24,
               }}
             >
-
               <Col span={8}>
-
                 <Card bordered={true}>
                   <Form
                     onSubmit={this.handleSubmit1}
@@ -147,16 +137,15 @@ class MiddleInput extends Component<MiddleInputProps> {
                       marginTop: 8,
                     }}
                   >
-
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="middle-middleinput.DInvest.label" />}
                     >
                       {getFieldDecorator('DInvest', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.DInvest.placeholder',
                           })}
@@ -169,17 +158,16 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.KInvest.label" />}
                     >
                       {getFieldDecorator('KInvest', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.KInvest.placeholder',
                           })}
                         />,
                       )}
                     </FormItem>
-
-
 
                     <FormItem
                       {...submitFormLayout}
@@ -190,12 +178,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting1}>
                         <FormattedMessage id="middle-middleinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
               </Col>
-
 
               <Col span={8}>
                 <Card bordered={true}>
@@ -206,16 +192,15 @@ class MiddleInput extends Component<MiddleInputProps> {
                       marginTop: 8,
                     }}
                   >
-
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="middle-middleinput.ka.label" />}
                     >
                       {getFieldDecorator('ka', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.ka.placeholder',
                           })}
@@ -227,9 +212,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.kb.label" />}
                     >
                       {getFieldDecorator('kb', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.kb.placeholder',
                           })}
@@ -241,9 +227,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.kc.label" />}
                     >
                       {getFieldDecorator('kc', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.kc.placeholder',
                           })}
@@ -256,9 +243,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.amount.label" />}
                     >
                       {getFieldDecorator('amount', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.amount.placeholder',
                           })}
@@ -275,14 +263,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting2}>
                         <FormattedMessage id="middle-middleinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
-
               </Col>
-
-
 
               <Col span={8}>
                 <Card bordered={true}>
@@ -293,15 +277,15 @@ class MiddleInput extends Component<MiddleInputProps> {
                       marginTop: 8,
                     }}
                   >
-
                     <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="middle-middleinput.loan.label" />}
                     >
                       {getFieldDecorator('loan', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.loan.placeholder',
                           })}
@@ -314,9 +298,10 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.repay.label" />}
                     >
                       {getFieldDecorator('repay', {
-
+                        initialValue: 0,
                       })(
-                        <Input
+                        <InputNumber
+                          min={0}
                           placeholder={formatMessage({
                             id: 'middle-middleinput.repay.placeholder',
                           })}
@@ -333,28 +318,31 @@ class MiddleInput extends Component<MiddleInputProps> {
                       <Button type="primary" htmlType="submit" loading={submitting3}>
                         <FormattedMessage id="middle-middleinput.form.submit" />
                       </Button>
-
                     </FormItem>
                   </Form>
                 </Card>
-
               </Col>
-
             </Row>
           </React.Fragment>
         </GridContent>
-
-
       </PageHeaderWrapper>
     );
   }
 }
 
 export default Form.create<MiddleInputProps>()(
-  connect(({ user, loading }: { loading: { effects: { [key: string]: boolean } }, user: ConnectState }) => ({
-    submitting1: loading.effects['middleMiddleInput/submitRegularForm1'],
-    submitting2: loading.effects['middleMiddleInput/submitRegularForm2'],
-    submitting3: loading.effects['middleMiddleInput/submitRegularForm3'],
-    currentUser: user.currentUser,
-  }))(MiddleInput)
+  connect(
+    ({
+      user,
+      loading,
+    }: {
+      loading: { effects: { [key: string]: boolean } };
+      user: ConnectState;
+    }) => ({
+      submitting1: loading.effects['middleMiddleInput/submitRegularForm1'],
+      submitting2: loading.effects['middleMiddleInput/submitRegularForm2'],
+      submitting3: loading.effects['middleMiddleInput/submitRegularForm3'],
+      currentUser: user.currentUser,
+    }),
+  )(MiddleInput),
 );

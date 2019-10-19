@@ -1,10 +1,5 @@
 export default {
-
-
-  
-  'up-upinput.basic.description':
-    '你是上游公司，本环节将进行芯片生产、科研投入、生产技术投入',
-
+  'up-upinput.basic.description': '你是上游公司，本环节将进行芯片生产、科研投入、生产技术投入',
 
   'up-upinput.loan.label': '本轮贷款',
   'up-upinput.loan.placeholder': '本轮的计划贷款',
@@ -16,14 +11,12 @@ export default {
   'up-upinput.chip2.label': '芯片B',
   'up-upinput.chip2.placeholder': '芯片B的计划产量',
   'up-upinput.chip3.label': '芯片C',
-  'up-upinput.chip3.placeholder': '芯片B的计划产量',
+  'up-upinput.chip3.placeholder': '芯片C的计划产量',
 
   'up-upinput.TInvest.label': '科技投入',
   'up-upinput.TInvest.placeholder': '本轮的科技投入',
   'up-upinput.MInvest.label': '生产技术投入',
   'up-upinput.MInvest.placeholder': '本轮的生产技术投入',
-
-
 
   'up-upinput.basic.title': '基础表单',
   //'up-upinput.basic.description':

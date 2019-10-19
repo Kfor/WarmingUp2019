@@ -1,4 +1,4 @@
-import { Form, Input, Modal } from 'antd';
+import { Form, InputNumber, Modal } from 'antd';
 
 import { FormComponentProps } from 'antd/es/form';
 import React from 'react';
@@ -30,7 +30,7 @@ const CreateForm: React.FC<CreateFormProps> = props => {
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
         {form.getFieldDecorator('desc', {
           rules: [{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }],
-        })(<Input placeholder="请输入" />)}
+        })(<InputNumber defaultValue={0} placeholder="请输入" />)}
       </FormItem>
     </Modal>
   );

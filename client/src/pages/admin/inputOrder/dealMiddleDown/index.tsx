@@ -22,7 +22,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface DealMiddleDownProps extends FormComponentProps {
   submitting: boolean;
@@ -138,7 +138,8 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.performance.placeholder',
                   })}
@@ -159,7 +160,8 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.appearance.placeholder',
                   })}
@@ -180,7 +182,8 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.function.placeholder',
                   })}
@@ -202,7 +205,8 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.price.placeholder',
                   })}
@@ -223,7 +227,8 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.count.placeholder',
                   })}

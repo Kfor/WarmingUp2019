@@ -8,8 +8,6 @@ import { UserInfo } from './data.d';
 
 import styles from './style.less';
 
-
-
 interface DownProfileProps {
   loading: boolean;
   dispatch: Dispatch<any>;
@@ -21,22 +19,22 @@ interface DownProfileState {
 
 const phoneColumns = [
   {
-    title: 'ka',
+    title: '性能值ka',
     dataIndex: 'ka',
     key: 'ka',
   },
   {
-    title: 'kb',
+    title: '美观值kb',
     dataIndex: 'kb',
     key: 'kb',
   },
   {
-    title: 'kc',
+    title: '功能值kc',
     dataIndex: 'kc',
     key: 'kc',
   },
   {
-    title: 'amount',
+    title: '数量',
     dataIndex: 'amount',
     key: 'amount',
   },
@@ -56,15 +54,12 @@ const phoneColumns = [
     loading: loading.effects['downDownProfile/fetchBasic'],
   }),
 )
-class DownProfile extends Component<
-  DownProfileProps,
-  DownProfileState
-> {
+class DownProfile extends Component<DownProfileProps, DownProfileState> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'downDownProfile/fetchBasic',
-      payload: {userId:this.props.location.query.userId}
+      payload: { userId: this.props.location.query.userId },
     });
   }
 
@@ -85,7 +80,7 @@ class DownProfile extends Component<
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>
             <Descriptions.Item label="ad">{userInfo.ad}</Descriptions.Item>
             <Descriptions.Item label="adCost">{userInfo.adCost}</Descriptions.Item>
-            </Descriptions>
+          </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <div className={styles.title}>手机库存</div>
           <Table

@@ -22,7 +22,7 @@ import styles from './style.less';
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+const { TextArea } = InputNumber;
 
 interface DealUpMiddleProps extends FormComponentProps {
   submitting: boolean;
@@ -131,7 +131,8 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'exchange-up.quality.placeholder',
                   })}
@@ -150,7 +151,8 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'exchange-up.price.placeholder',
                   })}
@@ -168,7 +170,8 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  defaultValue={0}
                   placeholder={formatMessage({
                     id: 'exchange-up.count.placeholder',
                   })}

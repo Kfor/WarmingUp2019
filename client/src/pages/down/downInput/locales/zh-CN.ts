@@ -1,9 +1,5 @@
 export default {
-
-
-  'down-downinput.basic.description':
-    '你是下游公司，本环节将进行手机销售、广告投入',
-  
+  'down-downinput.basic.description': '你是下游公司，本环节将进行手机销售、广告投入',
 
   'down-downinput.userId.label': '公司序号',
   'down-downinput.userId.placeholder': '公司序号',
@@ -17,20 +13,17 @@ export default {
   'down-downinput.repay.label': '本轮还款',
   'down-downinput.repay.placeholder': '本轮的计划还款',
 
-
-
-  'down-downinput.ka.label':'芯片类型',
+  'down-downinput.ka.label': '芯片类型',
   'down-downinput.ka.placeholder': '本款手机计划的芯片类型',
-  'down-downinput.kb.label': '功能值',
-  'down-downinput.kb.placeholder': '本款手机计划的功能值',
-  'down-downinput.kc.label': '美观值',
-  'down-downinput.kc.placeholder': '本款手机计划的美观值',
-  'down-downinput.amount.label':'数量',
-  'down-downinput.amount.placeholder':'本款手机计划的生产量',
+  'down-downinput.kb.label': '美观值',
+  'down-downinput.kb.placeholder': '本款手机计划的美观值',
+  'down-downinput.kc.label': '功能值',
+  'down-downinput.kc.placeholder': '本款手机计划的功能值',
+  'down-downinput.amount.label': '数量',
+  'down-downinput.amount.placeholder': '本款手机计划的生产量',
 
-  'down-downinput.price.label':'手机价格',
+  'down-downinput.price.label': '手机价格',
   'down-downinput.price.placeholder': '本款手机计划的售卖价格',
- 
 
   'down-downinput.basic.title': '基础表单',
   //'down-downinput.basic.description':

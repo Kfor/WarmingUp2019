@@ -26,6 +26,7 @@ const users = [
     title: 'totalStorageCost',
     dataIndex: 'totalStorageCost',
     key: 'totalStorageCost',
+    sorter: (a, b) => a.totalStorageCost - b.totalStorageCost,
   },
   {
     title: 'currency',
@@ -37,16 +38,19 @@ const users = [
     title: 'loan',
     dataIndex: 'loan',
     key: 'loan',
+    sorter: (a, b) => a.loan - b.loan,
   },
   {
     title: 'loanMax',
     dataIndex: 'loanMax',
     key: 'loanMax',
+    sorter: (a, b) => a.loanMax - b.loanMax,
   },
   {
     title: 'rank',
     dataIndex: 'rank',
     key: 'rank',
+    sorter: (a, b) => a.rank - b.rank,
   },
 ];
 
