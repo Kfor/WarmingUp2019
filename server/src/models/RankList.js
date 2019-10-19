@@ -51,7 +51,7 @@ var Rank = sequelize.define('rank_list', {
     rank: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: 1,
     }
 
 }, {
@@ -79,7 +79,6 @@ function addRankItem(userId) {
 async function update(list) {
     for(let i in list) {
         var data = list[i];
-        console.log(data)
         Rank.update({
             totalStorageCost: data.totalStorageCost,
             currency: data.currency,

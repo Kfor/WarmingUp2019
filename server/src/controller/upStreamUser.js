@@ -1,12 +1,16 @@
 var User = require('../models/UpStreamUser')
+var Round = require('../models/Round')
 
 class UserController {
   async upprofile(ctx) {
     const data = ctx.request.query;
     const result = await User.findUserByUserId(data.userId);
+    var round = await Round.getRound();
+
     console.log(result.dataValues)
     ctx.body = {
-      userInfo:result.dataValues
+      userInfo:result.dataValues,
+      round:round.dataValues.round
     };
   }
 

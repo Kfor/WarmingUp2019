@@ -4,20 +4,27 @@ var middleStreamUser = require('../models/MiddleStreamUser')
 var downStreamUser = require('../models/DownStreamUser')
 var oneRoundSell = require('../models/OneRoundSell')
 var rankList = require('../models/RankList')
+var Round = require('../models/Round')
+var dealBetween = require('../models/DealBetween')
+//[];//用来记录组间借贷
 
 var autoFine = -200000;
-var round = 1;
+
 var upGroupList = ['group1', 'group2', 'group3', 'group4'];
 var middleGroupList = ['group5', 'group6', 'group7', 'group8'];
 var downGroupList = ['group9', 'group10', 'group11', 'group12'];
 var allGroupList = (upGroupList.concat(middleGroupList)).concat(downGroupList);
-var dealBetweenList = [];//用来记录组间借贷的array
+
 
 class TopController {
+
     async topprofile(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         var all = await rankList.findAll();
         var result = []
-        for(let i in all) {
+        for (let i in all) {
             result.push(all[i].dataValues);
         }
         ctx.body = {
@@ -26,6 +33,18 @@ class TopController {
             round: round,
         }
     }
+
+    async dealBetweenProfile(ctx) {
+        var all = await dealBetween.getAll();
+        var result = [];
+        for(let i in all) {
+            result.push(all[i].dataValues);
+        }
+        ctx.body = {
+            status:200,
+            dealBetweenList:result,
+        }
+    }    
 
     async test(ctx) {
         ctx.body = {
@@ -50,28 +69,31 @@ class TopController {
      *         }
      */
     async angelInvest(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         const result = data.userId;
         const money = data.angelInvest;
-        for(let one of upGroupList){
+        for (let one of upGroupList) {
             if (result == one) {
-                upStreamUser.update(one,{
+                upStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
             }
         }
-        for(let one of middleGroupList){
+        for (let one of middleGroupList) {
             if (result == one) {
-                middleStreamUser.update(one,{
+                middleStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
             }
         }
-        for(let one of downGroupList) {
+        for (let one of downGroupList) {
             if (result == one) {
-                downStreamUser.update(one,{
+                downStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
@@ -95,6 +117,9 @@ class TopController {
      *        } 
      */
     async dealUpMiddle(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         const upTmp = await upStreamUser.findUserByUserId(data.upUserId);
         const up = upTmp.dataValues;
@@ -128,7 +153,7 @@ class TopController {
                 chip1Num: new1,
                 chip2Num: new2,
                 chip3Num: new3,
-            //    thisProfit: up.thisProfit + Number((data.price) * (data.num)),
+                //    thisProfit: up.thisProfit + Number((data.price) * (data.num)),
                 currency: up.currency + Number((data.price) * (data.num)),
             });
 
@@ -169,6 +194,9 @@ class TopController {
      *        }
      */
     async dealMiddleDown(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         const middleTmp = await middleStreamUser.findUserByUserId(data.middleUserId);
         const middle = middleTmp.dataValues;
@@ -205,7 +233,7 @@ class TopController {
         }
         else {
             var newMiddlePhone = middle.phoneNum;
-            newMiddlePhone[index].amount = Number(newMiddlePhone[index].amount)-Number(data.num);
+            newMiddlePhone[index].amount = Number(newMiddlePhone[index].amount) - Number(data.num);
             var newDownPhone = down.phoneNum;
             var downHasThisPhone = false;
             for (var i = 0; i < newDownPhone.length; i++) {
@@ -213,7 +241,7 @@ class TopController {
                     newDownPhone[i].kb == data.kb &&
                     newDownPhone[i].kc == data.kc) {
                     downHasThisPhone = true;
-                    newDownPhone[i].amount = Number(newDownPhone[i].amount)+Number(data.num);
+                    newDownPhone[i].amount = Number(newDownPhone[i].amount) + Number(data.num);
                 }
             }
             if (!downHasThisPhone) {
@@ -245,6 +273,9 @@ class TopController {
      *        } 
      */
     async dealDown(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
 
         // 先从oneroundsell拿到数据
@@ -260,7 +291,7 @@ class TopController {
             var t = await downStreamUser.findUserByUserId(one.userId);
             // console.log(t.dataValues);
             var tmpAd = t.dataValues.ad;
-            
+
             one.ad = tmpAd;
             oneTurnInput.push(one);
         }
@@ -307,10 +338,13 @@ class TopController {
      * } 
      */
     async dealBetween(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         var valid = true;
 
-        dealBetweenList.push({
+        dealBetween.push({
             userId1: data.userId1,
             userId2: data.userId2,
             money: data.money,
@@ -318,39 +352,38 @@ class TopController {
             startTurn: Number(round),
             endTurn: Number(round) + Number(data.turnsAfter)
         });
-        console.log(dealBetweenList);
 
         var userId1 = data.userId1;
         var userId2 = data.userId2;
-        
-        for(let one of upGroupList){
+
+        for (let one of upGroupList) {
             if (userId1 == one) {
-                upStreamUser.addCurrency(userId1, -1*Number(data.money));
+                upStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
-        for(let one of middleGroupList){
+        for (let one of middleGroupList) {
             if (userId1 == one) {
-                middleStreamUser.addCurrency(userId1, -1*Number(data.money));
+                middleStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
-        for(let one of downGroupList) {
+        for (let one of downGroupList) {
             if (userId1 == one) {
-                downStreamUser.addCurrency(userId1, -1*Number(data.money));
+                downStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
 
-        
-        for(let one of upGroupList){
+
+        for (let one of upGroupList) {
             if (userId2 == one) {
                 upStreamUser.addCurrency(userId2, Number(data.money));
             }
         }
-        for(let one of middleGroupList){
+        for (let one of middleGroupList) {
             if (userId2 == one) {
                 middleStreamUser.addCurrency(userId2, Number(data.money));
             }
         }
-        for(let one of downGroupList) {
+        for (let one of downGroupList) {
             if (userId2 == one) {
                 downStreamUser.addCurrency(userId2, Number(data.money));
             }
@@ -370,6 +403,8 @@ class TopController {
      * @param data = {}
      */
     async oneRound(ctx) {
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round;
 
 
         //以下用于更新round和各自的loan, currency, profit
@@ -382,7 +417,7 @@ class TopController {
         var tmpRankList = [];
         for (let i in allGroupList) {
             var tmpInfo = {};
-            for(let one of upGroupList) {
+            for (let one of upGroupList) {
                 if (allGroupList[i] == one) {
                     var oneGroup = await upStreamUser.findUserByUserId(allGroupList[i]);
                     tmpInfo.userId = oneGroup.dataValues.userId;
@@ -391,7 +426,7 @@ class TopController {
                     tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
                 }
             }
-            for(let one of middleGroupList) {
+            for (let one of middleGroupList) {
                 if (allGroupList[i] == one) {
                     var oneGroup = await middleStreamUser.findUserByUserId(allGroupList[i]);
                     tmpInfo.userId = oneGroup.dataValues.userId;
@@ -400,7 +435,7 @@ class TopController {
                     tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
                 }
             }
-            for(let one of downGroupList) {
+            for (let one of downGroupList) {
                 if (allGroupList[i] == one) {
                     var oneGroup = await downStreamUser.findUserByUserId(allGroupList[i]);
                     tmpInfo.userId = oneGroup.dataValues.userId;
@@ -415,16 +450,16 @@ class TopController {
             return b.currency - a.currency;
         }
         tmpRankList.sort(sortBy);
-        for (let i=0;i<tmpRankList.length;i++) {
-            if(i!=0 && tmpRankList[i].currency===tmpRankList[i-1].currency)
-                tmpRankList[i].rank = tmpRankList[i-1].rank;
+        for (let i = 0; i < tmpRankList.length; i++) {
+            if (i != 0 && tmpRankList[i].currency === tmpRankList[i - 1].currency)
+                tmpRankList[i].rank = tmpRankList[i - 1].rank;
             else
-                tmpRankList[i].rank = Number(i)+1;
+                tmpRankList[i].rank = Number(i) + 1;
             tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
-        } 
+        }
         rankList.update(tmpRankList);
 
-        console.log('rankList',tmpRankList)
+        //console.log('rankList',tmpRankList)
 
 
         // 以下处理loanMax，rank问题
@@ -434,47 +469,47 @@ class TopController {
 
 
         // 处理组间借贷问题
-        console.log('betweenlist',dealBetweenList)
+        var dealBetweenList = await dealBetween.getAll();
         for (let i in dealBetweenList) {
-            if (dealBetweenList[i].endTurn == round) {//第round结束时
-                //this.add(dealBetweenList[i].userId1, Number(dealBetweenList[i].returnMoney));
-                //this.add(dealBetweenList[i].userId2, -Number(dealBetweenList[i].returnMoney));
+            var oneDeal = dealBetweenList[i].dataValues;//取到一个交易
+            if (oneDeal.endTurn == round) {//第round结束时
                 
-                var userId1 = dealBetweenList[i].userId1;
-                var userId2 = dealBetweenList[i].userId2;
-                var money = dealBetweenList[i].returnMoney;
-                dealBetweenList[i]={};
-                for(let one of upGroupList){
+                var userId1 = oneDeal.userId1;
+                var userId2 = oneDeal.userId2;
+                var money = oneDeal.returnMoney;
+                //dealBetween.deleteById(oneDeal.id);
+
+
+                for (let one of upGroupList) {
                     if (userId1 == one) {
                         upStreamUser.addCurrency(userId1, Number(money));
-                        console.log(money)
                     }
                 }
-                for(let one of middleGroupList){
+                for (let one of middleGroupList) {
                     if (userId1 == one) {
                         middleStreamUser.addCurrency(userId1, Number(money));
                     }
                 }
-                for(let one of downGroupList) {
+                for (let one of downGroupList) {
                     if (userId1 == one) {
                         downStreamUser.addCurrency(userId1, Number(money));
                     }
                 }
 
-                
-                for(let one of upGroupList){
+
+                for (let one of upGroupList) {
                     if (userId2 == one) {
-                        upStreamUser.addCurrency(userId2, -1*Number(money));
+                        upStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
-                for(let one of middleGroupList){
+                for (let one of middleGroupList) {
                     if (userId2 == one) {
-                        middleStreamUser.addCurrency(userId2, -1*Number(money));
+                        middleStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
-                for(let one of downGroupList) {
+                for (let one of downGroupList) {
                     if (userId2 == one) {
-                        downStreamUser.addCurrency(userId2, -1*Number(money));
+                        downStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
             }
@@ -564,7 +599,7 @@ class TopController {
         //     }
         // }
 
-        round += 1;
+        Round.nextRound();
         console.log('to next round: ' + round);
 
         ctx.body = {
@@ -581,22 +616,25 @@ class TopController {
      *        }
      */
     async fine(ctx) { //这里用addCurrency增加负值来作为罚款
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         const result = data.userId;
 
-        for(let one of upGroupList){
+        for (let one of upGroupList) {
             if (result == one) {
-                upStreamUser.addCurrency(result, (-1)*Number(data.fine));
+                upStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
-        for(let one of middleGroupList){
+        for (let one of middleGroupList) {
             if (result == one) {
-                middleStreamUser.addCurrency(result, (-1)*Number(data.fine));
+                middleStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
-        for(let one of downGroupList) {
+        for (let one of downGroupList) {
             if (result == one) {
-                downStreamUser.addCurrency(result, (-1)*Number(data.fine));
+                downStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
 
@@ -614,20 +652,23 @@ class TopController {
      *        } 
      */
     async add(ctx) {
+
+        var roundtable = await Round.getRound();
+        var round = roundtable.dataValues.round;
         const data = ctx.request.query;
         const result = data.userId;
- 
-        for(let one of upGroupList){
+
+        for (let one of upGroupList) {
             if (result == one) {
                 upStreamUser.addCurrency(result, Number(data.money));
             }
         }
-        for(let one of middleGroupList){
+        for (let one of middleGroupList) {
             if (result == one) {
                 middleStreamUser.addCurrency(result, Number(data.money));
             }
         }
-        for(let one of downGroupList) {
+        for (let one of downGroupList) {
             if (result == one) {
                 downStreamUser.addCurrency(result, Number(data.money));
             }
@@ -641,8 +682,7 @@ class TopController {
 
 
     async reset(ctx) {
-        round = 1;
-        console.log('Reset to round ' + round);
+
 
         var upStreamUser = require('../models/UpStreamUser');
         upStreamUser.sync();
@@ -673,13 +713,22 @@ class TopController {
         oneRoundSell.sync();
         oneRoundSell.destroy();
 
+        var tmpRound = require('../models/Round');
+        tmpRound.sync();
+        tmpRound.destroy();
+        tmpRound.init();
+
         var rankList = require('../models/RankList');
         rankList.sync();
         rankList.destroy();
-        for(let i=0;i<12;i++) {
-            var thisGroup = 'group'+Number(i+1);
+        for (let i = 0; i < 12; i++) {
+            var thisGroup = 'group' + Number(i + 1);
             rankList.addRankItem(thisGroup);
         }
+
+        var dealBetween = require('../models/DealBetween');
+        dealBetween.sync();
+        dealBetween.destroy();
 
         ctx.body = {
             status: 200,

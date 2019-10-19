@@ -195,6 +195,12 @@ export default {
           component: './admin/test',
         },
         {
+          name: 'dealbetweenprofile',
+          icon: 'smile',
+          path: '/admin/dealbetweenprofile',
+          component: './admin/dealBetweenProfile',
+        },
+        {
           component: './404',
         },
       ],

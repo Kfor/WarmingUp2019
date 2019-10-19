@@ -2,14 +2,17 @@
 
 var User = require('../models/DownStreamUser')
 var OneRoundSell = require('../models/OneRoundSell')
+var Round = require('../models/Round')
 
 class UserController {
   async downprofile(ctx) {
     const data = ctx.request.query;
     const result = await User.findUserByUserId(data.userId);
+    var round = await Round.getRound();
     console.log(result.dataValues)
     ctx.body = {
-      userInfo:result.dataValues
+      userInfo:result.dataValues,
+      round:round.dataValues.round,
     };
   }
 
@@ -23,9 +26,11 @@ class UserController {
   }
 
   async sell(ctx) {
-    const data = ctx.request.query;
-    var round = User.sell(data.userId, data);
-    data.round = User.getRound();
+    var roundtable = await Round.getRound();
+    var round = roundtable.dataValues.round;
+    var data = ctx.request.query;
+    User.sell(data.userId, data);
+    data.round = round;
     console.log(data)
     OneRoundSell.addOneRoundSell(data.userId, data);
     

@@ -3,15 +3,15 @@
 
 const Sequelize = require('sequelize')
 const config = require('../config.js')
+const Round = require('./Round')
 
 
-var round = 1;
-var downGroupList = ['group9','group10','group11','group12'];
+var downGroupList = ['group9', 'group10', 'group11', 'group12'];
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     port: config.port,
-    dialect: config.dialect, 
+    dialect: config.dialect,
     pool: {
         max: config.pool.max,
         min: config.pool.min,
@@ -53,18 +53,18 @@ var User = sequelize.define('down_stream_user', {
     },
 
     currency: {
-        type:Sequelize.FLOAT,
+        type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 10000000
     },
-    
+
     loan: {
-        type:Sequelize.FLOAT,
+        type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0
     },
     loanMax: {
-        type:Sequelize.FLOAT,
+        type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 1000000
     },
@@ -74,7 +74,7 @@ var User = sequelize.define('down_stream_user', {
         defaultValue: 1
     },
 
-    
+
     // angelInvest: {//初始资金，用于天使投资计算利润率用
     //     type:Sequelize.FLOAT,
     //     defaultValue: 0
@@ -103,7 +103,7 @@ var User = sequelize.define('down_stream_user', {
  * 同步或更新数据库
  */
 function sync() {
-    User.sync({alter: true});
+    User.sync({ alter: true });
 };
 
 /**
@@ -111,8 +111,8 @@ function sync() {
  */
 function addUser(userId) {
     return User.create({
-            userId: userId
-        })
+        userId: userId
+    })
 };
 
 /**
@@ -123,7 +123,7 @@ async function advertise(userId, data) {
     const prev = result.dataValues;
 
     var tmpAdCost = Number(prev.adCost) + Number(data.adInvest);
-    var tmpAd = Number(prev.ad)*(1+Number(data.adInvest)/10000000);
+    var tmpAd = Number(prev.ad) * (1 + Number(data.adInvest) / 10000000);
 
     var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
     var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
@@ -132,8 +132,8 @@ async function advertise(userId, data) {
         adCost: tmpAdCost,
         ad: tmpAd,
         currency: tmpCurrency,
-    },{
-        where: {userId: userId}
+    }, {
+        where: { userId: userId }
     })
 }
 
@@ -142,21 +142,26 @@ async function advertise(userId, data) {
  */
 async function sell(userId, data) {
     const result = await findUserByUserId(userId);
-    const phones = result.dataValues.phoneNum;
+    var phones = result.dataValues.phoneNum;
 
     var valid = false;
-    for(i=0;i<phones.length;i++) {
-        if(phones[i].ka==data.ka&&phones[i].kb==data.kb
-            &&phones[i].kc==data.kc&&Number(phones[i].amount>=Number(data.amount))) {
-                valid = true;
-                phones[i].amount = Number(phones[i].amount)-Number(data.amount);
-            }
+    for (i = 0; i < phones.length; i++) {
+        if (phones[i].ka == data.ka && phones[i].kb == data.kb
+            && phones[i].kc == data.kc && Number(phones[i].amount >= Number(data.amount))) {
+            valid = true;
+            phones[i].amount = Number(phones[i].amount) - Number(data.amount);
+        }
     }
+    User.update({
+        phoneNum:phones,
+    },{
+        where:{userId:userId}
+    })
 
-//    if (onePhone == null) 
-    if(!valid){
+    //    if (onePhone == null) 
+    if (!valid) {
         console.log('Invalid InputNumber!');
-//        alert('Invalid InputNumber!');
+        //        alert('Invalid InputNumber!');
         return;
     }
     else {
@@ -164,23 +169,24 @@ async function sell(userId, data) {
     }
 }
 
-function getRound() {
+async function getRound() {
+    var round = await Round.getRound().dataValues.round;
     return round;
 }
 
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    if(Number(data.loan)<=Number(prev.loanMax)) {
+    if (Number(data.loan) <= Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
-        console.log('tmpCu',tmpCurrency);
+        console.log('tmpCu', tmpCurrency);
         return User.update({
             loan: tmpLoan,
             loanMax: Number(prev.loanMax) - tmpLoan,
             currency: tmpCurrency,
         }, {
-            where: {userId: userId}
+            where: { userId: userId }
         });
     }
     else {
@@ -197,7 +203,7 @@ async function repay(userId, data) {
         loan: tmpLoan,
         currency: tmpCurrency,
     }, {
-        where: {userId: userId}
+        where: { userId: userId }
     })
 };
 
@@ -206,8 +212,8 @@ async function repay(userId, data) {
  */
 function findUserByUserId(userId) {
     return User.findOne({
-        where:{
-            userId:userId
+        where: {
+            userId: userId
         }
     })
 };
@@ -215,73 +221,70 @@ function findUserByUserId(userId) {
 
 function clear(userId) {
     return User.update({
-        phoneNum:null,
+        phoneNum: null,
     }, {
-        where: {userId: userId}
+        where: { userId: userId }
     })
 };
 
 function init(userId) {
     return User.update({
-        phoneNum:[{ka:2,kb:2,kc:2,amount:100},{ka:1,kb:2,kc:3,amount:100},{ka:2,kb:2,kc:5,amount:200},]
+        phoneNum: [{ ka: 2, kb: 2, kc: 2, amount: 100 }, { ka: 1, kb: 2, kc: 3, amount: 100 }, { ka: 2, kb: 2, kc: 5, amount: 200 },]
     }, {
-        where: {userId: userId}
+        where: { userId: userId }
     })
 };
 
-async function addCurrency(userId,money) {
+async function addCurrency(userId, money) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
     var newCurrency = Number(prev.currency) + Number(money);
     return User.update({
-        currency:newCurrency,
+        currency: newCurrency,
     }, {
-        where: {userId: userId}
+        where: { userId: userId }
     })
 };
 
-async function update(userId,data) {
+async function update(userId, data) {
     return User.update({
-        phoneNum:data.phoneNum,
-        currency:data.currency,
+        phoneNum: data.phoneNum,
+        currency: data.currency,
         //angelCut:data.angelCut,
         //thisProfit:data.thisProfit,
-    },{where:{userId:userId}});
+    }, { where: { userId: userId } });
 };
 
 async function endRound() {
-    round += 1;
-    console.log('next round: '+round);
-
     for (var group of downGroupList) {
-        var result = await User.findOne({where:{userId:group}});
-        var tmpLoan = Number(result.dataValues.loan)*1.1;
+        var result = await User.findOne({ where: { userId: group } });
+        var tmpLoan = Number(result.dataValues.loan) * 1.1;
         var phones = result.dataValues.phoneNum;
         var sum = 0;
         for (let i in phones) {
             sum = Number(sum) + Number(phones[i].amount);
         }
-        
 
-        var tmpStorageCost = sum*20;//20是手机库存单价
+
+        var tmpStorageCost = sum * 20;//20是手机库存单价
 
 
         User.update({
-            loan: tmpLoan, 
-            currency: result.dataValues.currency - tmpStorageCost, 
+            loan: tmpLoan,
+            currency: result.dataValues.currency - tmpStorageCost,
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
             //thisProfit: 0,//每到一轮，就要置位0
             //lastProfit: Number(result.thisProfit),
-        },{where:{userId:group}});
+        }, { where: { userId: group } });
     }
 };
 
 
 async function updateLoanMax(data) {
     for (var group of downGroupList) {
-        var result = await User.findOne({where:{userId:group}});
-        for(let i in data) {
-            if(data[i].userId==result.dataValues.userId) {
+        var result = await User.findOne({ where: { userId: group } });
+        for (let i in data) {
+            if (data[i].userId == result.dataValues.userId) {
                 var tmpLoanMax = data[i].loanMax;
                 var tmpRank = data[i].rank;
                 break;
@@ -291,12 +294,12 @@ async function updateLoanMax(data) {
         User.update({
             rank: tmpRank,
             loanMax: tmpLoanMax,
-        },{where:{userId:group}});
+        }, { where: { userId: group } });
     }
 };
 
 async function destroy() {
-    User.destroy({where:{}});
+    User.destroy({ where: {} });
 };
 
-module.exports = {getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update,updateLoanMax, endRound, destroy, repay};
+module.exports = { getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, updateLoanMax, endRound, destroy, repay };

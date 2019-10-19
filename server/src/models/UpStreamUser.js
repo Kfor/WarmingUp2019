@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize')
 const config = require('../config.js')
+const Round = require('./Round')
 
 
-var round = 1;
+
 var upGroupList = ['group1','group2','group3','group4'];
 
 
@@ -47,7 +48,7 @@ var User = sequelize.define('up_stream_user', {
     currency: {
         type: Sequelize.FLOAT,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 10000000
     },
     loan: {
         type: Sequelize.FLOAT,
@@ -162,6 +163,8 @@ async function invest(userId, data) {
 };
 
 async function produce(userId, data) { //上游需要一次性输入
+    var roundtable = await Round.getRound();
+    var round = roundtable.dataValues.round;
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
@@ -303,9 +306,6 @@ async function update(userId,data) {
 
 
 async function endRound() {
-    round += 1;
-    console.log('next round: '+round);
-
     for (var group of upGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;

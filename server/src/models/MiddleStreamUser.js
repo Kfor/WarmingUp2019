@@ -3,9 +3,9 @@
 
 const Sequelize = require('sequelize')
 const config = require('../config.js')
+const Round = require('./Round')
 
 
-var round = 1;
 var middleGroupList = ['group5','group6','group7','group8'];
 
 
@@ -172,6 +172,9 @@ async function invest(userId, data) {
 };
 
 async function produce(userId, data) {
+    var roundtable = await Round.getRound()
+    var round = roundtable.dataValues.round;
+
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
@@ -338,9 +341,6 @@ async function update(userId,data) {
 };
 
 async function endRound() {
-    round += 1;
-    console.log('next round: '+round);
-
     for (var group of middleGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;

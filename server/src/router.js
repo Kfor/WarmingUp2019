@@ -36,6 +36,7 @@ module.exports = (router) => {
     .post('/top/add', topController.add)//userId,money
     .post('/top/reset', topController.reset)//不需要参数，用于重置数据库
     .get('/top/topprofile', topController.topprofile)
+    .get('/top/dealBetweenProfile', topController.dealBetweenProfile)
 
 
     
