@@ -64,7 +64,7 @@ class MiddleProfile extends Component<MiddleProfileProps, MiddleProfileState> {
 
   render() {
     const { middleMiddleProfile, loading } = this.props;
-    const { userInfo } = middleMiddleProfile;
+    const { userInfo, round } = middleMiddleProfile;
 
     return (
       <PageHeaderWrapper>
@@ -73,6 +73,7 @@ class MiddleProfile extends Component<MiddleProfileProps, MiddleProfileState> {
             <Descriptions.Item label="组号及身份">{userInfo.userId}中游</Descriptions.Item>
             <Descriptions.Item label="现金数目">{userInfo.currency}</Descriptions.Item>
             <Descriptions.Item label="贷款总额">{userInfo.loan}</Descriptions.Item>
+            <Descriptions.Item label="当前轮次">{round}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>

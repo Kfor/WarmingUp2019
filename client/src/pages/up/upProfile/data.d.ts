@@ -16,4 +16,5 @@ export interface UserInfo {
     lastProfit: number;
     angelCut: number;
   };
+  round: number;
 }

@@ -31,22 +31,19 @@ interface UpProfileState {
     loading: loading.effects['upUpProfile/fetchBasic'],
   }),
 )
-class UpProfile extends Component<
-  UpProfileProps,
-  UpProfileState
-> {
+class UpProfile extends Component<UpProfileProps, UpProfileState> {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       //type: 'user/fetchCurrent',
       type: 'upUpProfile/fetchBasic',
-      payload: {userId:this.props.location.query.userId}
+      payload: { userId: this.props.location.query.userId },
     });
   }
 
   render() {
     const { upUpProfile, loading } = this.props;
-    const { userInfo } = upUpProfile;
+    const { userInfo, round } = upUpProfile;
     return (
       <PageHeaderWrapper>
         <Card bordered={false}>
@@ -54,6 +51,7 @@ class UpProfile extends Component<
             <Descriptions.Item label="组号及身份">{userInfo.userId}上游</Descriptions.Item>
             <Descriptions.Item label="现金数目">{userInfo.currency}</Descriptions.Item>
             <Descriptions.Item label="贷款总额">{userInfo.loan}</Descriptions.Item>
+            <Descriptions.Item label="当前轮次">{round}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>

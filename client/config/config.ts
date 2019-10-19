@@ -188,12 +188,12 @@ export default {
             },
           ],
         },
-        {
-          name: 'test',
-          icon: 'smile',
-          path: '/admin/test',
-          component: './admin/test',
-        },
+        // {
+        //   name: 'test',
+        //   icon: 'smile',
+        //   path: '/admin/test',
+        //   component: './admin/test',
+        // },
         {
           name: 'dealbetweenprofile',
           icon: 'smile',
@@ -218,12 +218,14 @@ export default {
         {
           name: 'upinput',
           path: '/up/upinput',
+          icon: 'input',
           component: './up/upInput',
           hideInBreadcrumb: true,
         },
         {
           name: 'upprofile',
           path: '/up/upprofile',
+          icon: 'money',
           component: './up/upProfile',
           hideInBreadcrumb: true,
         }, // {
@@ -249,12 +251,14 @@ export default {
         {
           name: 'middleinput',
           path: '/middle/middleinput',
+          icon: 'input',
           component: './middle/middleInput',
           hideInBreadcrumb: true,
         },
         {
           name: 'middleprofile',
           path: '/middle/middleprofile',
+          icon: 'money',
           component: './middle/middleProfile',
           hideInBreadcrumb: true,
         }, // {
@@ -280,12 +284,14 @@ export default {
         {
           name: 'downinput',
           path: '/down/downinput',
+          icon: 'input',
           component: './down/downInput',
           hideInBreadcrumb: true,
         },
         {
           name: 'downprofile',
           path: '/down/downprofile',
+          icon: 'money',
           component: './down/downProfile',
           hideInBreadcrumb: true,
         }, // {

@@ -65,7 +65,7 @@ class DownProfile extends Component<DownProfileProps, DownProfileState> {
 
   render() {
     const { downDownProfile, loading } = this.props;
-    const { userInfo } = downDownProfile;
+    const { userInfo, round } = downDownProfile;
 
     return (
       <PageHeaderWrapper>
@@ -75,6 +75,7 @@ class DownProfile extends Component<DownProfileProps, DownProfileState> {
             <Descriptions.Item label="现金数目">{userInfo.currency}</Descriptions.Item>
             <Descriptions.Item label="贷款总额">{userInfo.loan}</Descriptions.Item>
             <Descriptions.Item label="累积库存费用">{userInfo.totalStorageCost}</Descriptions.Item>
+            <Descriptions.Item label="当前轮次">{round}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>
