@@ -227,12 +227,12 @@ async function produce(userId, data) { //上游需要一次性输入
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    if(Number(data.loan)<Number(prev.loanMax)) {
+    if(Number(data.loan)<=Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
         return User.update({
-            loan: tmpLoan,
-            loanMax: Number(prev.loanMax) - tmpLoan,
+            loan: Number(tmpLoan),
+            loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
         }, {
             where: {userId: userId}
@@ -249,7 +249,7 @@ async function repay(userId, data) {
     var tmpLoan = Number(prev.loan) - Number(data.repay);
     var tmpCurrency = Number(prev.currency) - Number(data.repay);
     return User.update({
-        loan: tmpLoan,
+        loan: Number(tmpLoan),
         currency: tmpCurrency,
     }, {
         where: {userId: userId}

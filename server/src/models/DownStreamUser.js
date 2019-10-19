@@ -183,7 +183,7 @@ async function loan(userId, data) {
         console.log('tmpCu', tmpCurrency);
         return User.update({
             loan: tmpLoan,
-            loanMax: Number(prev.loanMax) - tmpLoan,
+            loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
         }, {
             where: { userId: userId }

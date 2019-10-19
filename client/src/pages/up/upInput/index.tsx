@@ -30,6 +30,7 @@ interface UpInputProps extends FormComponentProps {
   submitting1: boolean;
   submitting2: boolean;
   submitting3: boolean;
+  submitting4: boolean;
   user: CurrentUser;
   dispatch: Dispatch<any>;
 }
@@ -97,8 +98,26 @@ class UpInput extends Component<UpInputProps> {
     });
   };
 
+  handleSubmit4 = (e: React.FormEvent) => {
+    const { dispatch, form } = this.props;
+
+    e.preventDefault();
+    form.validateFieldsAndScroll((err, values) => {
+      console.log('inner', this.props);
+
+      values.userId = this.props.location.query.userId;
+      if (!err) {
+        console.log('values', values);
+        dispatch({
+          type: 'upUpInput/submitRegularForm4',
+          payload: values,
+        });
+      }
+    });
+  };
+
   render() {
-    const { submitting1, submitting2, submitting3 } = this.props;
+    const { submitting1, submitting2, submitting3, submitting4 } = this.props;
     const {
       form: { getFieldDecorator, getFieldValue },
     } = this.props;
@@ -301,6 +320,25 @@ class UpInput extends Component<UpInputProps> {
                     </FormItem>
 
                     <FormItem
+                      {...submitFormLayout}
+                      style={{
+                        marginTop: 32,
+                      }}
+                    >
+                      <Button type="primary" htmlType="submit" loading={submitting3}>
+                        <FormattedMessage id="up-upinput.form.submit" />
+                      </Button>
+                    </FormItem>
+                  </Form>
+
+                  <Form
+                    onSubmit={this.handleSubmit4}
+                    hideRequiredMark
+                    style={{
+                      marginTop: 8,
+                    }}
+                  >
+                    <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="up-upinput.repay.label" />}
                     >
@@ -322,7 +360,7 @@ class UpInput extends Component<UpInputProps> {
                         marginTop: 32,
                       }}
                     >
-                      <Button type="primary" htmlType="submit" loading={submitting3}>
+                      <Button type="primary" htmlType="submit" loading={submitting4}>
                         <FormattedMessage id="up-upinput.form.submit" />
                       </Button>
                     </FormItem>
@@ -349,6 +387,8 @@ export default Form.create<UpInputProps>()(
       submitting1: loading.effects['upUpInput/submitRegularForm1'],
       submitting2: loading.effects['upUpInput/submitRegularForm2'],
       submitting3: loading.effects['upUpInput/submitRegularForm3'],
+      submitting4: loading.effects['upUpInput/submitRegularForm4'],
+
       currentUser: user.currentUser,
     }),
   )(UpInput),

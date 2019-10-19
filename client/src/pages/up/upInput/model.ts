@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import { message } from 'antd';
-import { fakeSubmitForm1,fakeSubmitForm2,fakeSubmitForm3,fakeSubmitForm4 } from './service';
+import { fakeSubmitForm1, fakeSubmitForm2, fakeSubmitForm3, fakeSubmitForm4 } from './service';
 
 export type Effect = (
   action: AnyAction,
@@ -15,6 +15,7 @@ export interface ModelType {
     submitRegularForm1: Effect;
     submitRegularForm2: Effect;
     submitRegularForm3: Effect;
+    submitRegularForm4: Effect;
   };
 }
 
@@ -34,6 +35,9 @@ const Model: ModelType = {
     },
     *submitRegularForm3({ payload }, { call }) {
       yield call(fakeSubmitForm3, payload);
+      message.success('提交成功');
+    },
+    *submitRegularForm4({ payload }, { call }) {
       yield call(fakeSubmitForm4, payload);
       message.success('提交成功');
     },

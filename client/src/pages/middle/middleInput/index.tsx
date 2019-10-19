@@ -32,6 +32,7 @@ interface MiddleInputProps extends FormComponentProps {
   submitting1: boolean;
   submitting2: boolean;
   submitting3: boolean;
+  submitting4: boolean;
   user: CurrentUser;
   dispatch: Dispatch<any>;
 }
@@ -91,8 +92,23 @@ class MiddleInput extends Component<MiddleInputProps> {
     });
   };
 
+  handleSubmit4 = (e: React.FormEvent) => {
+    const { dispatch, form } = this.props;
+
+    e.preventDefault();
+    form.validateFieldsAndScroll((err, values) => {
+      values.userId = this.props.location.query.userId;
+      if (!err) {
+        dispatch({
+          type: 'middleMiddleInput/submitRegularForm4',
+          payload: values,
+        });
+      }
+    });
+  };
+
   render() {
-    const { submitting1, submitting2, submitting3 } = this.props;
+    const { submitting1, submitting2, submitting3, submitting4 } = this.props;
     const {
       form: { getFieldDecorator, getFieldValue },
     } = this.props;
@@ -294,6 +310,25 @@ class MiddleInput extends Component<MiddleInputProps> {
                     </FormItem>
 
                     <FormItem
+                      {...submitFormLayout}
+                      style={{
+                        marginTop: 32,
+                      }}
+                    >
+                      <Button type="primary" htmlType="submit" loading={submitting3}>
+                        <FormattedMessage id="middle-middleinput.form.submit" />
+                      </Button>
+                    </FormItem>
+                  </Form>
+
+                  <Form
+                    onSubmit={this.handleSubmit4}
+                    hideRequiredMark
+                    style={{
+                      marginTop: 8,
+                    }}
+                  >
+                    <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="middle-middleinput.repay.label" />}
                     >
@@ -315,7 +350,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                         marginTop: 32,
                       }}
                     >
-                      <Button type="primary" htmlType="submit" loading={submitting3}>
+                      <Button type="primary" htmlType="submit" loading={submitting4}>
                         <FormattedMessage id="middle-middleinput.form.submit" />
                       </Button>
                     </FormItem>
@@ -342,6 +377,8 @@ export default Form.create<MiddleInputProps>()(
       submitting1: loading.effects['middleMiddleInput/submitRegularForm1'],
       submitting2: loading.effects['middleMiddleInput/submitRegularForm2'],
       submitting3: loading.effects['middleMiddleInput/submitRegularForm3'],
+      submitting4: loading.effects['middleMiddleInput/submitRegularForm4'],
+
       currentUser: user.currentUser,
     }),
   )(MiddleInput),
