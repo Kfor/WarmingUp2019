@@ -351,8 +351,8 @@ async function endRound() {
         }
 
         var tmpStorageCost = Number(result.dataValues.chip1Num+
-            result.dataValues.chip2Num+result.dataValues.chip3Num)*20+
-            sum*10;//20是每个芯片库存单价,10是手机库存单价
+            result.dataValues.chip2Num+result.dataValues.chip3Num)*40+
+            sum*100;//40是每个芯片库存单价,100是手机库存单价
         
 
             User.update({

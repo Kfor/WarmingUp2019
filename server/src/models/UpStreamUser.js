@@ -310,7 +310,7 @@ async function endRound() {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;
         var tmpStorageCost = Number(result.dataValues.chip1Num+
-            result.dataValues.chip2Num+result.dataValues.chip3Num)*10;//10是每个芯片库存单价
+            result.dataValues.chip2Num+result.dataValues.chip3Num)*40;//40是每个芯片库存单价
         
 
         User.update({

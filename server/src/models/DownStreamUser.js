@@ -266,7 +266,7 @@ async function endRound() {
         }
 
 
-        var tmpStorageCost = sum * 20;//20是手机库存单价
+        var tmpStorageCost = sum * 100;//100是手机库存单价
 
 
         User.update({
