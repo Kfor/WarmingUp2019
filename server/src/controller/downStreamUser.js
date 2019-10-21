@@ -18,26 +18,40 @@ class UserController {
 
   async advertise(ctx) {
       const data = ctx.request.query;
-      User.advertise(data.userId, data);
-      ctx.body = {
-        status: 200,
-        infoText: 'Finished Advertise!'
-      };
+      var valid = await User.advertise(data.userId, data);
+      if (!valid) {
+        ctx.status = 600;
+        User.autoFine(data.userId);
+        return;
+      }
+      else{
+        ctx.body = {
+          status: 200,
+          infoText: 'Finished Advertise!'
+        };
+      }
   }
 
   async sell(ctx) {
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
     var data = ctx.request.query;
-    User.sell(data.userId, data);
+    var valid = await User.sell(data.userId, data);
+
     data.round = round;
-    console.log(data)
-    OneRoundSell.addOneRoundSell(data.userId, data);
-    
-    ctx.body = {
-      status: 200,
-      infoText: 'Finished Sell!'
-    };
+    if(!valid) {
+      ctx.status = 602;
+      User.autoFine(data.userId);
+      return;
+    }
+    else{
+      OneRoundSell.addOneRoundSell(data.userId, data);
+      
+      ctx.body = {
+        status: 200,
+        infoText: 'Finished Sell!'
+      };
+    }
   } 
 
   async clear(ctx) {
@@ -62,22 +76,35 @@ class UserController {
   
   async loan(ctx) {
     const data = ctx.request.query;
-    User.loan(data.userId, data);
+    var valid = await User.loan(data.userId, data);
 
-    ctx.body = {
-      status: 200,
-      infoText: 'Finished loan!',
-    };
+    if(!valid) {
+      ctx.status = 603;
+      User.autoFine(data.userId);
+    }
+    else{
+      ctx.body = {
+        status: 200,
+        infoText: 'Finished loan!',
+      };
+    }
   };
   
   async repay(ctx) {
     const data = ctx.request.query;
-    User.repay(data.userId, data);
+    var valid = await User.repay(data.userId, data);
 
-    ctx.body = {
-      status: 200,
-      infoText: 'Finished repay!',
-    };
+    if(!valid){
+      ctx.status = 600;
+      User.autoFine(data.userId);
+      return;
+    }
+    else{
+      ctx.body = {
+        status: 200,
+        infoText: 'Finished repay!',
+      };
+    }
   };
 
   async addCurrency(ctx) {

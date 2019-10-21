@@ -13,7 +13,8 @@ import {
 } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
-import { Col, Dropdown, Icon, Menu, Row } from 'antd';
+import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
+const { Title, Paragraph, Text } = Typography;
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -59,6 +60,7 @@ class MiddleInput extends Component<MiddleInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit2 = (e: React.FormEvent) => {
@@ -75,6 +77,7 @@ class MiddleInput extends Component<MiddleInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit3 = (e: React.FormEvent) => {
@@ -90,6 +93,7 @@ class MiddleInput extends Component<MiddleInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit4 = (e: React.FormEvent) => {
@@ -105,6 +109,7 @@ class MiddleInput extends Component<MiddleInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -137,20 +142,26 @@ class MiddleInput extends Component<MiddleInputProps> {
         <GridContent>
           <React.Fragment>
             <Row
-              gutter={8}
+              gutter={4}
               type="flex"
               align="bottom"
               style={{
                 marginTop: 24,
               }}
             >
-              <Col span={8}>
-                <Card bordered={true}>
+              <Col span={7}>
+                <Card
+                  bordered={true}
+                  style={{
+                    minHeight: 420,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit1}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 15,
                     }}
                   >
                     <FormItem
@@ -167,6 +178,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -183,6 +195,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -199,13 +212,21 @@ class MiddleInput extends Component<MiddleInputProps> {
                 </Card>
               </Col>
 
-              <Col span={8}>
-                <Card bordered={true}>
+              <Col span={10}>
+                <Card
+                  bordered={true}
+                  size="small"
+                  style={{
+                    height: 420,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit2}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      width: 592,
+                      marginLeft: -25,
                     }}
                   >
                     <FormItem
@@ -213,14 +234,19 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.ka.label" />}
                     >
                       {getFieldDecorator('ka', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'middle-middleinput.ka.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'middle-middleinput.ka.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">消费级</Radio>
+                          <Radio value="2">专业级</Radio>
+                          <Radio value="3">旗舰级</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
                     <FormItem
@@ -228,14 +254,19 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.kb.label" />}
                     >
                       {getFieldDecorator('kb', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'middle-middleinput.kb.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'middle-middleinput.kb.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">低</Radio>
+                          <Radio value="2">中</Radio>
+                          <Radio value="3">高</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
                     <FormItem
@@ -243,14 +274,19 @@ class MiddleInput extends Component<MiddleInputProps> {
                       label={<FormattedMessage id="middle-middleinput.kc.label" />}
                     >
                       {getFieldDecorator('kc', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'middle-middleinput.kc.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'middle-middleinput.kc.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">低</Radio>
+                          <Radio value="2">中</Radio>
+                          <Radio value="3">高</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
 
@@ -268,6 +304,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 台</Text>
                     </FormItem>
 
                     <FormItem
@@ -284,13 +321,19 @@ class MiddleInput extends Component<MiddleInputProps> {
                 </Card>
               </Col>
 
-              <Col span={8}>
-                <Card bordered={true}>
+              <Col span={7}>
+                <Card
+                  bordered={true}
+                  style={{
+                    minHeight: 420,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit3}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 15,
                     }}
                   >
                     <FormItem
@@ -307,6 +350,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -326,6 +370,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 15,
                     }}
                   >
                     <FormItem
@@ -342,6 +387,7 @@ class MiddleInput extends Component<MiddleInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem

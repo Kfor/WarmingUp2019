@@ -11,7 +11,9 @@ import {
   Tooltip,
 } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Col, Dropdown, Icon, Menu, Row } from 'antd';
+import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
+const { Title, Paragraph, Text } = Typography;
+
 import React, { Component } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { Dispatch } from 'redux';
@@ -59,6 +61,7 @@ class UpInput extends Component<UpInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit2 = (e: React.FormEvent) => {
@@ -78,6 +81,7 @@ class UpInput extends Component<UpInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit3 = (e: React.FormEvent) => {
@@ -96,6 +100,7 @@ class UpInput extends Component<UpInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit4 = (e: React.FormEvent) => {
@@ -114,6 +119,7 @@ class UpInput extends Component<UpInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -167,12 +173,18 @@ class UpInput extends Component<UpInputProps> {
               }}
             >
               <Col span={8}>
-                <Card bordered={true}>
+                <Card
+                  bordered={true}
+                  style={{
+                    minHeight: 333,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit1}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 55,
                     }}
                   >
                     <FormItem
@@ -189,6 +201,7 @@ class UpInput extends Component<UpInputProps> {
                           // })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -206,6 +219,7 @@ class UpInput extends Component<UpInputProps> {
                           // max={100}
                         />,
                       )}
+                      <Text> 元</Text>
                       {/* <span className="ant-form-text">万</span> */}
                     </FormItem>
 
@@ -224,12 +238,18 @@ class UpInput extends Component<UpInputProps> {
               </Col>
 
               <Col span={8}>
-                <Card bordered={true}>
+                <Card
+                  bordered={true}
+                  style={{
+                    height: 333,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit2}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 55,
                     }}
                   >
                     <FormItem
@@ -246,6 +266,7 @@ class UpInput extends Component<UpInputProps> {
                           // })}
                         />,
                       )}
+                      <Text> 个</Text>
                     </FormItem>
 
                     <FormItem
@@ -262,6 +283,7 @@ class UpInput extends Component<UpInputProps> {
                           // })}
                         />,
                       )}
+                      <Text> 个</Text>
                     </FormItem>
 
                     <FormItem
@@ -278,6 +300,7 @@ class UpInput extends Component<UpInputProps> {
                           // })}
                         />,
                       )}
+                      <Text> 个</Text>
                     </FormItem>
 
                     <FormItem
@@ -295,12 +318,18 @@ class UpInput extends Component<UpInputProps> {
               </Col>
 
               <Col span={8}>
-                <Card bordered={true}>
+                <Card
+                  bordered={true}
+                  style={{
+                    minHeight: 333,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit3}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 55,
                     }}
                   >
                     <FormItem
@@ -317,6 +346,7 @@ class UpInput extends Component<UpInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -336,6 +366,7 @@ class UpInput extends Component<UpInputProps> {
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 55,
                     }}
                   >
                     <FormItem
@@ -352,6 +383,7 @@ class UpInput extends Component<UpInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem

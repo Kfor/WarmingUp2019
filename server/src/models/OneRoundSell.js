@@ -192,7 +192,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
                 thisActualMarket = mThisTurnType;
                 oneTurnInput[index]['actualMarket'] = thisActualMarket;
 
-                for(var kidx=j+1;kidx<typeNum;kidx++) {// 将之后的手机都归类到下一级市场。注意只会下沉
+                for(var kidx=j;kidx<typeNum;kidx++) {// 将之后的手机都归类到下一级市场。注意只会下沉
                     if(i==0)
                         break;
                     marketTypeIndex[i-1].push(marketTypeIndex[i][kidx]);
@@ -206,7 +206,8 @@ function distributeMarket(turn, oneTurnInputJSON) {
             mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
         }
     }
-    console.log(oneTurnInput)
+    console.log('oneTurn',oneTurnInput)
+    console.log('market',marketTypeIndex)
     return oneTurnInput;
 }
 

@@ -5,9 +5,9 @@ export default {
   'middle-middleinput.userId.label': '公司序号',
   'middle-middleinput.userId.placeholder': '公司序号',
 
-  'middle-middleinput.DInvest.label': '本轮的设计投入',
+  'middle-middleinput.DInvest.label': '设计投入',
   'middle-middleinput.DInvest.placeholder': '本轮的设计投入',
-  'middle-middleinput.KInvest.label': '本轮的功能模块投入',
+  'middle-middleinput.KInvest.label': '功能投入',
   'middle-middleinput.KInvest.placeholder': '本轮的功能模块投入',
 
   'middle-middleinput.ka.label': '芯片类型',

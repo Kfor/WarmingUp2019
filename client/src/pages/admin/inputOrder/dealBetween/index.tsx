@@ -41,6 +41,7 @@ class DealBetween extends Component<DealBetweenProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -79,6 +80,7 @@ class DealBetween extends Component<DealBetweenProps> {
           >
             <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_1.label" />}>
               {getFieldDecorator('userId_1', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,
@@ -97,6 +99,7 @@ class DealBetween extends Component<DealBetweenProps> {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_2.label" />}>
               {getFieldDecorator('userId_2', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,

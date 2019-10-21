@@ -9,29 +9,47 @@ class UserController {
 
     console.log(result.dataValues)
     ctx.body = {
-      userInfo:result.dataValues,
-      round:round.dataValues.round
+      userInfo: result.dataValues,
+      round: round.dataValues.round
     };
   }
 
   async produce(ctx) {
     const data = ctx.request.query;
-    User.produce(data.userId, data);
+    var validFlag = await User.produce(data.userId, data);
 
-    ctx.body = {
+    if (validFlag == 1) {//余额不足
+      ctx.status = 600;
+      User.autoFine(data.userId);
+      return;
+    }
+    if (validFlag == 2) {//产能不足
+      ctx.status = 605;
+      User.autoFine(data.userId);
+      return;
+    }
+    else {
+      ctx.body = {
         status: 200,
         infoText: 'Finished Produce!',
-    };
+      };
+    }
   };
 
   async invest(ctx) {
     const data = ctx.request.query;
-    User.invest(data.userId, data);
-
-    ctx.body = {
+    var valid = await User.invest(data.userId, data);
+    if(!valid) {
+      ctx.status = 600;
+      User.autoFine(data.userId);
+      return;
+    }
+    else{
+      ctx.body = {
         status: 200,
         infoText: 'Finished Invest!',
-    };
+      };
+    }
   };
 
   async clear(ctx) {
@@ -44,29 +62,43 @@ class UserController {
     };
   };
 
+
   async loan(ctx) {
     const data = ctx.request.query;
-    User.loan(data.userId, data);
+    var valid = await User.loan(data.userId, data);
 
-    ctx.body = {
-      status: 200,
-      infoText: 'Finished loan!',
-    };
+    if (!valid) {
+      ctx.status = 603;
+      User.autoFine(data.userId);
+    }
+    else {
+      ctx.body = {
+        status: 200,
+        infoText: 'Finished loan!',
+      };
+    }
   };
-  
+
+
   async repay(ctx) {
     const data = ctx.request.query;
-    User.repay(data.userId, data);
+    var valid = await User.repay(data.userId, data);
 
-    ctx.body = {
-      status: 200,
-      infoText: 'Finished repay!',
-    };
+    if (!valid) {
+      ctx.status = 600;
+      User.autoFine(data.userId); return;
+    }
+    else {
+      ctx.body = {
+        status: 200,
+        infoText: 'Finished repay!',
+      };
+    }
   };
 
   async addCurrency(ctx) {
     const data = ctx.request.query;
-    User.addCurrency(data.userId,data.money);
+    User.addCurrency(data.userId, data.money);
 
     ctx.body = {
       status: 200,

@@ -145,11 +145,11 @@ export default {
         //   path: '/admin/display',
         //   component: './admin/display',
         // },
-        {
-          name: 'angelinvest',
-          path: '/admin/angelinvest',
-          component: './admin/angelInvest',
-        },
+        // {
+        //   name: 'angelinvest',
+        //   path: '/admin/angelinvest',
+        //   component: './admin/angelInvest',
+        // },
         {
           name: 'fine',
           path: '/admin/fine',

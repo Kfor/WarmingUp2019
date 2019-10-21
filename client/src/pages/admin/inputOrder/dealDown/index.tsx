@@ -41,6 +41,7 @@ class DealDown extends Component<DealDownProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {

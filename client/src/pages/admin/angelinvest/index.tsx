@@ -33,6 +33,7 @@ class Angel extends Component {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {

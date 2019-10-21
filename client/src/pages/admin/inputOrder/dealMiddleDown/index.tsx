@@ -41,6 +41,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -84,6 +85,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,
@@ -105,6 +107,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.down_id.label" />}
             >
               {getFieldDecorator('down_id', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,

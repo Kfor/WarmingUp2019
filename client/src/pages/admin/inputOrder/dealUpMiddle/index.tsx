@@ -41,6 +41,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -79,6 +80,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
           >
             <FormItem {...formItemLayout} label={<FormattedMessage id="exchange-up.up_id.label" />}>
               {getFieldDecorator('up_id', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,
@@ -100,6 +102,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               label={<FormattedMessage id="exchange-up.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
+                initialValue: 'group',
                 rules: [
                   {
                     required: true,
@@ -178,7 +181,6 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                 />,
               )}
             </FormItem>
-
             <FormItem
               {...submitFormLayout}
               style={{

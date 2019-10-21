@@ -51,6 +51,7 @@ class UpProfile extends Component<UpProfileProps, UpProfileState> {
             <Descriptions.Item label="组号及身份">{userInfo.userId}上游</Descriptions.Item>
             <Descriptions.Item label="现金数目">{userInfo.currency}</Descriptions.Item>
             <Descriptions.Item label="贷款总额">{userInfo.loan}</Descriptions.Item>
+            <Descriptions.Item label="最大贷款额度">{userInfo.loanMax} 元</Descriptions.Item>
             <Descriptions.Item label="当前轮次">{round}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
@@ -59,6 +60,9 @@ class UpProfile extends Component<UpProfileProps, UpProfileState> {
             <Descriptions.Item label="MCost">{userInfo.MCost}</Descriptions.Item>
             <Descriptions.Item label="T">{userInfo.T}</Descriptions.Item>
             <Descriptions.Item label="TCost">{userInfo.TCost}</Descriptions.Item>
+            <Descriptions.Item label="chip1">{userInfo.Max1}</Descriptions.Item>
+            <Descriptions.Item label="chip2">{userInfo.Max2}</Descriptions.Item>
+            <Descriptions.Item label="chip3">{userInfo.Max3}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="已有库存" style={{ marginBottom: 8 }} column={4}>

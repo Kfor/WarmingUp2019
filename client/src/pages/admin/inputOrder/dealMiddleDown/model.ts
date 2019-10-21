@@ -22,8 +22,8 @@ const Model: ModelType = {
 
   effects: {
     *submitRegularForm({ payload }, { call }) {
-      yield call(fakeSubmitForm, payload);
-      message.success('提交成功');
+      var t = yield call(fakeSubmitForm, payload);
+      if (t.status == 200) message.success('提交成功');
     },
   },
 };

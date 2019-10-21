@@ -81,6 +81,21 @@ var User = sequelize.define('up_stream_user', {
         allowNull: false,
         defaultValue: 1
     },
+    Max1: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 8000,
+    },
+    Max2: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 6000,
+    },
+    Max3: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1500,
+    },
     MCost: {
         type: Sequelize.FLOAT,
         allowNull: false,
@@ -145,60 +160,72 @@ async function invest(userId, data) {
     var tmpT = 0.4 + 0.6/Number(1+Math.exp(8*(tmpTCost/10000000-0.4)));
     var tmpM = 0.45 + 4.55/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
 
+
+    var roundtable = await Round.getRound();
+    var round = roundtable.dataValues.round;
+    const Im = [1,1.05,0.9,1.1];//最大生产系数
+    const fN = [8000,6000,1500];//基础产量
+    const tmpRound = round-1;//index从0开始
+    
+    var Max1 = Math.floor(Im[tmpRound] * fN[0] * tmpM);
+    var Max2 = Math.floor(Im[tmpRound] * fN[1] * tmpM);
+    var Max3 = Math.floor(Im[tmpRound] * fN[2] * tmpM);
+
+
     var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
     // var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
-    console.log(tmpCurrency)
 
-
-    return User.update({
-        T:tmpT,
-        M:tmpM,
-        TCost:tmpTCost,
-        MCost:tmpMCost,
-        currency:tmpCurrency,
-        //thisProfit:tmpProfit,
-    }, {
-        where: {userId: userId}
-    })
+    var valid = tmpCurrency>=0;
+    if(valid){
+        User.update({
+            T:tmpT,
+            M:tmpM,
+            Max1:Max1,
+            Max2:Max2,
+            Max3:Max3,
+            TCost:tmpTCost,
+            MCost:tmpMCost,
+            currency:tmpCurrency,
+            //thisProfit:tmpProfit,
+        }, {
+            where: {userId: userId}
+        })
+    }
+    return valid;
 };
 
 async function produce(userId, data) { //上游需要一次性输入
-    var roundtable = await Round.getRound();
-    var round = roundtable.dataValues.round;
+
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
+    var roundtable = await Round.getRound();
+    var round = roundtable.dataValues.round;
     const It = [1.0,0.9,1.08,1.1];//芯片成本事件
-    const Im = [1,1.05,0.9,1.1];//最大生产系数
-    const fN = [8000,6000,1500];//基础产量
     const fC = [300,800,1500];//基础成本
     const tmpRound = round-1;//index从0开始
-
-    var Max1 = Im[tmpRound] * fN[0] * prev.M;
-    var Max2 = Im[tmpRound] * fN[1] * prev.M;
-    var Max3 = Im[tmpRound] * fN[2] * prev.M;
+    
+    var Max1 = prev.Max1;
+    var Max2 = prev.Max2;
+    var Max3 = prev.Max3;
 
     var chip1Num = data.chip1Num;
     var chip2Num = data.chip2Num;
     var chip3Num = data.chip3Num;
 
+    var validFlag = 0;
     if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
-        // alert('超过生产限额，置位最大值');
-        console.log('超过生产限额, 置为最大值');
-    }
-    if(chip1Num>Max1) {
-        chip1Num = Max1;
-    }
-    if(chip2Num>Max2) {
-        chip2Num = Max2;
-    }
-    if(chip3Num>Max3) {
-        chip3Num = Max3;
+        validFlag = 2;
+        return validFlag;
     }
     
     var tmpChip1Num = Number(prev.chip1Num) + Number(chip1Num);
     var tmpChip2Num = Number(prev.chip2Num) + Number(chip2Num);
     var tmpChip3Num = Number(prev.chip3Num) + Number(chip3Num);
+
+    Max1 -= Number(chip1Num);
+    Max2 -= Number(chip2Num);
+    Max3 -= Number(chip3Num);
     
     var Cost1 = It[tmpRound] * fC[0] * Number(prev.T) * Number(chip1Num);
     var Cost2 = It[tmpRound] * fC[1] * Number(prev.T) * Number(chip2Num);
@@ -209,11 +236,14 @@ async function produce(userId, data) { //上游需要一次性输入
     var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
 
     if(newCurrency<0) {
-        console.log('余额不足！交易失败');
-        return;
+        validFlag = 1;
+        return validFlag;
     }
 
-    return User.update({
+    User.update({
+        Max1:Max1,
+        Max2:Max2,
+        Max3:Max3,
         chip1Num:tmpChip1Num,
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
@@ -221,40 +251,51 @@ async function produce(userId, data) { //上游需要一次性输入
         //thisProfit:tmpProfit,
     }, {
         where: {userId: userId}
-    })
+    });
+    return validFlag;
 };
 
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    if(Number(data.loan)<=Number(prev.loanMax)) {
+    var valid = true;
+    if (Number(data.loan) <= Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
-        return User.update({
-            loan: Number(tmpLoan),
+        
+        User.update({
+            loan: tmpLoan,
             loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
         }, {
-            where: {userId: userId}
+            where: { userId: userId }
         });
     }
     else {
-        console.log('超过借贷上限');
+        valid = false;
     }
+    return valid;
 };
 
 async function repay(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
+    if(data.repay>prev.loan)
+        data.repay = prev.loan;
     var tmpLoan = Number(prev.loan) - Number(data.repay);
     var tmpCurrency = Number(prev.currency) - Number(data.repay);
-    return User.update({
-        loan: Number(tmpLoan),
-        currency: tmpCurrency,
-    }, {
-        where: {userId: userId}
-    })
+    var valid = tmpCurrency>=0;
+    if (valid) {
+        User.update({
+            loan: tmpLoan,
+            currency: tmpCurrency,
+        }, {
+            where: { userId: userId }
+        })
+    };
+    return valid;
 };
+
 
 /**
  * 根据name查找用户
@@ -306,14 +347,29 @@ async function update(userId,data) {
 
 
 async function endRound() {
+    
+    var roundtable = await Round.getRound();
+    var round = roundtable.dataValues.round;
+    const Im = [1,1.05,0.9,1.1];//最大生产系数
+    const fN = [8000,6000,1500];//基础产量
+    const tmpRound = round;//新的一轮（而原本要下标减一）
+    
+
     for (var group of upGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan)*1.1;
         var tmpStorageCost = Number(result.dataValues.chip1Num+
             result.dataValues.chip2Num+result.dataValues.chip3Num)*40;//40是每个芯片库存单价
-        
+    
+
+        var Max1 = Math.floor(Im[tmpRound] * fN[0] * result.M);
+        var Max2 = Math.floor(Im[tmpRound] * fN[1] * result.M);
+        var Max3 = Math.floor(Im[tmpRound] * fN[2] * result.M);
 
         User.update({
+            Max1:Max1,
+            Max2:Max2,
+            Max3:Max3,
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
@@ -345,5 +401,8 @@ async function destroy() {
     User.destroy({where:{}});
 };
 
+function autoFine(userId) {
+    addCurrency(userId,-200000);
+};
 
-module.exports = {sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, updateLoanMax, destroy, repay}
+module.exports = {autoFine, sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, updateLoanMax, destroy, repay}

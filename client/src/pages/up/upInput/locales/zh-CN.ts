@@ -6,16 +6,16 @@ export default {
   'up-upinput.repay.label': '本轮还款',
   'up-upinput.repay.placeholder': '本轮还款，不换为0',
 
-  'up-upinput.chip1.label': '芯片A',
+  'up-upinput.chip1.label': '消费级芯片',
   'up-upinput.chip1.placeholder': '芯片A的计划产量',
-  'up-upinput.chip2.label': '芯片B',
+  'up-upinput.chip2.label': '专业级芯片',
   'up-upinput.chip2.placeholder': '芯片B的计划产量',
-  'up-upinput.chip3.label': '芯片C',
+  'up-upinput.chip3.label': '旗舰级芯片',
   'up-upinput.chip3.placeholder': '芯片C的计划产量',
 
   'up-upinput.TInvest.label': '科技投入',
   'up-upinput.TInvest.placeholder': '本轮的科技投入',
-  'up-upinput.MInvest.label': '生产技术投入',
+  'up-upinput.MInvest.label': '产能投入',
   'up-upinput.MInvest.placeholder': '本轮的生产技术投入',
 
   'up-upinput.basic.title': '基础表单',

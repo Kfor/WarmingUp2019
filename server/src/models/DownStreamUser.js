@@ -126,15 +126,19 @@ async function advertise(userId, data) {
     var tmpAd = Number(prev.ad) * (1 + Number(data.adInvest) / 10000000);
 
     var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
-    var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
+    // var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
+    var valid = tmpCurrency>=0;
+    if(valid){
+        User.update({
+            adCost: tmpAdCost,
+            ad: tmpAd,
+            currency: tmpCurrency,
+        }, {
+            where: { userId: userId }
+        })
+    }
+    return valid;
 
-    return User.update({
-        adCost: tmpAdCost,
-        ad: tmpAd,
-        currency: tmpCurrency,
-    }, {
-        where: { userId: userId }
-    })
 }
 
 /**
@@ -152,21 +156,15 @@ async function sell(userId, data) {
             phones[i].amount = Number(phones[i].amount) - Number(data.amount);
         }
     }
-    User.update({
-        phoneNum:phones,
-    },{
-        where:{userId:userId}
-    })
-
-    //    if (onePhone == null) 
-    if (!valid) {
-        console.log('Invalid InputNumber!');
-        //        alert('Invalid InputNumber!');
-        return;
+    if(valid) {
+        User.update({
+            phoneNum:phones,
+        },{
+            where:{userId:userId}
+        })
     }
-    else {
-        return;
-    }
+    
+    return valid;
 }
 
 async function getRound() {
@@ -177,11 +175,12 @@ async function getRound() {
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
+    var valid = true;
     if (Number(data.loan) <= Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
-        console.log('tmpCu', tmpCurrency);
-        return User.update({
+        
+        User.update({
             loan: tmpLoan,
             loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
@@ -190,21 +189,28 @@ async function loan(userId, data) {
         });
     }
     else {
-        console.log('超过借贷上限');
+        valid = false;
     }
+    return valid;
 };
 
 async function repay(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
+    if(data.repay>prev.loan)
+        data.repay = prev.loan;
     var tmpLoan = Number(prev.loan) - Number(data.repay);
     var tmpCurrency = Number(prev.currency) - Number(data.repay);
-    return User.update({
-        loan: tmpLoan,
-        currency: tmpCurrency,
-    }, {
-        where: { userId: userId }
-    })
+    var valid = tmpCurrency>=0;
+    if (valid) {
+        User.update({
+            loan: tmpLoan,
+            currency: tmpCurrency,
+        }, {
+            where: { userId: userId }
+        })
+    };
+    return valid;
 };
 
 /**
@@ -302,4 +308,8 @@ async function destroy() {
     User.destroy({ where: {} });
 };
 
-module.exports = { getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, updateLoanMax, endRound, destroy, repay };
+function autoFine(userId) {
+    addCurrency(userId,-200000);
+};
+
+module.exports = { autoFine, getRound, sync, addUser, findUserByUserId, advertise, sell, loan, clear, init, addCurrency, update, updateLoanMax, endRound, destroy, repay };

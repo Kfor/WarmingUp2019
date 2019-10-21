@@ -158,22 +158,28 @@ async function invest(userId, data) {
 
     var tmpCurrency = Number(prev.currency) - Number(data.DInvest) - Number(data.KInvest);
     var tmpProfit = Number(prev.thisProfit) - Number(data.DInvest) - Number(data.KInvest);
+    
+    var valid = tmpCurrency>=0;
 
-    return User.update({
-        D:tmpD,
-        K:tmpK,
-        DCost:tmpDCost,
-        KCost:tmpKCost,
-        currency:tmpCurrency,
-        //thisProfit:tmpProfit,
-    },{
-        where: {userId: userId}
-    })
+    if(valid){
+        User.update({
+            D:tmpD,
+            K:tmpK,
+            DCost:tmpDCost,
+            KCost:tmpKCost,
+            currency:tmpCurrency,
+            //thisProfit:tmpProfit,
+        },{
+            where: {userId: userId}
+        });
+    }
+    return valid;
 };
 
 async function produce(userId, data) {
     var roundtable = await Round.getRound()
     var round = roundtable.dataValues.round;
+    var validFlag = 0;
 
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
@@ -185,30 +191,31 @@ async function produce(userId, data) {
 
     if(data.ka==1) {
         if(data.amount>prev.chip1Num) {
-            console.log('超过生产限额');
-            return;
+            validFlag = 2;
+            return validFlag;
         }
     }
     
     if(data.ka==2) {
         if(data.amount>prev.chip2Num) {
-            console.log('超过生产限额');
-            return;
+            validFlag = 2;
+            return validFlag;
         }
     }
     
     if(data.ka==3) {
         if(data.amount>prev.chip3Num) {
-            console.log('超过生产限额');
-            return;
+            validFlag = 2;
+            return validFlag;
         }
     }
-    console.log(D1[round-1]);
-    console.log(prev.D);
 
-    console.log(K1[round-1]);
-    console.log(prev.K);
-    console.log(data.amount);
+    // console.log(D1[round-1]);
+    // console.log(prev.D);
+
+    // console.log(K1[round-1]);
+    // console.log(prev.K);
+    // console.log(data.amount);
 
     var DCost = D1[round-1]*Number(prev.D)* Number(data.amount)*Number(DFund[data.ka-1]);
     var KCost = K1[round-1]*Number(prev.K)* Number(data.amount)*Number(KFund[data.ka-1]);
@@ -231,8 +238,8 @@ async function produce(userId, data) {
         newPhones.push(newPhone);
     }
 
-    console.log(newPhones)
-    console.log(prev.currency)
+    // console.log(newPhones)
+    // console.log(prev.currency)
     var newChip1 = prev.chip1Num;
     var newChip2 = prev.chip2Num;
     var newChip3 = prev.chip3Num;
@@ -247,14 +254,19 @@ async function produce(userId, data) {
         newChip3 = newChip3 - Number(data.amount);
     }
 
-    var tmpProfit = 
+    var tmpCurrency = Number(prev.currency - DCost - KCost);
+    if(tmpCurrency<0) {
+        validFlag = 1;
+        return validFlag;
+    }
+    //var tmpProfit = 
     //Number(prev.thisProfit) - 
-    Number(data.DInvest) - Number(data.KInvest);
-    console.log('DCost',DCost);
-    console.log('KCost',KCost);
+    // Number(data.DInvest) - Number(data.KInvest);
+    // console.log('DCost',DCost);
+    // console.log('KCost',KCost);
 
-    return User.update({
-        currency: Number(prev.currency - DCost - KCost),
+    User.update({
+        currency: tmpCurrency,
         chip1Num: newChip1,
         chip2Num: newChip2,
         chip3Num: newChip3,
@@ -262,40 +274,51 @@ async function produce(userId, data) {
         //thisProfit: tmpProfit,
     },{
         where: {userId: userId}
-    })
+    });
+    return validFlag;
 };
 
 async function loan(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
-    if(Number(data.loan)<=Number(prev.loanMax)) {
+    var valid = true;
+    if (Number(data.loan) <= Number(prev.loanMax)) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
-        return User.update({
+        
+        User.update({
             loan: tmpLoan,
             loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
         }, {
-            where: {userId: userId}
+            where: { userId: userId }
         });
     }
     else {
-        console.log('超过借贷上限');
+        valid = false;
     }
+    return valid;
 };
 
 async function repay(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
+    if(data.repay>prev.loan)
+        data.repay = prev.loan;
     var tmpLoan = Number(prev.loan) - Number(data.repay);
     var tmpCurrency = Number(prev.currency) - Number(data.repay);
-    return User.update({
-        loan: tmpLoan,
-        currency: tmpCurrency,
-    }, {
-        where: {userId: userId}
-    })
+    var valid = tmpCurrency>=0;
+    if (valid) {
+        User.update({
+            loan: tmpLoan,
+            currency: tmpCurrency,
+        }, {
+            where: { userId: userId }
+        })
+    };
+    return valid;
 };
+
 
 /**
  * 根据id查找用户
@@ -387,5 +410,8 @@ async function destroy() {
     User.destroy({where:{}});
 };
 
+function autoFine(userId) {
+    addCurrency(userId,-200000);
+};
 
-module.exports = {sync, addUser, findUserByUserId, produce, invest, loan, clear, addCurrency, update, updateLoanMax, endRound, destroy, repay};
+module.exports = {autoFine, sync, addUser, findUserByUserId, produce, invest, loan, clear, addCurrency, update, updateLoanMax, endRound, destroy, repay};

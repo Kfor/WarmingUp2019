@@ -21,6 +21,14 @@ const codeMessage = {
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
   504: '网关超时。',
+
+  600: '余额不足！罚款20w',
+  601: '芯片不足！罚款20w',
+  602: '手机数量不足！罚款20w',
+  603: '借贷额度不足！罚款20w',
+  604: '您已破产！请报告观察员',
+  605: '生产额度不足！罚款20w',
+  606: '芯片不足！罚款20w',
 };
 
 /**
@@ -33,8 +41,9 @@ const errorHandler = (error: { response: Response }): Response => {
     const { status, url } = response;
 
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
-      description: errorText,
+      //message: `请求错误 ${status}: ${url}`,
+      //description: errorText,
+      message: errorText,
     });
   } else if (!response) {
     notification.error({

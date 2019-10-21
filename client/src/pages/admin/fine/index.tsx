@@ -41,6 +41,7 @@ class Fine extends Component<FineProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {

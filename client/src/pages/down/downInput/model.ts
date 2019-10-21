@@ -25,20 +25,20 @@ const Model: ModelType = {
 
   effects: {
     *submitRegularForm1({ payload }, { call }) {
-      yield call(fakeSubmitForm1, payload);
-      message.success('提交成功');
+      var t = yield call(fakeSubmitForm1, payload);
+      if (t.status == 200) message.success('提交成功');
     },
     *submitRegularForm2({ payload }, { call }) {
-      yield call(fakeSubmitForm2, payload);
-      message.success('提交成功');
+      var t = yield call(fakeSubmitForm2, payload);
+      if (t.status == 200) message.success('提交成功');
     },
     *submitRegularForm3({ payload }, { call }) {
-      yield call(fakeSubmitForm3, payload);
-      message.success('提交成功');
+      var t = yield call(fakeSubmitForm3, payload);
+      if (t.status == 200) message.success('提交成功');
     },
     *submitRegularForm4({ payload }, { call }) {
-      yield call(fakeSubmitForm4, payload);
-      message.success('提交成功');
+      var t = yield call(fakeSubmitForm4, payload);
+      if (t.status == 200) message.success('提交成功');
     },
   },
 };

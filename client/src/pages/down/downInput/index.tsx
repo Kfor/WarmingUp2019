@@ -12,7 +12,8 @@ import {
 } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
-import { Col, Dropdown, Icon, Menu, Row } from 'antd';
+import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
+const { Title, Paragraph, Text } = Typography;
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -61,6 +62,7 @@ class DownInput extends Component<DownInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit2 = (e: React.FormEvent) => {
@@ -80,6 +82,7 @@ class DownInput extends Component<DownInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit3 = (e: React.FormEvent) => {
@@ -98,6 +101,7 @@ class DownInput extends Component<DownInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   handleSubmit4 = (e: React.FormEvent) => {
@@ -116,6 +120,7 @@ class DownInput extends Component<DownInputProps> {
         });
       }
     });
+    form.resetFields();
   };
 
   render() {
@@ -154,13 +159,14 @@ class DownInput extends Component<DownInputProps> {
                 marginTop: 24,
               }}
             >
-              <Col span={8}>
-                <Card bordered={true}>
+              <Col span={12}>
+                <Card bordered={true} size="small">
                   <Form
                     onSubmit={this.handleSubmit1}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 75,
                     }}
                   >
                     <FormItem
@@ -172,11 +178,13 @@ class DownInput extends Component<DownInputProps> {
                       })(
                         <InputNumber
                           min={0}
+                          step={10000}
                           placeholder={formatMessage({
                             id: 'down-downinput.adInvest.placeholder',
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -191,12 +199,13 @@ class DownInput extends Component<DownInputProps> {
                     </FormItem>
                   </Form>
                 </Card>
-                <Card bordered={true}>
+                <Card bordered={true} size="small">
                   <Form
                     onSubmit={this.handleSubmit3}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 75,
                     }}
                   >
                     <FormItem
@@ -213,6 +222,7 @@ class DownInput extends Component<DownInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -232,6 +242,7 @@ class DownInput extends Component<DownInputProps> {
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      marginLeft: 75,
                     }}
                   >
                     <FormItem
@@ -248,6 +259,7 @@ class DownInput extends Component<DownInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -264,13 +276,20 @@ class DownInput extends Component<DownInputProps> {
                 </Card>
               </Col>
 
-              <Col span={8}>
-                <Card bordered={true}>
+              <Col span={12}>
+                <Card
+                  bordered={true}
+                  size="small"
+                  style={{
+                    minHeight: 476,
+                  }}
+                >
                   <Form
                     onSubmit={this.handleSubmit2}
                     hideRequiredMark
                     style={{
                       marginTop: 8,
+                      minWidth: 600,
                     }}
                   >
                     <FormItem
@@ -278,14 +297,19 @@ class DownInput extends Component<DownInputProps> {
                       label={<FormattedMessage id="down-downinput.ka.label" />}
                     >
                       {getFieldDecorator('ka', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'down-downinput.ka.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'down-downinput.ka.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">消费级</Radio>
+                          <Radio value="2">专业级</Radio>
+                          <Radio value="3">旗舰级</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
                     <FormItem
@@ -293,14 +317,19 @@ class DownInput extends Component<DownInputProps> {
                       label={<FormattedMessage id="down-downinput.kb.label" />}
                     >
                       {getFieldDecorator('kb', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'down-downinput.kb.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'down-downinput.kb.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">低</Radio>
+                          <Radio value="2">中</Radio>
+                          <Radio value="3">高</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
                     <FormItem
@@ -308,14 +337,19 @@ class DownInput extends Component<DownInputProps> {
                       label={<FormattedMessage id="down-downinput.kc.label" />}
                     >
                       {getFieldDecorator('kc', {
-                        initialValue: 0,
+                        initialValue: 1,
                       })(
-                        <InputNumber
-                          min={0}
-                          placeholder={formatMessage({
-                            id: 'down-downinput.kc.placeholder',
-                          })}
-                        />,
+                        // <InputNumber
+                        //   min={0}
+                        //   placeholder={formatMessage({
+                        //     id: 'down-downinput.kc.placeholder',
+                        //   })}
+                        // />,
+                        <Radio.Group size="small">
+                          <Radio value="1">低</Radio>
+                          <Radio value="2">中</Radio>
+                          <Radio value="3">高</Radio>
+                        </Radio.Group>,
                       )}
                     </FormItem>
 
@@ -334,6 +368,7 @@ class DownInput extends Component<DownInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 元</Text>
                     </FormItem>
 
                     <FormItem
@@ -350,6 +385,7 @@ class DownInput extends Component<DownInputProps> {
                           })}
                         />,
                       )}
+                      <Text> 台</Text>
                     </FormItem>
 
                     <FormItem
