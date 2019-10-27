@@ -137,7 +137,7 @@ function calSumOfCompValue(input, indexList, num) {
     // 计算各个玩家的g之和
     var sum = 0;
     for (var i=0;i<num;i++) {
-        sum = Number(sum) + Number(input[indexList[i]].compValue);
+        sum = Number(sum) + Number(input[Math.abs(indexList[i])].compValue);
     }
     return sum;
 }
@@ -177,7 +177,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
         marketTypeIndex[Number(actualMarketType)].push(Number(i));
     }
 
-    for(var i=3;i>=0;i--) {// 4是市场类型数目
+    for(var i=0;i<4;i++) {// 4是市场类型数目
         
         var typeNum = marketTypeIndex[i].length;
         var mThisTurnType = MarketThisTurn[i];
@@ -185,11 +185,14 @@ function distributeMarket(turn, oneTurnInputJSON) {
         var k0 = 1.3;//为了显示龙头效应的系数
         
         for(var j=0;j<typeNum;j++) {//对于每种手机，都需要一次重新计算市场占比
-            var index = marketTypeIndex[i][j];
+            var index = Math.abs(marketTypeIndex[i][j]);
             var thisComp = oneTurnInput[index]['compValue'];
             var sellValue = oneTurnInput[index]['amount'];
             var ad = oneTurnInput[index]['ad'];
             var thisActualMarket = Math.ceil(ad*mThisTurnType*Math.pow(thisComp,k0)/Math.pow(sumOfComp,k0));
+            
+            if(Number(oneTurnInput[index].price)>Number(2*priceExpect[i]))
+                continue;
 
             if(thisActualMarket > sellValue) { // 如果应该分配的大于产量，则卖出数量即为应该量
                 thisActualMarket = sellValue;
@@ -199,17 +202,20 @@ function distributeMarket(turn, oneTurnInputJSON) {
                 thisActualMarket = mThisTurnType;
                 oneTurnInput[index]['actualMarket'] = thisActualMarket;
 
-                for(var kidx=j;kidx<typeNum;kidx++) {// 将之后的手机都归类到下一级市场。注意只会下沉
-                    if(i==0)
+                for(var kidx=j+1;kidx<typeNum;kidx++) {// 将其之后的手机都归类到下一级市场。注意只会下沉
+                    if(i==3) // 最后一级就不会再下沉了
                         break;
-                    marketTypeIndex[i-1].push(marketTypeIndex[i][kidx]);
+                    if(marketTypeIndex[i][kidx]>0){
+                        marketTypeIndex[i][kidx] *= -1; //这里的符号是为了保证下沉只会发生一次
+                        marketTypeIndex[i+1].push(marketTypeIndex[i][kidx]);
+                    }
                 }
                 break;
             }
 
             oneTurnInput[index]['actualMarket'] = thisActualMarket;
-            
-            // sumOfComp = Number(sumOfComp) - Number(thisComp);
+            if(j<typeNum-1)
+                sumOfComp = Number(sumOfComp) - Number(thisComp);//在最后两种的时候就不比较了
             mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
         }
     }

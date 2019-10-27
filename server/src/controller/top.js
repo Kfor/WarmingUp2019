@@ -128,16 +128,16 @@ class TopController {
         const type = 'chip' + data.quality + 'Num'
 
         if (up[type] < data.num) {
-            //alert('库存不足!');
-            console.log('库存不足');
-            upStreamUser.addCurrency(data.upUserId, autoFine);
-            middleStreamUser.addCurrency(data.middleUserId, autoFine);
+            ctx.status = 606;
+            upStreamUser.autoFine(data.upUserId);
+            middleStreamUser.autoFine(data.middleUserId);
+            return;
         }
         else if (middle.currency < Number((data.price) * (data.num))) {
-            //alert('余额不足!');
-            console.log('余额不足');
-            upStreamUser.addCurrency(data.upUserId, autoFine);
-            middleStreamUser.addCurrency(data.middleUserId, autoFine);
+            ctx.status = 600;            
+            upStreamUser.autoFine(data.upUserId);
+            middleStreamUser.autoFine(data.middleUserId);
+            return;
         }
         else {
             if (data.quality == 1) {
@@ -214,22 +214,22 @@ class TopController {
         }
 
         if (index == -1) {
-            //alert('无此型号的手机!');
-            console.log('无此型号的手机');
-            downStreamUser.addCurrency(data.downUserId, autoFine);
-            middleStreamUser.addCurrency(data.middleUserId, autoFine);
+            ctx.status = 602;
+            downStreamUser.autoFine(data.downUserId);
+            middleStreamUser.autoFine(data.middleUserId);
+            return;
         }
         else if (middle.phoneNum[index].amount < data.num) {
-            //alert('库存不足!');
-            console.log('库存不足');
-            downStreamUser.addCurrency(data.downUserId, autoFine);
-            middleStreamUser.addCurrency(data.middleUserId, autoFine);
+            ctx.status = 602;
+            downStreamUser.autoFine(data.downUserId);
+            middleStreamUser.autoFine(data.middleUserId);
+            return;
         }
         else if (down.currency < Number((data.price) * (data.num))) {
-            //alert('余额不足!');
-            console.log('余额不足');
-            downStreamUser.addCurrency(data.downUserId, autoFine);
-            middleStreamUser.addCurrency(data.middleUserId, autoFine);
+            ctx.status = 600;
+            downStreamUser.autoFine(data.downUserId);
+            middleStreamUser.autoFine(data.middleUserId);
+            return;
         }
         else {
             var newMiddlePhone = middle.phoneNum;
@@ -242,6 +242,7 @@ class TopController {
                     newDownPhone[i].kc == data.kc) {
                     downHasThisPhone = true;
                     newDownPhone[i].amount = Number(newDownPhone[i].amount) + Number(data.num);
+                    break;
                 }
             }
             if (!downHasThisPhone) {
@@ -297,7 +298,7 @@ class TopController {
         }
         // console.log(oneTurnInput);
         var result = oneRoundSell.distributeMarket(round, oneTurnInput);
-        console.log(result);
+        //console.log(result);
 
         for (var i = 0; i < result.length; i++) {
             var tmpUserId = result[i].userId;
@@ -343,6 +344,12 @@ class TopController {
         var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         var valid = true;
+        var result = await upStreamUser.findUserByUserId(data.userId1);
+
+        if(result.dataValues.currency<data.money){
+            ctx.status = 600;
+            return;
+        }
 
         dealBetween.push({
             userId1: data.userId1,

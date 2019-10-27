@@ -234,13 +234,13 @@ async function produce(userId, data) { //上游需要一次性输入
 
     var totalCost = Number(Cost1) + Number(Cost2) + Number(Cost3);
     var newCurrency = Number(prev.currency) - Number(totalCost);
-    var tmpProfit = Number(prev.thisProfit) - Number(data.TIn   vest) - Number(data.MInvest);
+    var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
 
     if(newCurrency<0) {
         validFlag = 1;
         return validFlag;
     }
-
+    
     User.update({
         Max1:Max1,
         Max2:Max2,
