@@ -209,7 +209,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
 
             oneTurnInput[index]['actualMarket'] = thisActualMarket;
             
-            sumOfComp = Number(sumOfComp) - Number(thisComp);
+            // sumOfComp = Number(sumOfComp) - Number(thisComp);
             mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
         }
     }
