@@ -217,8 +217,8 @@ async function produce(userId, data) {
     // console.log(prev.K);
     // console.log(data.amount);
 
-    var DCost = D1[round-1]*Number(prev.D)* Number(data.amount)*Number(DFund[data.ka-1]);
-    var KCost = K1[round-1]*Number(prev.K)* Number(data.amount)*Number(KFund[data.ka-1]);
+    var DCost = D1[round-1]*Number(prev.D)* Number(data.amount)*Number(DFund[data.kb]);
+    var KCost = K1[round-1]*Number(prev.K)* Number(data.amount)*Number(KFund[data.kc]);
 
     var newPhone = {ka:Number(data.ka),kb:Number(data.kb),kc:Number(data.kc),amount:Number(data.amount)};
     var hasThis = false;
