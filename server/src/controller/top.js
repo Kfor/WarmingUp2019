@@ -413,59 +413,6 @@ class TopController {
         downStreamUser.endRound();
 
 
-        //以下用于排序
-        var tmpRankList = [];
-        for (let i in allGroupList) {
-            var tmpInfo = {};
-            for (let one of upGroupList) {
-                if (allGroupList[i] == one) {
-                    var oneGroup = await upStreamUser.findUserByUserId(allGroupList[i]);
-                    tmpInfo.userId = oneGroup.dataValues.userId;
-                    tmpInfo.currency = oneGroup.dataValues.currency;
-                    tmpInfo.loan = oneGroup.dataValues.loan;
-                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
-                }
-            }
-            for (let one of middleGroupList) {
-                if (allGroupList[i] == one) {
-                    var oneGroup = await middleStreamUser.findUserByUserId(allGroupList[i]);
-                    tmpInfo.userId = oneGroup.dataValues.userId;
-                    tmpInfo.currency = oneGroup.dataValues.currency;
-                    tmpInfo.loan = oneGroup.dataValues.loan;
-                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
-                }
-            }
-            for (let one of downGroupList) {
-                if (allGroupList[i] == one) {
-                    var oneGroup = await downStreamUser.findUserByUserId(allGroupList[i]);
-                    tmpInfo.userId = oneGroup.dataValues.userId;
-                    tmpInfo.currency = oneGroup.dataValues.currency;
-                    tmpInfo.loan = oneGroup.dataValues.loan;
-                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
-                }
-            }
-            tmpRankList.push(tmpInfo);
-        }
-        function sortBy(a, b) {
-            return b.currency - a.currency;
-        }
-        tmpRankList.sort(sortBy);
-        for (let i = 0; i < tmpRankList.length; i++) {
-            if (i != 0 && tmpRankList[i].currency === tmpRankList[i - 1].currency)
-                tmpRankList[i].rank = tmpRankList[i - 1].rank;
-            else
-                tmpRankList[i].rank = Number(i) + 1;
-            tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
-        }
-        rankList.update(tmpRankList);
-
-        //console.log('rankList',tmpRankList)
-
-
-        // 以下处理loanMax，rank问题
-        upStreamUser.updateLoanMax(tmpRankList);
-        middleStreamUser.updateLoanMax(tmpRankList);
-        downStreamUser.updateLoanMax(tmpRankList);
 
 
         // 处理组间借贷问题
@@ -599,6 +546,59 @@ class TopController {
         //     }
         // }
 
+        //以下用于排序
+        var tmpRankList = [];
+        for (let i in allGroupList) {
+            var tmpInfo = {};
+            for (let one of upGroupList) {
+                if (allGroupList[i] == one) {
+                    var oneGroup = await upStreamUser.findUserByUserId(allGroupList[i]);
+                    tmpInfo.userId = oneGroup.dataValues.userId;
+                    tmpInfo.currency = oneGroup.dataValues.currency;
+                    tmpInfo.loan = oneGroup.dataValues.loan;
+                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
+                }
+            }
+            for (let one of middleGroupList) {
+                if (allGroupList[i] == one) {
+                    var oneGroup = await middleStreamUser.findUserByUserId(allGroupList[i]);
+                    tmpInfo.userId = oneGroup.dataValues.userId;
+                    tmpInfo.currency = oneGroup.dataValues.currency;
+                    tmpInfo.loan = oneGroup.dataValues.loan;
+                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
+                }
+            }
+            for (let one of downGroupList) {
+                if (allGroupList[i] == one) {
+                    var oneGroup = await downStreamUser.findUserByUserId(allGroupList[i]);
+                    tmpInfo.userId = oneGroup.dataValues.userId;
+                    tmpInfo.currency = oneGroup.dataValues.currency;
+                    tmpInfo.loan = oneGroup.dataValues.loan;
+                    tmpInfo.totalStorageCost = oneGroup.dataValues.totalStorageCost;
+                }
+            }
+            tmpRankList.push(tmpInfo);
+        }
+        function sortBy(a, b) {
+            return b.currency - a.currency;
+        }
+        tmpRankList.sort(sortBy);
+        for (let i = 0; i < tmpRankList.length; i++) {
+            if (i != 0 && tmpRankList[i].currency === tmpRankList[i - 1].currency)
+                tmpRankList[i].rank = tmpRankList[i - 1].rank;
+            else
+                tmpRankList[i].rank = Number(i) + 1;
+            tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
+        }
+        rankList.update(tmpRankList);
+
+        //console.log('rankList',tmpRankList)
+
+
+        // 以下处理loanMax，rank问题
+        upStreamUser.updateLoanMax(tmpRankList);
+        middleStreamUser.updateLoanMax(tmpRankList);
+        downStreamUser.updateLoanMax(tmpRankList);
         Round.nextRound();
         console.log('to next round: ' + round);
 
