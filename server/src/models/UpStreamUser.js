@@ -164,7 +164,7 @@ async function invest(userId, data) {
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
     const Im = [1,1.05,0.9,1.1];//最大生产系数
-    const fN = [8000,6000,1500];//基础产量
+    const fN = [10000,8000,3000];//基础产量
     const tmpRound = round-1;//index从0开始
     
     var Max1 = Math.floor(Im[tmpRound] * fN[0] * tmpM);

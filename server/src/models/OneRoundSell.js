@@ -90,28 +90,35 @@ function getAllSell(round) {
 
 var marketMcoef = [[1,1,1],
                 [0.5,1,0.5],
-                [1,0.3,0.7],
-                [1,0.2,0.3],
+                [0.7,0.3,1],
+                //[1,0.2,0.3],
                 [0.3,0.3,0.5]];
 
 var marketPcoef = [[3,3,3],
                 [2,3,2.5],
-                [3,1.5,2.5],
-                [3,1,1.5],
+                //[3,1.5,2.5],
+                //[3,1,1.5],
+                [2,1.5,2.5],
                 [1,1,1.5]];
 
-var priceExpect = [6000,4000,3000,5000,1500];
+//var priceExpect = [6000,4000,3000,5000,1500];
+var priceExpect = [6000,4000,3000,1500];
 
-var MarketCapacity = [[4000,5000,5000,4000,10000],//第一年
-                    [5000,6500,6500,5000,12000],
-                    [5800,7200,7200,5800,14400],
-                    [6900,8600,8600,6900,19000]];
+// var MarketCapacity = [[4000,5000,5000,4000,10000],//第一年
+//                     [5000,6500,6500,5000,12000],
+//                     [5800,7200,7200,5800,14400],
+//                     [6900,8600,8600,6900,19000]];
                         
+
+var MarketCapacity = [[3000,5000,4000,10000],//第一年
+                    [3500,6000,4400,10300],
+                    [4000,6800,5000,10800],
+                    [4500,7300,5500,12000]];
 
 function preferValue(ka,kb,kc,marketType) {
     // 即为文档中的f
     if (marketType<0) 
-        return -1;
+        return -1; 
     var thisM = marketMcoef[marketType];
     var thisP = marketPcoef[marketType];
     var tmp = thisM[0]*Math.abs(thisP[0]-ka) +
@@ -141,7 +148,7 @@ function calSumOfCompValue(input, indexList, num) {
 function distributeMarket(turn, oneTurnInputJSON) {
     var MarketThisTurn = MarketCapacity[turn-1];
 
-    var marketTypeIndex = [[],[],[],[],[]]
+    var marketTypeIndex = [[],[],[],[]]
 
     var oneTurnInput = oneTurnInputJSON;
     console.log(oneTurnInput);
@@ -156,7 +163,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
         var kc = oneTurnInput[i].kc;
         var priceActual = oneTurnInput[i].price;
 
-        for(var j=0;j<5;j++) {//5 是市场类型数目
+        for(var j=0;j<4;j++) {//4 是市场类型数目
             tmpValueF = preferValue(ka,kb,kc,j);
             if (tmpValueF>max) {
                 max = tmpValueF;
@@ -170,7 +177,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
         marketTypeIndex[Number(actualMarketType)].push(Number(i));
     }
 
-    for(var i=4;i>=0;i--) {// 5是市场类型数目
+    for(var i=3;i>=0;i--) {// 4是市场类型数目
         
         var typeNum = marketTypeIndex[i].length;
         var mThisTurnType = MarketThisTurn[i];
