@@ -472,9 +472,9 @@ class TopController {
 
 
         if(round==4) {//games end
-            upStreamUser.endGame();
-            middleStreamUser.endGame();
-            downStreamUser.endGame();
+            await upStreamUser.endGame();
+            await middleStreamUser.endGame();
+            await downStreamUser.endGame();
         }
 
         //以下用于排序
@@ -521,7 +521,7 @@ class TopController {
                 tmpRankList[i].rank = Number(i) + 1;
             tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
         }
-        rankList.update(tmpRankList);
+        await rankList.update(tmpRankList);
 
         //console.log('rankList',tmpRankList)
 
