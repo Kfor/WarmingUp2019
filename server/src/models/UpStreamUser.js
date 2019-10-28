@@ -85,17 +85,17 @@ var User = sequelize.define('up_stream_user', {
     Max1: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 8000,
+        defaultValue: 10000,
     },
     Max2: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 6000,
+        defaultValue: 8000,
     },
     Max3: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        defaultValue: 1500,
+        defaultValue: 3000,
     },
     MCost: {
         type: Sequelize.FLOAT,
@@ -346,6 +346,16 @@ async function update(userId,data) {
     },{where:{userId:userId}});
 };
 
+async function endGame() {//用来还钱
+    for(let group of upGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        var tmpLoan = Number(result.dataValues.loan);
+        User.update({
+            loan: 0,
+            currency: Number(result.dataValues.currency - tmpLoan)
+        },{where:{userId:group}});
+    }
+};
 
 async function endRound() {
     
@@ -406,4 +416,4 @@ function autoFine(userId) {
     addCurrency(userId,-200000);
 };
 
-module.exports = {autoFine, sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, updateLoanMax, destroy, repay}
+module.exports = { endGame, autoFine, sync, addUser, invest, produce, findUserByUserId, clear, loan, addCurrency, update, endRound, updateLoanMax, destroy, repay}

@@ -30,7 +30,7 @@ module.exports = (router) => {
     .post('/top/dealUpMiddle', topController.dealUpMiddle)//upUserId,middleUserId,quality,price,num
     .post('/top/dealMiddleDown', topController.dealMiddleDown)//middleUserId,downUserId,ka,kb,kc,price,num
     .post('/top/dealDown', topController.dealDown)//不需要参数，每一轮在所有的下游提交售卖结束后按下即可
-    .post('/top/dealBetween', topController.dealBetween)//userId1,userId2,turnsAfter,money
+    .post('/top/dealBetween', topController.dealBetween)//userId1,userId2,endTurn,money
     .post('/top/oneRound', topController.oneRound)//不需要参数，在每一轮结束后按下
     .post('/top/fine', topController.fine)//userId,fine
     .post('/top/add', topController.add)//userId,money

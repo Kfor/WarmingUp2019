@@ -110,37 +110,67 @@ export default {
         //   path: '/admin/orderlist',
         //   component: './admin/orderList',
         // },
+        // {
+        //   name: 'deal',
+        //   path: '/admin/inputorder',
+        //   routes: [
+        //     // {
+        //     //   name: 'dealupmiddle',
+        //     //   icon: 'smile',
+        //     //   path: '/admin/inputorder/dealupmiddle',
+        //     //   component: './admin/inputOrder/dealUpMiddle',
+        //     // },
+        //     // {
+        //     //   name: 'dealmiddledown',
+        //     //   icon: 'smile',
+        //     //   path: '/admin/inputorder/dealmiddledown',
+        //     //   component: './admin/inputOrder/dealMiddleDown',
+        //     // },
+        //     // {
+        //     //   name: 'dealdown',
+        //     //   icon: 'smile',
+        //     //   path: '/admin/inputorder/dealdown',
+        //     //   component: './admin/inputOrder/dealDown',
+        //     // },
+        //     // {
+        //     //   name: 'dealbetween',
+        //     //   icon: 'smile',
+        //     //   path: '/admin/inputorder/dealbetween',
+        //     //   component: './admin/inputOrder/dealBetween',
+        //     // },
+        //   ],
+        // },
         {
-          name: 'deal',
-          icon: 'money',
-          path: '/admin/inputorder',
-          routes: [
-            {
-              name: 'dealupmiddle',
-              icon: 'smile',
-              path: '/admin/inputorder/dealupmiddle',
-              component: './admin/inputOrder/dealUpMiddle',
-            },
-            {
-              name: 'dealmiddledown',
-              icon: 'smile',
-              path: '/admin/inputorder/dealmiddledown',
-              component: './admin/inputOrder/dealMiddleDown',
-            },
-            {
-              name: 'dealdown',
-              icon: 'smile',
-              path: '/admin/inputorder/dealdown',
-              component: './admin/inputOrder/dealDown',
-            },
-            {
-              name: 'dealbetween',
-              icon: 'smile',
-              path: '/admin/inputorder/dealbetween',
-              component: './admin/inputOrder/dealBetween',
-            },
-          ],
-        }, // {
+          name: 'dealbetween',
+          icon: 'smile',
+          path: '/admin/inputorder/dealbetween',
+          component: './admin/inputOrder/dealBetween',
+        },
+        {
+          name: 'dealupmiddle',
+          icon: 'smile',
+          path: '/admin/inputorder/dealupmiddle',
+          component: './admin/inputOrder/dealUpMiddle',
+        },
+        {
+          name: 'dealmiddledown',
+          icon: 'smile',
+          path: '/admin/inputorder/dealmiddledown',
+          component: './admin/inputOrder/dealMiddleDown',
+        },
+        {
+          name: 'dealdown',
+          icon: 'smile',
+          path: '/admin/inputorder/dealdown',
+          component: './admin/inputOrder/dealDown',
+        },
+        {
+          name: 'oneround',
+          icon: 'smile',
+          path: '/admin/oneround',
+          component: './admin/oneRound',
+        },
+        // {
         //   name: 'display',
         //   path: '/admin/display',
         //   component: './admin/display',
@@ -157,13 +187,11 @@ export default {
         },
         {
           name: 'controller',
-          icon: 'smile',
           path: '/admin/controller',
           component: './admin/controller',
         },
         {
           name: 'rank',
-          icon: 'smile',
           path: '/admin/rank',
           component: './admin/rank',
         },
@@ -188,18 +216,12 @@ export default {
             },
           ],
         },
-        // {
-        //   name: 'test',
-        //   icon: 'smile',
-        //   path: '/admin/test',
-        //   component: './admin/test',
-        // },
         {
           name: 'dealbetweenprofile',
-          icon: 'smile',
           path: '/admin/dealbetweenprofile',
           component: './admin/dealBetweenProfile',
         },
+
         {
           component: './404',
         },

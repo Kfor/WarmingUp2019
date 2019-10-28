@@ -388,6 +388,17 @@ async function endRound() {
         }
 };
 
+async function endGame() {//用来还钱
+    for(let group of middleGroupList) {
+        var result = await User.findOne({where:{userId:group}});
+        var tmpLoan = Number(result.dataValues.loan);
+        User.update({
+            loan: 0,
+            currency: Number(result.dataValues.currency - tmpLoan)
+        },{where:{userId:group}});
+    }
+};
+
 async function updateLoanMax(data) {
     for (var group of middleGroupList) {
         var result = await User.findOne({where:{userId:group}});
@@ -414,4 +425,4 @@ function autoFine(userId) {
     addCurrency(userId,-200000);
 };
 
-module.exports = {autoFine, sync, addUser, findUserByUserId, produce, invest, loan, clear, addCurrency, update, updateLoanMax, endRound, destroy, repay};
+module.exports = {endGame, autoFine, sync, addUser, findUserByUserId, produce, invest, loan, clear, addCurrency, update, updateLoanMax, endRound, destroy, repay};

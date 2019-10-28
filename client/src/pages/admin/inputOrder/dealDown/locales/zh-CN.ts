@@ -24,7 +24,7 @@ export default {
   'adminandinputorderanddealdown.form.get-captcha': '获取验证码',
   'adminandinputorderanddealdown.captcha.second': '秒',
   'adminandinputorderanddealdown.form.optional': '（选填）',
-  'adminandinputorderanddealdown.form.submit': '提交',
+  'adminandinputorderanddealdown.form.submit': 'dealDown',
   'adminandinputorderanddealdown.form.save': '保存',
   'adminandinputorderanddealdown.email.placeholder': '邮箱',
   'adminandinputorderanddealdown.password.placeholder': '至少6位密码，区分大小写',

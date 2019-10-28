@@ -3,9 +3,9 @@ import request from '@/utils/request';
 export async function fakeSubmitForm(params: any) {
   return request(
     '/api/top/dealUpMiddle?' +
-      'upUserId=' +
+      'upUserId=group' +
       params.up_id +
-      '&middleUserId=' +
+      '&middleUserId=group' +
       params.middle_id +
       '&quality=' +
       params.quality +

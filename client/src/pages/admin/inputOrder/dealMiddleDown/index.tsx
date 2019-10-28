@@ -85,7 +85,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
-                initialValue: 'group',
+                initialValue: 4,
                 rules: [
                   {
                     required: true,
@@ -95,7 +95,9 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  min={4}
+                  max={7}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.middle_id.placeholder',
                   })}
@@ -107,7 +109,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.down_id.label" />}
             >
               {getFieldDecorator('down_id', {
-                initialValue: 'group',
+                initialValue: 8,
                 rules: [
                   {
                     required: true,
@@ -117,7 +119,9 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  min={8}
+                  max={12}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.down_id.placeholder',
                   })}
@@ -141,12 +145,11 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <InputNumber
-                  defaultValue={0}
-                  placeholder={formatMessage({
-                    id: 'adminandinputorderanddealmiddledown.performance.placeholder',
-                  })}
-                />,
+                <Radio.Group size="small">
+                  <Radio value="1">消费级</Radio>
+                  <Radio value="2">专业级</Radio>
+                  <Radio value="3">旗舰级</Radio>
+                </Radio.Group>,
               )}
             </FormItem>
             <FormItem
@@ -163,12 +166,11 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <InputNumber
-                  defaultValue={0}
-                  placeholder={formatMessage({
-                    id: 'adminandinputorderanddealmiddledown.appearance.placeholder',
-                  })}
-                />,
+                <Radio.Group size="small">
+                  <Radio value="1">低</Radio>
+                  <Radio value="2">中</Radio>
+                  <Radio value="3">高</Radio>
+                </Radio.Group>,
               )}
             </FormItem>
             <FormItem
@@ -185,12 +187,11 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                   },
                 ],
               })(
-                <InputNumber
-                  defaultValue={0}
-                  placeholder={formatMessage({
-                    id: 'adminandinputorderanddealmiddledown.function.placeholder',
-                  })}
-                />,
+                <Radio.Group size="small">
+                  <Radio value="1">低</Radio>
+                  <Radio value="2">中</Radio>
+                  <Radio value="3">高</Radio>
+                </Radio.Group>,
               )}
             </FormItem>
 
@@ -199,6 +200,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.price.label" />}
             >
               {getFieldDecorator('price', {
+                initialValue: 1000,
                 rules: [
                   {
                     required: true,
@@ -209,7 +211,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                 ],
               })(
                 <InputNumber
-                  defaultValue={0}
+                  step={1000}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.price.placeholder',
                   })}
@@ -221,6 +223,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.count.label" />}
             >
               {getFieldDecorator('count', {
+                initialValue: 1000,
                 rules: [
                   {
                     required: true,
@@ -231,7 +234,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                 ],
               })(
                 <InputNumber
-                  defaultValue={0}
+                  step={1000}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.count.placeholder',
                   })}

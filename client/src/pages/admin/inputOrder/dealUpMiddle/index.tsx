@@ -80,7 +80,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
           >
             <FormItem {...formItemLayout} label={<FormattedMessage id="exchange-up.up_id.label" />}>
               {getFieldDecorator('up_id', {
-                initialValue: 'group',
+                initialValue: 1,
                 rules: [
                   {
                     required: true,
@@ -90,7 +90,9 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  min={1}
+                  max={3}
                   placeholder={formatMessage({
                     id: 'exchange-up.up_id.placeholder',
                   })}
@@ -102,7 +104,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               label={<FormattedMessage id="exchange-up.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
-                initialValue: 'group',
+                initialValue: 4,
                 rules: [
                   {
                     required: true,
@@ -112,7 +114,9 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <Input
+                <InputNumber
+                  min={4}
+                  max={7}
                   placeholder={formatMessage({
                     id: 'exchange-up.middle_id.placeholder',
                   })}
@@ -134,17 +138,17 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                   },
                 ],
               })(
-                <InputNumber
-                  defaultValue={0}
-                  placeholder={formatMessage({
-                    id: 'exchange-up.quality.placeholder',
-                  })}
-                />,
+                <Radio.Group size="small">
+                  <Radio value="1">消费级</Radio>
+                  <Radio value="2">专业级</Radio>
+                  <Radio value="3">旗舰级</Radio>
+                </Radio.Group>,
               )}
             </FormItem>
 
             <FormItem {...formItemLayout} label={<FormattedMessage id="exchange-up.price.label" />}>
               {getFieldDecorator('price', {
+                initialValue: 1000,
                 rules: [
                   {
                     required: true,
@@ -156,6 +160,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               })(
                 <InputNumber
                   defaultValue={0}
+                  step={1000}
                   placeholder={formatMessage({
                     id: 'exchange-up.price.placeholder',
                   })}
@@ -164,6 +169,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="exchange-up.count.label" />}>
               {getFieldDecorator('count', {
+                initialValue: 1000,
                 rules: [
                   {
                     required: true,
@@ -175,6 +181,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               })(
                 <InputNumber
                   defaultValue={0}
+                  step={1000}
                   placeholder={formatMessage({
                     id: 'exchange-up.count.placeholder',
                   })}
