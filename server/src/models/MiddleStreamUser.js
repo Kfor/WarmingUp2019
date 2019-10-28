@@ -184,8 +184,8 @@ async function produce(userId, data) {
     const result = await findUserByUserId(userId);
     const prev = result.dataValues;
 
-    const D1 = [1,1.1,1.05,0.98];
-    const K1 = [1,1.15,0.9,0.95];
+    const D1 = [1,1.1,1.05,0.98,0];
+    const K1 = [1,1.15,0.9,0.95,0];
     const DFund = [150,350,550];
     const KFund = [150,450,750];
 

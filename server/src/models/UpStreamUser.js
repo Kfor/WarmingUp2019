@@ -202,8 +202,8 @@ async function produce(userId, data) { //上游需要一次性输入
 
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
-    const It = [1.0,0.9,1.08,1.1];//芯片成本事件
-    const fC = [300,800,1500];//基础成本
+    const It = [1.0,0.9,1.08,1.1,0];//芯片成本事件
+    const fC = [300,800,1500,0];//基础成本
     const tmpRound = round-1;//index从0开始
     
     var Max1 = prev.Max1;
@@ -361,7 +361,7 @@ async function endRound() {
     
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
-    const Im = [1,1.05,0.9,1.1];//最大生产系数
+    const Im = [1,1.05,0.9,1.1,0];//最大生产系数
     //const fN = [10000,8000,3000];//基础产量
     const tmpRound = round;//新的一轮（而原本要下标减一）
     

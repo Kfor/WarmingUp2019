@@ -19,7 +19,7 @@ import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState } from '@/models/connect';
 import { isAntDesignPro } from '@/utils/utils';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
@@ -58,8 +58,7 @@ const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
           padding: '0px 24px 24px',
           textAlign: 'center',
         }}
-      >
-      </div>
+      ></div>
     </>
   );
 };
@@ -102,7 +101,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         if (menuItemProps.isUrl) {
           return defaultDom;
         }
-        return <Link to={menuItemProps.path+'?userId='+props.location.query.userId}>{defaultDom}</Link>;
+        return (
+          <Link to={menuItemProps.path + '?userId=' + props.location.query.userId}>
+            {defaultDom}
+          </Link>
+        );
       }}
       breadcrumbRender={(routers = []) => [
         {
@@ -125,7 +128,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       footerRender={footerRender}
       menuDataRender={menuDataRender}
       formatMessage={formatMessage}
-//      rightContentRender={rightProps => <RightContent {...rightProps} />}
+      //      rightContentRender={rightProps => <RightContent {...rightProps} />}
       {...props}
       {...settings}
     >

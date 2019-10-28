@@ -50,8 +50,8 @@ class UpProfile extends Component<UpProfileProps, UpProfileState> {
           <Descriptions title="基础信息" style={{ marginBottom: 8 }} column={4}>
             <Descriptions.Item label="组号及身份">{userInfo.userId}上游</Descriptions.Item>
             <Descriptions.Item label="现金数目">{userInfo.currency}</Descriptions.Item>
-            <Descriptions.Item label="贷款总额">{userInfo.loan}</Descriptions.Item>
-            <Descriptions.Item label="最大贷款额度">{userInfo.loanMax} 元</Descriptions.Item>
+            <Descriptions.Item label="当前银行贷款">{userInfo.loan}</Descriptions.Item>
+            <Descriptions.Item label="本轮银行贷款额度">{userInfo.loanMax} 元</Descriptions.Item>
             <Descriptions.Item label="当前轮次">{round}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
