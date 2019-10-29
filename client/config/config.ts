@@ -212,7 +212,7 @@ export default {
             {
               name: 'gotodown',
               path: '/admin/jump/gotodown',
-              redirect: '/down/downinput?userId=group9',
+              redirect: '/down/downinput?userId=group10',
             },
           ],
         },
@@ -381,7 +381,7 @@ export default {
   chainWebpack: webpackPlugin,
   proxy: {
     '/api': {
-      target: 'http://localhost',
+      target: 'http://localhost:8000',
       changeOrigin: true,
       pathRewrite: {
         '^/server': '',

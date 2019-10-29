@@ -619,21 +619,21 @@ class TopController {
         var upStreamUser = require('../models/UpStreamUser');
         upStreamUser.sync();
         upStreamUser.destroy();
-        for(let group in upGroupList){
+        for(let group of upGroupList){
             upStreamUser.addUser(group);
         }
 
         var middleStreamUser = require('../models/MiddleStreamUser');
         middleStreamUser.sync();
         middleStreamUser.destroy();
-        for(let group in middleGroupList){
+        for(let group of middleGroupList){
             middleStreamUser.addUser(group);
         }
 
         var downStreamUser = require('../models/DownStreamUser');
         downStreamUser.sync();
         downStreamUser.destroy();
-        for(let group in downGroupList){
+        for(let group of downGroupList){
             downStreamUser.addUser(group);
         }
 
@@ -649,7 +649,7 @@ class TopController {
         var rankList = require('../models/RankList');
         rankList.sync();
         rankList.destroy();
-        for (let group in allGroupList) {
+        for (let group of allGroupList) {
             rankList.addRankItem(group);
         }
 
