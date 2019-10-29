@@ -124,7 +124,6 @@ function preferValue(ka,kb,kc,marketType) {
     var tmp = thisM[0]*Math.abs(thisP[0]-ka) +
                 thisM[1]*Math.abs(thisP[1]-kb) + 
                 thisM[2]*Math.abs(thisP[2]-kc) + 1;
-    console.log('f'+1/tmp)
     return 1/tmp;
 }
 

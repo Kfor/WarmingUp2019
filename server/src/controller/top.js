@@ -10,9 +10,9 @@ var dealBetween = require('../models/DealBetween')
 
 var autoFine = -200000;
 
-var upGroupList = ['group1', 'group2', 'group3'];
-var middleGroupList = ['group4','group5', 'group6', 'group7'];
-var downGroupList = ['group8', 'group9', 'group10', 'group11', 'group12'];
+var upGroupList = ['group1','group2','group3','group4'];
+var middleGroupList = ['group5','group6','group7','group8','group9'];
+var downGroupList = ['group10', 'group11', 'group12','group13','group14','group15'];
 var allGroupList = (upGroupList.concat(middleGroupList)).concat(downGroupList);
 
 
@@ -519,7 +519,7 @@ class TopController {
                 tmpRankList[i].rank = tmpRankList[i - 1].rank;
             else
                 tmpRankList[i].rank = Number(i) + 1;
-            tmpRankList[i].loanMax = (13 - tmpRankList[i].rank) / 12 * Number(3000000);
+            tmpRankList[i].loanMax = (15 - tmpRankList[i].rank) / 14 * Number(3000000);
         }
         await rankList.update(tmpRankList);
 
@@ -619,27 +619,23 @@ class TopController {
         var upStreamUser = require('../models/UpStreamUser');
         upStreamUser.sync();
         upStreamUser.destroy();
-        upStreamUser.addUser('group1')
-        upStreamUser.addUser('group2')
-        upStreamUser.addUser('group3')
-
+        for(let group in upGroupList){
+            upStreamUser.addUser(group);
+        }
 
         var middleStreamUser = require('../models/MiddleStreamUser');
         middleStreamUser.sync();
         middleStreamUser.destroy();
-        middleStreamUser.addUser('group4')
-        middleStreamUser.addUser('group5')
-        middleStreamUser.addUser('group6')
-        middleStreamUser.addUser('group7')
+        for(let group in middleGroupList){
+            middleStreamUser.addUser(group);
+        }
 
         var downStreamUser = require('../models/DownStreamUser');
         downStreamUser.sync();
         downStreamUser.destroy();
-        downStreamUser.addUser('group8')
-        downStreamUser.addUser('group9')
-        downStreamUser.addUser('group10')
-        downStreamUser.addUser('group11')
-        downStreamUser.addUser('group12')
+        for(let group in downGroupList){
+            downStreamUser.addUser(group);
+        }
 
         var oneRoundSell = require('../models/OneRoundSell');
         oneRoundSell.sync();
@@ -653,9 +649,8 @@ class TopController {
         var rankList = require('../models/RankList');
         rankList.sync();
         rankList.destroy();
-        for (let i = 0; i < 12; i++) {
-            var thisGroup = 'group' + Number(i + 1);
-            rankList.addRankItem(thisGroup);
+        for (let group in allGroupList) {
+            rankList.addRankItem(group);
         }
 
         var dealBetween = require('../models/DealBetween');

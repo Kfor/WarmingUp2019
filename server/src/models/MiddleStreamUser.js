@@ -6,7 +6,7 @@ const config = require('../config.js')
 const Round = require('./Round')
 
 
-var middleGroupList = ['group4','group5','group6','group7'];
+var middleGroupList = ['group5','group6','group7','group8','group9'];
 
 
 var sequelize = new Sequelize(config.database, config.username, config.password, {

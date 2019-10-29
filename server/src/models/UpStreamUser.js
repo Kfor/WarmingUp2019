@@ -4,7 +4,7 @@ const Round = require('./Round')
 
 
 
-var upGroupList = ['group1','group2','group3'];
+var upGroupList = ['group1','group2','group3','group4'];
 const fN = [10000,8000,3000];
 
 
@@ -159,7 +159,7 @@ async function invest(userId, data) {
     var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
 
     var tmpT = 0.4 + 0.6/Number(1+Math.exp(8*(tmpTCost/10000000-0.4)));
-    var tmpM = 0.45 + 4.55/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
+    var tmpM = 1 + 4.0/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
 
 
     var roundtable = await Round.getRound();
