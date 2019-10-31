@@ -277,13 +277,13 @@ export default {
           component: './middle/middleInput',
           hideInBreadcrumb: true,
         },
-        // {
-        //   name: 'middleprofile',
-        //   path: '/middle/middleprofile',
-        //   icon: 'money',
-        //   component: './middle/middleProfile',
-        //   hideInBreadcrumb: true,
-        // }, // {
+        {
+          name: 'middleprofile',
+          path: '/middle/middleprofile',
+          icon: 'money',
+          component: './middle/middleProfile',
+          hideInBreadcrumb: true,
+        }, // {
         //   name: 'middledisplay',
         //   path: '/middle/middledisplay',
         //   component: './middle/middledisplay',
@@ -310,13 +310,13 @@ export default {
           component: './down/downInput',
           hideInBreadcrumb: true,
         },
-        // {
-        //   name: 'downprofile',
-        //   path: '/down/downprofile',
-        //   icon: 'money',
-        //   component: './down/downProfile',
-        //   hideInBreadcrumb: true,
-        // }, // {
+        {
+          name: 'downprofile',
+          path: '/down/downprofile',
+          icon: 'money',
+          component: './down/downProfile',
+          hideInBreadcrumb: true,
+        }, // {
         //   name: 'downdisplay',
         //   path: '/down/downdisplay',
         //   component: './down/downdisplay',
