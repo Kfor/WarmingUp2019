@@ -205,25 +205,6 @@ class UpInput extends Component<UpInputProps> {
                     </FormItem>
 
                     <FormItem
-                      {...formItemLayout}
-                      label={<FormattedMessage id="up-upinput.MInvest.label" />}
-                    >
-                      {getFieldDecorator('MInvest', {
-                        initialValue: 0,
-                      })(
-                        <InputNumber
-                          min={0}
-                          // placeholder={formatMessage({
-                          //   id: 'up-upinput.MInvest.placeholder',
-                          // })} // min={0}
-                          // max={100}
-                        />,
-                      )}
-                      <Text> 元</Text>
-                      {/* <span className="ant-form-text">万</span> */}
-                    </FormItem>
-
-                    <FormItem
                       {...submitFormLayout}
                       style={{
                         marginTop: 32,

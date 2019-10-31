@@ -56,19 +56,14 @@ class UpProfile extends Component<UpProfileProps, UpProfileState> {
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>
-            <Descriptions.Item label="M">{userInfo.M}</Descriptions.Item>
-            <Descriptions.Item label="MCost">{userInfo.MCost}</Descriptions.Item>
-            <Descriptions.Item label="T">{userInfo.T}</Descriptions.Item>
-            <Descriptions.Item label="TCost">{userInfo.TCost}</Descriptions.Item>
-            <Descriptions.Item label="chip1">{userInfo.Max1}</Descriptions.Item>
-            <Descriptions.Item label="chip2">{userInfo.Max2}</Descriptions.Item>
-            <Descriptions.Item label="chip3">{userInfo.Max3}</Descriptions.Item>
+            <Descriptions.Item label="科研系数T">{userInfo.T}</Descriptions.Item>
+            <Descriptions.Item label="科研累积投入">{userInfo.TCost}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="已有库存" style={{ marginBottom: 8 }} column={4}>
-            <Descriptions.Item label="chip1Num">{userInfo.chip1Num}</Descriptions.Item>
-            <Descriptions.Item label="chip2Num">{userInfo.chip2Num}</Descriptions.Item>
-            <Descriptions.Item label="chip3Num">{userInfo.chip3Num}</Descriptions.Item>
+            <Descriptions.Item label="消费级芯片">{userInfo.chip1Num}</Descriptions.Item>
+            <Descriptions.Item label="专业级芯片">{userInfo.chip2Num}</Descriptions.Item>
+            <Descriptions.Item label="旗舰级芯片">{userInfo.chip3Num}</Descriptions.Item>
             <Descriptions.Item label="累积库存费用">{userInfo.totalStorageCost}</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />

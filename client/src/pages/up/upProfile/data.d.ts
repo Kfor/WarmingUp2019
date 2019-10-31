@@ -10,14 +10,6 @@ export interface UserInfo {
     totalStorageCost: number;
     T: number;
     TCost: number;
-    M: number;
-    MCost: number;
-    angelInvest: number;
-    lastProfit: number;
-    angelCut: number;
-    Max1: number;
-    Max2: number;
-    Max3: number;
   };
   round: number;
 }

@@ -8,7 +8,7 @@ module.exports = (router) => {
   router.prefix('/api');
   router
     
-    .post('/upstream/invest', upStreamUserController.invest)//userId,TInvest,MInvest,
+    .post('/upstream/invest', upStreamUserController.invest)//userId,TInvest
     .post('/upstream/produce', upStreamUserController.produce)//userId,chip1Num,chip2Num,chip3Num
     .post('/upstream/loan', upStreamUserController.loan)//userId,loan
     .post('/upstream/repay', upStreamUserController.repay)//userId,repay

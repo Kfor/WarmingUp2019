@@ -77,31 +77,31 @@ var User = sequelize.define('up_stream_user', {
         allowNull: false,
         defaultValue: 0
     },
-    M: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 1
-    },
-    Max1: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 10000,
-    },
-    Max2: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 8000,
-    },
-    Max3: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 3000,
-    },
-    MCost: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 0
-    },
+    // M: {
+    //     type: Sequelize.FLOAT,
+    //     allowNull: false,
+    //     defaultValue: 1
+    // },
+    // Max1: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     defaultValue: 10000,
+    // },
+    // Max2: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     defaultValue: 8000,
+    // },
+    // Max3: {
+    //     type: Sequelize.INTEGER,
+    //     allowNull: false,
+    //     defaultValue: 3000,
+    // },
+    // MCost: {
+    //     type: Sequelize.FLOAT,
+    //     allowNull: false,
+    //     defaultValue: 0
+    // },
     rank: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -156,36 +156,36 @@ async function invest(userId, data) {
     //var tmpM = (1-Number(data.MInvest)/10000000)*Number(prev.M);
 
     var tmpTCost    = Number(prev.TCost) + Number(data.TInvest);
-    var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
+    //var tmpMCost    = Number(prev.MCost) + Number(data.MInvest);
 
     var tmpT = 0.4 + 0.6/Number(1+Math.exp(8*(tmpTCost/10000000-0.4)));
-    var tmpM = 1 + 4.0/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
+    //var tmpM = 1 + 4.0/Number(1+Math.exp(3.5*(0.55-tmpMCost/10000000)));
 
 
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
-    const Im = [1,1.05,0.9,1.1];//最大生产系数
+    //const Im = [1,1.05,0.9,1.1];//最大生产系数
     //const fN = [10000,8000,3000];//基础产量
     const tmpRound = round-1;//index从0开始
     
-    var Max1 = Math.floor(Im[tmpRound] * fN[0] * tmpM);
-    var Max2 = Math.floor(Im[tmpRound] * fN[1] * tmpM);
-    var Max3 = Math.floor(Im[tmpRound] * fN[2] * tmpM);
+    // var Max1 = Math.floor(Im[tmpRound] * fN[0] * tmpM);
+    // var Max2 = Math.floor(Im[tmpRound] * fN[1] * tmpM);
+    // var Max3 = Math.floor(Im[tmpRound] * fN[2] * tmpM);
 
 
-    var tmpCurrency = Number(prev.currency) - Number(data.TInvest) - Number(data.MInvest);
+    var tmpCurrency = Number(prev.currency) - Number(data.TInvest)// - Number(data.MInvest);
     // var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
 
     var valid = tmpCurrency>=0;
     if(valid){
         User.update({
             T:tmpT,
-            M:tmpM,
-            Max1:Max1,
-            Max2:Max2,
-            Max3:Max3,
+            //M:tmpM,
+            // Max1:Max1,
+            // Max2:Max2,
+            // Max3:Max3,
             TCost:tmpTCost,
-            MCost:tmpMCost,
+    //        MCost:tmpMCost,
             currency:tmpCurrency,
             //thisProfit:tmpProfit,
         }, {
@@ -206,35 +206,38 @@ async function produce(userId, data) { //上游需要一次性输入
     const fC = [300,800,1500,0];//基础成本
     const tmpRound = round-1;//index从0开始
     
-    var Max1 = prev.Max1;
-    var Max2 = prev.Max2;
-    var Max3 = prev.Max3;
+    // var Max1 = prev.Max1;
+    // var Max2 = prev.Max2;
+    // var Max3 = prev.Max3;
 
     var chip1Num = data.chip1Num;
     var chip2Num = data.chip2Num;
     var chip3Num = data.chip3Num;
 
     var validFlag = 0;
-    if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
-        validFlag = 2;
-        return validFlag;
-    }
+    // if(chip1Num>Max1||chip2Num>Max2||chip3Num>Max3) {
+    //     validFlag = 2;
+    //     return validFlag;
+    // }
     
     var tmpChip1Num = Number(prev.chip1Num) + Number(chip1Num);
     var tmpChip2Num = Number(prev.chip2Num) + Number(chip2Num);
     var tmpChip3Num = Number(prev.chip3Num) + Number(chip3Num);
 
-    Max1 -= Number(chip1Num);
-    Max2 -= Number(chip2Num);
-    Max3 -= Number(chip3Num);
-    
-    var Cost1 = It[tmpRound] * fC[0] * Number(prev.T) * Number(chip1Num);
-    var Cost2 = It[tmpRound] * fC[1] * Number(prev.T) * Number(chip2Num);
-    var Cost3 = It[tmpRound] * fC[2] * Number(prev.T) * Number(chip3Num);
+    // Max1 -= Number(chip1Num);
+    // Max2 -= Number(chip2Num);
+    // Max3 -= Number(chip3Num);
+    var M1 = 0.5 + 0.5/Number(1+Math.exp(4*(Number(chip1Num)/6500-2)));
+    var M2 = 0.5 + 0.5/Number(1+Math.exp(4*(Number(chip1Num)/5000-2)));
+    var M3 = 0.5 + 0.5/Number(1+Math.exp(4*(Number(chip1Num)/1300-2)));
+
+    var Cost1 = It[tmpRound] * fC[0] * Number(prev.T) * Number(chip1Num) * M1;
+    var Cost2 = It[tmpRound] * fC[1] * Number(prev.T) * Number(chip2Num) * M2;
+    var Cost3 = It[tmpRound] * fC[2] * Number(prev.T) * Number(chip3Num) * M3;
 
     var totalCost = Number(Cost1) + Number(Cost2) + Number(Cost3);
     var newCurrency = Number(prev.currency) - Number(totalCost);
-    var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
+    //var tmpProfit = Number(prev.thisProfit) - Number(data.TInvest) - Number(data.MInvest);
 
     if(newCurrency<0) {
         validFlag = 1;
@@ -242,9 +245,9 @@ async function produce(userId, data) { //上游需要一次性输入
     }
     
     User.update({
-        Max1:Max1,
-        Max2:Max2,
-        Max3:Max3,
+        // Max1:Max1,
+        // Max2:Max2,
+        // Max3:Max3,
         chip1Num:tmpChip1Num,
         chip2Num:tmpChip2Num,
         chip3Num:tmpChip3Num,
@@ -361,7 +364,7 @@ async function endRound() {
     
     var roundtable = await Round.getRound();
     var round = roundtable.dataValues.round;
-    const Im = [1,1.05,0.9,1.1,0];//最大生产系数
+    //const Im = [1,1.05,0.9,1.1,0];//最大生产系数
     //const fN = [10000,8000,3000];//基础产量
     const tmpRound = round;//新的一轮（而原本要下标减一）
     
@@ -373,14 +376,14 @@ async function endRound() {
             result.dataValues.chip2Num+result.dataValues.chip3Num)*40;//40是每个芯片库存单价
     
 
-        var Max1 = Math.floor(Im[tmpRound] * fN[0] * result.M);
-        var Max2 = Math.floor(Im[tmpRound] * fN[1] * result.M);
-        var Max3 = Math.floor(Im[tmpRound] * fN[2] * result.M);
+        // var Max1 = Math.floor(Im[tmpRound] * fN[0] * result.M);
+        // var Max2 = Math.floor(Im[tmpRound] * fN[1] * result.M);
+        // var Max3 = Math.floor(Im[tmpRound] * fN[2] * result.M);
 
         User.update({
-            Max1:Max1,
-            Max2:Max2,
-            Max3:Max3,
+            // Max1:Max1,
+            // Max2:Max2,
+            // Max3:Max3,
             loan: tmpLoan, 
             currency: result.dataValues.currency - tmpStorageCost, 
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
