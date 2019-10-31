@@ -1,6 +1,6 @@
 export default {
   'middle-middleinput.basic.description':
-    '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入。注意，按下提交按钮后，只有当前表单数据会提交。',
+    '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入。注意，按下提交按钮后，只有对应表单数据会提交。',
 
   'middle-middleinput.userId.label': '公司序号',
   'middle-middleinput.userId.placeholder': '公司序号',
