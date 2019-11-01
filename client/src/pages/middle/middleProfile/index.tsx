@@ -78,16 +78,16 @@ class MiddleProfile extends Component<MiddleProfileProps, MiddleProfileState> {
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>
-            <Descriptions.Item label="D">{userInfo.D}</Descriptions.Item>
-            <Descriptions.Item label="DCost">{userInfo.DCost} 元</Descriptions.Item>
-            <Descriptions.Item label="K">{userInfo.K}</Descriptions.Item>
-            <Descriptions.Item label="KCost">{userInfo.KCost} 元</Descriptions.Item>
+            <Descriptions.Item label="设计系数D">{userInfo.D}</Descriptions.Item>
+            <Descriptions.Item label="累积设计投入">{userInfo.DCost} 元</Descriptions.Item>
+            <Descriptions.Item label="功能研发系数K">{userInfo.K}</Descriptions.Item>
+            <Descriptions.Item label="累积功能研发投入">{userInfo.KCost} 元</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="已有库存" style={{ marginBottom: 8 }} column={4}>
-            <Descriptions.Item label="chip1Num">{userInfo.chip1Num} 个</Descriptions.Item>
-            <Descriptions.Item label="chip2Num">{userInfo.chip2Num} 个</Descriptions.Item>
-            <Descriptions.Item label="chip3Num">{userInfo.chip3Num} 个</Descriptions.Item>
+            <Descriptions.Item label="消费级芯片">{userInfo.chip1Num} 个</Descriptions.Item>
+            <Descriptions.Item label="专业级芯片">{userInfo.chip2Num} 个</Descriptions.Item>
+            <Descriptions.Item label="旗舰级芯片">{userInfo.chip3Num} 个</Descriptions.Item>
             <Descriptions.Item label="累积库存费用">
               {userInfo.totalStorageCost} 元
             </Descriptions.Item>

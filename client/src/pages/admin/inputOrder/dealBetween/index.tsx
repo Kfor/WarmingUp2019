@@ -99,7 +99,7 @@ class DealBetween extends Component<DealBetweenProps> {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="credit.userId_2.label" />}>
               {getFieldDecorator('userId_2', {
-                initialValue: 1,
+                initialValue: 5,
                 rules: [
                   {
                     required: true,
@@ -130,6 +130,7 @@ class DealBetween extends Component<DealBetweenProps> {
               })(
                 <InputNumber
                   step={100000}
+                  min={1000000}
                   placeholder={formatMessage({
                     id: 'credit.money.placeholder',
                   })}
@@ -161,7 +162,7 @@ class DealBetween extends Component<DealBetweenProps> {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="credit.circle.label" />}>
               {getFieldDecorator('circle', {
-                initialValue: 1,
+                initialValue: 2,
                 rules: [
                   {
                     required: true,

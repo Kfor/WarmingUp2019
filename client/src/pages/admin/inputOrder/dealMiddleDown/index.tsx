@@ -85,7 +85,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
-                initialValue: 4,
+                initialValue: 5,
                 rules: [
                   {
                     required: true,
@@ -109,7 +109,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
               label={<FormattedMessage id="adminandinputorderanddealmiddledown.down_id.label" />}
             >
               {getFieldDecorator('down_id', {
-                initialValue: 8,
+                initialValue: 10,
                 rules: [
                   {
                     required: true,

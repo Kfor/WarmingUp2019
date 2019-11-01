@@ -104,7 +104,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               label={<FormattedMessage id="exchange-up.middle_id.label" />}
             >
               {getFieldDecorator('middle_id', {
-                initialValue: 4,
+                initialValue: 5,
                 rules: [
                   {
                     required: true,
