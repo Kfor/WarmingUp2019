@@ -110,6 +110,7 @@ class DealBetween extends Component<DealBetweenProps> {
                 ],
               })(
                 <InputNumber
+                  min={5}
                   placeholder={formatMessage({
                     id: 'credit.userId_2.placeholder',
                   })}
@@ -173,6 +174,7 @@ class DealBetween extends Component<DealBetweenProps> {
                 ],
               })(
                 <InputNumber
+                  min={2}
                   placeholder={formatMessage({
                     id: 'credit.circle.placeholder',
                   })}
