@@ -96,8 +96,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                 ],
               })(
                 <InputNumber
-                  min={4}
-                  max={7}
+                  min={5}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.middle_id.placeholder',
                   })}
@@ -120,8 +119,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                 ],
               })(
                 <InputNumber
-                  min={8}
-                  max={12}
+                  min={10}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.down_id.placeholder',
                   })}

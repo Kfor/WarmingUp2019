@@ -92,7 +92,6 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               })(
                 <InputNumber
                   min={1}
-                  max={3}
                   placeholder={formatMessage({
                     id: 'exchange-up.up_id.placeholder',
                   })}
@@ -115,8 +114,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
                 ],
               })(
                 <InputNumber
-                  min={4}
-                  max={7}
+                  min={5}
                   placeholder={formatMessage({
                     id: 'exchange-up.middle_id.placeholder',
                   })}
