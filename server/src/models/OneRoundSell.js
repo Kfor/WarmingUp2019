@@ -188,7 +188,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
             var thisComp = oneTurnInput[index]['compValue'];
             var sellValue = oneTurnInput[index]['amount'];
             var ad = oneTurnInput[index]['ad'];
-            var thisActualMarket = Math.ceil(ad*mThisTurnType*Math.pow(thisComp,k0)/Math.pow(sumOfComp,k0));
+            var thisActualMarket = Math.ceil(mThisTurnType*Math.pow(thisComp,k0)/Math.pow(sumOfComp,k0));
             
             if(Number(oneTurnInput[index].price)>Number(2*priceExpect[i]))
                 continue;

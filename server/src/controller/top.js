@@ -77,7 +77,7 @@ class TopController {
         const money = data.angelInvest;
         for (let one of upGroupList) {
             if (result == one) {
-                upStreamUser.update(one, {
+                await upStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
@@ -85,7 +85,7 @@ class TopController {
         }
         for (let one of middleGroupList) {
             if (result == one) {
-                middleStreamUser.update(one, {
+                await middleStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
@@ -93,7 +93,7 @@ class TopController {
         }
         for (let one of downGroupList) {
             if (result == one) {
-                downStreamUser.update(one, {
+                await downStreamUser.update(one, {
                     currency: Number(money),
                     angelInvest: Number(money),
                 })
@@ -149,7 +149,7 @@ class TopController {
             if (data.quality == 3) {
                 var new3 = up[type] - Number(data.num);
             }
-            upStreamUser.update(data.upUserId, {
+            await upStreamUser.update(data.upUserId, {
                 chip1Num: new1,
                 chip2Num: new2,
                 chip3Num: new3,
@@ -166,7 +166,7 @@ class TopController {
             if (data.quality == 3) {
                 var new3 = middle[type] + Number(data.num);
             }
-            middleStreamUser.update(data.middleUserId, {
+            await middleStreamUser.update(data.middleUserId, {
                 chip1Num: new1,
                 chip2Num: new2,
                 chip3Num: new3,
@@ -249,12 +249,12 @@ class TopController {
                 newDownPhone.push({ ka: data.ka, kb: data.kb, kc: data.kc, amount: Number(data.num) });
             }
 
-            middleStreamUser.update(data.middleUserId, {
+            await middleStreamUser.update(data.middleUserId, {
                 phoneNum: newMiddlePhone,
                 //thisProfit: middle.thisProfit + Number((data.price) * (data.num)),
                 currency: middle.currency + Number((data.price) * (data.num)),
             });
-            downStreamUser.update(data.downUserId, {
+            await downStreamUser.update(data.downUserId, {
                 phoneNum: newDownPhone,
                 //thisProfit: down.thisProfit - Number((data.price) * (data.num)),
                 currency: down.currency - Number((data.price) * (data.num)),
@@ -314,7 +314,7 @@ class TopController {
                 break;
             }
             console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price);
-            downStreamUser.update(tmpUserId, {
+            await downStreamUser.update(tmpUserId, {
                 currency: tmp.dataValues.currency + Number(result[i].actualMarket * result[i].price),
                 //thisProfit: tmp.dataValues.thisProfit + Number(result[i].actualMarket * result[i].price),
                 phoneNum: newPhone,
