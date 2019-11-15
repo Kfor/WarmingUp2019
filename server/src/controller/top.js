@@ -313,7 +313,7 @@ class TopController {
                 }
                 break;
             }
-
+            console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price);
             downStreamUser.update(tmpUserId, {
                 currency: tmp.dataValues.currency + Number(result[i].actualMarket * result[i].price),
                 //thisProfit: tmp.dataValues.thisProfit + Number(result[i].actualMarket * result[i].price),
