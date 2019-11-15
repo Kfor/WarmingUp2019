@@ -254,7 +254,7 @@ async function produce(userId, data) {
         newChip3 = newChip3 - Number(data.amount);
     }
 
-    var tmpCurrency = Number(prev.currency - DCost - KCost);
+    var tmpCurrency = Number(prev.currency) - Number(DCost) - Number(KCost);
     if(tmpCurrency<0) {
         validFlag = 1;
         return validFlag;
