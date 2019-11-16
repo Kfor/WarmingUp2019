@@ -76,7 +76,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="up-updisplay.analysis.day-visits" defaultMessage="Daily Visits" />
+              <FormattedMessage
+                id="up-updisplay.analysis.day-visits"
+                defaultMessage="Daily Visits"
+              />
             }
             value={numeral(1234).format('0,0')}
           />

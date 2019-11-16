@@ -9,7 +9,6 @@ import {
   Form,
   Icon,
   InputNumber,
-  InputNumber,
   Menu,
   Row,
   Select,

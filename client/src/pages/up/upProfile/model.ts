@@ -6,8 +6,8 @@ import { UserInfo } from './data.d';
 import { queryBasicProfile } from './service';
 
 export interface StateType {
-//  basicGoods: BasicGood[];
-    userInfo: UserInfo[];
+  //  basicGoods: BasicGood[];
+  userInfo: UserInfo[];
 }
 
 export type Effect = (
@@ -35,9 +35,9 @@ const Model: ModelType = {
   },
 
   effects: {
-    *fetchBasic({payload}, { call, put }) {
-      const response = yield call(queryBasicProfile,payload);
-      console.log(response)
+    *fetchBasic({ payload }, { call, put }) {
+      const response = yield call(queryBasicProfile, payload);
+      console.log(response);
       yield put({
         type: 'show',
         payload: response,

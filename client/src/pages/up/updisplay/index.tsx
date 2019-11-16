@@ -45,10 +45,7 @@ interface UpdisplayState {
     loading: loading.effects['upUpdisplay/fetch'],
   }),
 )
-class Updisplay extends Component<
-  UpdisplayProps,
-  UpdisplayState
-> {
+class Updisplay extends Component<UpdisplayProps, UpdisplayState> {
   state: UpdisplayState = {
     salesType: 'all',
     currentTabKey: '',
@@ -166,9 +163,9 @@ class Updisplay extends Component<
       <GridContent>
         <React.Fragment>
           <Suspense fallback={null}>
-            <InputCard/>
+            <InputCard />
           </Suspense>
-          
+
           <Suspense fallback={<PageLoading />}>
             <IntroduceRow loading={loading} visitData={visitData} />
           </Suspense>

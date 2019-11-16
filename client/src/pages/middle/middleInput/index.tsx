@@ -1,20 +1,8 @@
-import {
-  Button,
-  Card,
-  DatePicker,
-  Form,
-  Icon,
-  InputNumber,
-  InputNumber,
-  Radio,
-  Select,
-  Tooltip,
-  Table,
-} from 'antd';
+import { Button, Card, Form, InputNumber, Radio } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
-import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
-const { Title, Paragraph, Text } = Typography;
+import { Typography, Col, Row } from 'antd';
+const { Text } = Typography;
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -22,12 +10,8 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { GridContent } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { CurrentUser } from '@/models/user';
-import styles from './style.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = InputNumber;
 
 interface MiddleInputProps extends FormComponentProps {
   submittingall: boolean;

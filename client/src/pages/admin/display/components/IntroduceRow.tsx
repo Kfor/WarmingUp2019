@@ -40,7 +40,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="admin-display.analysis.day-sales" defaultMessage="Daily Sales" />
+              <FormattedMessage
+                id="admin-display.analysis.day-sales"
+                defaultMessage="Daily Sales"
+              />
             }
             value={`￥${numeral(12423).format('0,0')}`}
           />
@@ -76,7 +79,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="admin-display.analysis.day-visits" defaultMessage="Daily Visits" />
+              <FormattedMessage
+                id="admin-display.analysis.day-visits"
+                defaultMessage="Daily Visits"
+              />
             }
             value={numeral(1234).format('0,0')}
           />

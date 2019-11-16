@@ -43,10 +43,7 @@ interface MiddledisplayState {
     loading: loading.effects['middleMiddledisplay/fetch'],
   }),
 )
-class Middledisplay extends Component<
-  MiddledisplayProps,
-  MiddledisplayState
-> {
+class Middledisplay extends Component<MiddledisplayProps, MiddledisplayState> {
   state: MiddledisplayState = {
     salesType: 'all',
     currentTabKey: '',

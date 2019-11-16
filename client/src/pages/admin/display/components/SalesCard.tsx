@@ -47,7 +47,10 @@ const SalesCard = ({
                 <FormattedMessage id="admin-display.analysis.all-week" defaultMessage="All Week" />
               </a>
               <a className={isActive('month')} onClick={() => selectDate('month')}>
-                <FormattedMessage id="admin-display.analysis.all-month" defaultMessage="All Month" />
+                <FormattedMessage
+                  id="admin-display.analysis.all-month"
+                  defaultMessage="All Month"
+                />
               </a>
               <a className={isActive('year')} onClick={() => selectDate('year')}>
                 <FormattedMessage id="admin-display.analysis.all-year" defaultMessage="All Year" />

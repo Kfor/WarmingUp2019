@@ -24,12 +24,18 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         title={
-          <FormattedMessage id="middle-middledisplay.analysis.total-sales" defaultMessage="Total Sales" />
+          <FormattedMessage
+            id="middle-middledisplay.analysis.total-sales"
+            defaultMessage="Total Sales"
+          />
         }
         action={
           <Tooltip
             title={
-              <FormattedMessage id="middle-middledisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -40,7 +46,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="middle-middledisplay.analysis.day-sales" defaultMessage="Daily Sales" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.day-sales"
+                defaultMessage="Daily Sales"
+              />
             }
             value={`￥${numeral(12423).format('0,0')}`}
           />
@@ -48,7 +57,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         contentHeight={46}
       >
         <Trend flag="up" style={{ marginRight: 16 }}>
-          <FormattedMessage id="middle-middledisplay.analysis.week" defaultMessage="Weekly Changes" />
+          <FormattedMessage
+            id="middle-middledisplay.analysis.week"
+            defaultMessage="Weekly Changes"
+          />
           <span className={styles.trendText}>12%</span>
         </Trend>
         <Trend flag="down">
@@ -62,11 +74,16 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         loading={loading}
-        title={<FormattedMessage id="middle-middledisplay.analysis.visits" defaultMessage="Visits" />}
+        title={
+          <FormattedMessage id="middle-middledisplay.analysis.visits" defaultMessage="Visits" />
+        }
         action={
           <Tooltip
             title={
-              <FormattedMessage id="middle-middledisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -76,7 +93,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="middle-middledisplay.analysis.day-visits" defaultMessage="Daily Visits" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.day-visits"
+                defaultMessage="Daily Visits"
+              />
             }
             value={numeral(1234).format('0,0')}
           />
@@ -90,11 +110,16 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         loading={loading}
-        title={<FormattedMessage id="middle-middledisplay.analysis.payments" defaultMessage="Payments" />}
+        title={
+          <FormattedMessage id="middle-middledisplay.analysis.payments" defaultMessage="Payments" />
+        }
         action={
           <Tooltip
             title={
-              <FormattedMessage id="middle-middledisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -130,7 +155,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         action={
           <Tooltip
             title={
-              <FormattedMessage id="middle-middledisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -140,11 +168,17 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
             <Trend flag="up" style={{ marginRight: 16 }}>
-              <FormattedMessage id="middle-middledisplay.analysis.week" defaultMessage="Weekly Changes" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.week"
+                defaultMessage="Weekly Changes"
+              />
               <span className={styles.trendText}>12%</span>
             </Trend>
             <Trend flag="down">
-              <FormattedMessage id="middle-middledisplay.analysis.day" defaultMessage="Weekly Changes" />
+              <FormattedMessage
+                id="middle-middledisplay.analysis.day"
+                defaultMessage="Weekly Changes"
+              />
               <span className={styles.trendText}>11%</span>
             </Trend>
           </div>

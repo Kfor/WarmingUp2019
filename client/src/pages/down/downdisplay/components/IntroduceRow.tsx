@@ -24,12 +24,18 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         title={
-          <FormattedMessage id="down-downdisplay.analysis.total-sales" defaultMessage="Total Sales" />
+          <FormattedMessage
+            id="down-downdisplay.analysis.total-sales"
+            defaultMessage="Total Sales"
+          />
         }
         action={
           <Tooltip
             title={
-              <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -40,7 +46,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="down-downdisplay.analysis.day-sales" defaultMessage="Daily Sales" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.day-sales"
+                defaultMessage="Daily Sales"
+              />
             }
             value={`￥${numeral(12423).format('0,0')}`}
           />
@@ -66,7 +75,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         action={
           <Tooltip
             title={
-              <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -76,7 +88,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label={
-              <FormattedMessage id="down-downdisplay.analysis.day-visits" defaultMessage="Daily Visits" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.day-visits"
+                defaultMessage="Daily Visits"
+              />
             }
             value={numeral(1234).format('0,0')}
           />
@@ -90,11 +105,16 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         loading={loading}
-        title={<FormattedMessage id="down-downdisplay.analysis.payments" defaultMessage="Payments" />}
+        title={
+          <FormattedMessage id="down-downdisplay.analysis.payments" defaultMessage="Payments" />
+        }
         action={
           <Tooltip
             title={
-              <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -130,7 +150,10 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         action={
           <Tooltip
             title={
-              <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="Introduce" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.introduce"
+                defaultMessage="Introduce"
+              />
             }
           >
             <Icon type="info-circle-o" />
@@ -140,11 +163,17 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <div style={{ whiteSpace: 'nowrap', overflow: 'hidden' }}>
             <Trend flag="up" style={{ marginRight: 16 }}>
-              <FormattedMessage id="down-downdisplay.analysis.week" defaultMessage="Weekly Changes" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.week"
+                defaultMessage="Weekly Changes"
+              />
               <span className={styles.trendText}>12%</span>
             </Trend>
             <Trend flag="down">
-              <FormattedMessage id="down-downdisplay.analysis.day" defaultMessage="Weekly Changes" />
+              <FormattedMessage
+                id="down-downdisplay.analysis.day"
+                defaultMessage="Weekly Changes"
+              />
               <span className={styles.trendText}>11%</span>
             </Trend>
           </div>

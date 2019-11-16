@@ -1,19 +1,7 @@
-import {
-  Button,
-  Card,
-  DatePicker,
-  Form,
-  Icon,
-  InputNumber,
-  InputNumber,
-  Radio,
-  Select,
-  Divider,
-  Tooltip,
-} from 'antd';
+import { Button, Card, Form, InputNumber } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
-const { Title, Paragraph, Text } = Typography;
+import { Typography, Col } from 'antd';
+const { Text } = Typography;
 
 import React, { Component } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
@@ -22,13 +10,8 @@ import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { CurrentUser } from '@/models/user';
 import { connect } from 'dva';
-import styles from './style.less';
-import FormCustomizedFormControls from './FormCustomizedFormControls';
 import { ConnectState } from '@/models/connect';
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = InputNumber;
 interface UpInputProps extends FormComponentProps {
   submittingall: boolean;
   user: CurrentUser;

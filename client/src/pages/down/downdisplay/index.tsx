@@ -43,10 +43,7 @@ interface DowndisplayState {
     loading: loading.effects['downDowndisplay/fetch'],
   }),
 )
-class Downdisplay extends Component<
-  DowndisplayProps,
-  DowndisplayState
-> {
+class Downdisplay extends Component<DowndisplayProps, DowndisplayState> {
   state: DowndisplayState = {
     salesType: 'all',
     currentTabKey: '',

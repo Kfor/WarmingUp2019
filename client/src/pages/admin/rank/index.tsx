@@ -1,4 +1,4 @@
-import { Badge, Card, Descriptions, Divider, Table } from 'antd';
+import { Card, Descriptions, Table } from 'antd';
 import React, { Component } from 'react';
 
 import { Dispatch } from 'redux';

@@ -17,7 +17,10 @@ const columns = [
   },
   {
     title: (
-      <FormattedMessage id="down-downdisplay.table.search-keyword" defaultMessage="Search keyword" />
+      <FormattedMessage
+        id="down-downdisplay.table.search-keyword"
+        defaultMessage="Search keyword"
+      />
     ),
     dataIndex: 'keyword',
     key: 'keyword',
@@ -31,7 +34,9 @@ const columns = [
     className: styles.alignRight,
   },
   {
-    title: <FormattedMessage id="down-downdisplay.table.weekly-range" defaultMessage="Weekly Range" />,
+    title: (
+      <FormattedMessage id="down-downdisplay.table.weekly-range" defaultMessage="Weekly Range" />
+    ),
     dataIndex: 'range',
     key: 'range',
     sorter: (a: { range: number }, b: { range: number }) => a.range - b.range,
@@ -79,7 +84,10 @@ const TopSearch = ({
               />
               <Tooltip
                 title={
-                  <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="introduce" />
+                  <FormattedMessage
+                    id="down-downdisplay.analysis.introduce"
+                    defaultMessage="introduce"
+                  />
                 }
               >
                 <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
@@ -103,7 +111,10 @@ const TopSearch = ({
               />
               <Tooltip
                 title={
-                  <FormattedMessage id="down-downdisplay.analysis.introduce" defaultMessage="introduce" />
+                  <FormattedMessage
+                    id="down-downdisplay.analysis.introduce"
+                    defaultMessage="introduce"
+                  />
                 }
               >
                 <Icon style={{ marginLeft: 8 }} type="info-circle-o" />

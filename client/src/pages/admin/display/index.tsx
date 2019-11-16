@@ -43,10 +43,7 @@ interface DisplayState {
     loading: loading.effects['adminDisplay/fetch'],
   }),
 )
-class Display extends Component<
-  DisplayProps,
-  DisplayState
-> {
+class Display extends Component<DisplayProps, DisplayState> {
   state: DisplayState = {
     salesType: 'all',
     currentTabKey: '',

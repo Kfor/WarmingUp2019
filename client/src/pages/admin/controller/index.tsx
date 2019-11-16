@@ -1,15 +1,4 @@
-import {
-  Button,
-  Card,
-  DatePicker,
-  Form,
-  Icon,
-  InputNumber,
-  InputNumber,
-  Radio,
-  Select,
-  Tooltip,
-} from 'antd';
+import { Button, Card, Form } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 
@@ -17,12 +6,8 @@ import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
-import styles from './style.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = InputNumber;
 
 interface ControllerProps extends FormComponentProps {
   submitting1: boolean;

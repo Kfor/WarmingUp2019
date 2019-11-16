@@ -140,7 +140,7 @@ class Login extends Component<LoginProps, LoginState> {
               }}
             />
           </Tab>
-          
+
           <Submit loading={submitting}>
             <FormattedMessage id="user-login.login.login" />
           </Submit>

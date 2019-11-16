@@ -1,12 +1,10 @@
-import { Badge, Card, Descriptions, Divider, Table } from 'antd';
+import { Card, Descriptions, Divider } from 'antd';
 import React, { Component } from 'react';
 
 import { Dispatch } from 'redux';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { connect } from 'dva';
 import { UserInfo } from './data.d';
-import styles from './style.less';
-import user from 'mock/user';
 
 interface UpProfileProps {
   loading: boolean;

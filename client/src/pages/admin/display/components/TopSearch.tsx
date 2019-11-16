@@ -79,7 +79,10 @@ const TopSearch = ({
               />
               <Tooltip
                 title={
-                  <FormattedMessage id="admin-display.analysis.introduce" defaultMessage="introduce" />
+                  <FormattedMessage
+                    id="admin-display.analysis.introduce"
+                    defaultMessage="introduce"
+                  />
                 }
               >
                 <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
@@ -103,7 +106,10 @@ const TopSearch = ({
               />
               <Tooltip
                 title={
-                  <FormattedMessage id="admin-display.analysis.introduce" defaultMessage="introduce" />
+                  <FormattedMessage
+                    id="admin-display.analysis.introduce"
+                    defaultMessage="introduce"
+                  />
                 }
               >
                 <Icon style={{ marginLeft: 8 }} type="info-circle-o" />
