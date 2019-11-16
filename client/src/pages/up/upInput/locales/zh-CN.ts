@@ -1,6 +1,5 @@
 export default {
-  'up-upinput.basic.description':
-    '你是上游公司，本环节将进行芯片生产、科研投入、生产技术投入。注意，按下提交按钮后，只有对应表单数据会提交。',
+  'up-upinput.basic.description': '你是上游公司，本环节将进行芯片生产、科研投入、生产技术投入。',
 
   'up-upinput.loan.label': '本轮贷款',
   'up-upinput.loan.placeholder': '本轮的计划贷款',

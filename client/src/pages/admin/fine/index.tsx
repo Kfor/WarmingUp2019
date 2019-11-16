@@ -80,6 +80,7 @@ class Fine extends Component<FineProps> {
           >
             <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.title.label" />}>
               {getFieldDecorator('userId', {
+                initialValue: 1,
                 rules: [
                   {
                     required: true,
@@ -90,7 +91,6 @@ class Fine extends Component<FineProps> {
                 ],
               })(
                 <Input
-                  defaultValue={'group'}
                   placeholder={formatMessage({
                     id: 'penalty.title.placeholder',
                   })}
@@ -99,6 +99,7 @@ class Fine extends Component<FineProps> {
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="penalty.money.label" />}>
               {getFieldDecorator('fine', {
+                initialValue: 200000,
                 rules: [
                   {
                     required: true,

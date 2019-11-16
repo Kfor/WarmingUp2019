@@ -123,7 +123,7 @@ async function advertise(userId, data) {
     const prev = result.dataValues;
 
     var tmpAdCost = Number(prev.adCost) + Number(data.adInvest);
-    var tmpAd = Number(prev.ad) * (1 + Number(data.adInvest) / 10000000);
+    var tmpAd = (1 + Number(data.adInvest) / 10000000);
 
     var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
     // var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
@@ -277,6 +277,7 @@ async function endRound() {
 
         User.update({
             loan: tmpLoan,
+            ad: Number(1),
             currency: result.dataValues.currency - tmpStorageCost,
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,
             //thisProfit: 0,//每到一轮，就要置位0

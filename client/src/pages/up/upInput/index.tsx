@@ -8,6 +8,7 @@ import {
   InputNumber,
   Radio,
   Select,
+  Divider,
   Tooltip,
 } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
@@ -29,10 +30,7 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = InputNumber;
 interface UpInputProps extends FormComponentProps {
-  submitting1: boolean;
-  submitting2: boolean;
-  submitting3: boolean;
-  submitting4: boolean;
+  submittingall: boolean;
   user: CurrentUser;
   dispatch: Dispatch<any>;
 }
@@ -45,76 +43,15 @@ class UpInput extends Component<UpInputProps> {
     });
   }
 
-  handleSubmit1 = (e: React.FormEvent) => {
+  handleSubmitall = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
-      console.log('inner', this.props);
-
       values.userId = this.props.location.query.userId;
       if (!err) {
-        console.log('values', values);
         dispatch({
-          type: 'upUpInput/submitRegularForm1',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit2 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      //console.log('inner',this.props.currentUser)
-
-      values.userId = this.props.location.query.userId;
-
-      if (!err) {
-        console.log('values', values);
-        dispatch({
-          type: 'upUpInput/submitRegularForm2',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit3 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      console.log('inner', this.props);
-
-      values.userId = this.props.location.query.userId;
-      if (!err) {
-        console.log('values', values);
-        dispatch({
-          type: 'upUpInput/submitRegularForm3',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit4 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      console.log('inner', this.props);
-
-      values.userId = this.props.location.query.userId;
-      if (!err) {
-        console.log('values', values);
-        dispatch({
-          type: 'upUpInput/submitRegularForm4',
+          type: 'upUpInput/submitRegularForm',
           payload: values,
         });
       }
@@ -123,7 +60,7 @@ class UpInput extends Component<UpInputProps> {
   };
 
   render() {
-    const { submitting1, submitting2, submitting3, submitting4 } = this.props;
+    const { submittingall } = this.props;
     const {
       form: { getFieldDecorator, getFieldValue },
     } = this.props;
@@ -164,27 +101,28 @@ class UpInput extends Component<UpInputProps> {
       <PageHeaderWrapper content={<FormattedMessage id="up-upinput.basic.description" />}>
         <GridContent>
           <React.Fragment>
-            <Row
-              gutter={8}
-              type="flex"
-              align="bottom"
+            <Form
+              onSubmit={this.handleSubmitall}
+              hideRequiredMark
               style={{
-                marginTop: 24,
+                marginTop: 8,
+                marginLeft: 0,
               }}
             >
-              <Col span={8}>
-                <Card
-                  bordered={true}
-                  style={{
-                    minHeight: 333,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit1}
-                    hideRequiredMark
+              <Row
+                gutter={8}
+                type="flex"
+                align="bottom"
+                style={{
+                  marginTop: 24,
+                  marginBottom: 6,
+                }}
+              >
+                <Col span={8}>
+                  <Card
+                    bordered={true}
                     style={{
-                      marginTop: 8,
-                      marginLeft: 55,
+                      minHeight: 240,
                     }}
                   >
                     <FormItem
@@ -203,34 +141,14 @@ class UpInput extends Component<UpInputProps> {
                       )}
                       <Text> 元</Text>
                     </FormItem>
+                  </Card>
+                </Col>
 
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting1}>
-                        <FormattedMessage id="up-upinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-
-              <Col span={8}>
-                <Card
-                  bordered={true}
-                  style={{
-                    height: 333,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit2}
-                    hideRequiredMark
+                <Col span={8}>
+                  <Card
+                    bordered={true}
                     style={{
-                      marginTop: 8,
-                      marginLeft: 55,
+                      height: 240,
                     }}
                   >
                     <FormItem
@@ -283,34 +201,14 @@ class UpInput extends Component<UpInputProps> {
                       )}
                       <Text> 个</Text>
                     </FormItem>
+                  </Card>
+                </Col>
 
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting2}>
-                        <FormattedMessage id="up-upinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-
-              <Col span={8}>
-                <Card
-                  bordered={true}
-                  style={{
-                    minHeight: 333,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit3}
-                    hideRequiredMark
+                <Col span={8}>
+                  <Card
+                    bordered={true}
                     style={{
-                      marginTop: 8,
-                      marginLeft: 55,
+                      minHeight: 240,
                     }}
                   >
                     <FormItem
@@ -331,26 +229,6 @@ class UpInput extends Component<UpInputProps> {
                     </FormItem>
 
                     <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting3}>
-                        <FormattedMessage id="up-upinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-
-                  <Form
-                    onSubmit={this.handleSubmit4}
-                    hideRequiredMark
-                    style={{
-                      marginTop: 8,
-                      marginLeft: 55,
-                    }}
-                  >
-                    <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="up-upinput.repay.label" />}
                     >
@@ -366,21 +244,20 @@ class UpInput extends Component<UpInputProps> {
                       )}
                       <Text> 元</Text>
                     </FormItem>
-
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting4}>
-                        <FormattedMessage id="up-upinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-            </Row>
+                  </Card>
+                </Col>
+              </Row>
+              <Card bordered={true}>
+                <Row>
+                  <Col span={11}></Col>
+                  <Col>
+                    <Button type="primary" htmlType="submit" loading={submittingall}>
+                      <FormattedMessage id="up-upinput.form.submit" />
+                    </Button>
+                  </Col>
+                </Row>
+              </Card>
+            </Form>
           </React.Fragment>
         </GridContent>
       </PageHeaderWrapper>
@@ -397,10 +274,7 @@ export default Form.create<UpInputProps>()(
       loading: { effects: { [key: string]: boolean } };
       user: ConnectState;
     }) => ({
-      submitting1: loading.effects['upUpInput/submitRegularForm1'],
-      submitting2: loading.effects['upUpInput/submitRegularForm2'],
-      submitting3: loading.effects['upUpInput/submitRegularForm3'],
-      submitting4: loading.effects['upUpInput/submitRegularForm4'],
+      submittingall: loading.effects['upUpInput/submitRegularForm'],
 
       currentUser: user.currentUser,
     }),

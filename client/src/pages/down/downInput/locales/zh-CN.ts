@@ -1,6 +1,5 @@
 export default {
-  'down-downinput.basic.description':
-    '你是下游公司，本环节将进行手机销售、广告投入。注意，按下提交按钮后，只有对应表单数据会提交。',
+  'down-downinput.basic.description': '你是下游公司，本环节将进行手机销售、广告投入。',
 
   'down-downinput.userId.label': '公司序号',
   'down-downinput.userId.placeholder': '公司序号',

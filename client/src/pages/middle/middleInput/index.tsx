@@ -30,10 +30,7 @@ const { RangePicker } = DatePicker;
 const { TextArea } = InputNumber;
 
 interface MiddleInputProps extends FormComponentProps {
-  submitting1: boolean;
-  submitting2: boolean;
-  submitting3: boolean;
-  submitting4: boolean;
+  submittingall: boolean;
   user: CurrentUser;
   dispatch: Dispatch<any>;
 }
@@ -46,7 +43,7 @@ class MiddleInput extends Component<MiddleInputProps> {
     });
   }
 
-  handleSubmit1 = (e: React.FormEvent) => {
+  handleSubmitall = (e: React.FormEvent) => {
     const { dispatch, form } = this.props;
 
     e.preventDefault();
@@ -55,56 +52,7 @@ class MiddleInput extends Component<MiddleInputProps> {
       if (!err) {
         console.log(values);
         dispatch({
-          type: 'middleMiddleInput/submitRegularForm1',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit2 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      values.userId = this.props.location.query.userId;
-
-      if (!err) {
-        dispatch({
-          type: 'middleMiddleInput/submitRegularForm2',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit3 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      values.userId = this.props.location.query.userId;
-      if (!err) {
-        dispatch({
-          type: 'middleMiddleInput/submitRegularForm3',
-          payload: values,
-        });
-      }
-    });
-    form.resetFields();
-  };
-
-  handleSubmit4 = (e: React.FormEvent) => {
-    const { dispatch, form } = this.props;
-
-    e.preventDefault();
-    form.validateFieldsAndScroll((err, values) => {
-      values.userId = this.props.location.query.userId;
-      if (!err) {
-        dispatch({
-          type: 'middleMiddleInput/submitRegularForm4',
+          type: 'middleMiddleInput/submitRegularForm',
           payload: values,
         });
       }
@@ -113,7 +61,7 @@ class MiddleInput extends Component<MiddleInputProps> {
   };
 
   render() {
-    const { submitting1, submitting2, submitting3, submitting4 } = this.props;
+    const { submittingall } = this.props;
     const {
       form: { getFieldDecorator, getFieldValue },
     } = this.props;
@@ -141,27 +89,28 @@ class MiddleInput extends Component<MiddleInputProps> {
       <PageHeaderWrapper content={<FormattedMessage id="middle-middleinput.basic.description" />}>
         <GridContent>
           <React.Fragment>
-            <Row
-              gutter={4}
-              type="flex"
-              align="bottom"
+            <Form
+              onSubmit={this.handleSubmitall}
+              hideRequiredMark
               style={{
-                marginTop: 24,
+                marginTop: 8,
+                marginLeft: 0,
               }}
             >
-              <Col span={7}>
-                <Card
-                  bordered={true}
-                  style={{
-                    minHeight: 420,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit1}
-                    hideRequiredMark
+              <Row
+                gutter={4}
+                type="flex"
+                align="bottom"
+                style={{
+                  marginTop: 24,
+                  marginBottom: 4,
+                }}
+              >
+                <Col span={7}>
+                  <Card
+                    bordered={true}
                     style={{
-                      marginTop: 8,
-                      marginLeft: 15,
+                      minHeight: 360,
                     }}
                   >
                     <FormItem
@@ -197,36 +146,15 @@ class MiddleInput extends Component<MiddleInputProps> {
                       )}
                       <Text> 元</Text>
                     </FormItem>
+                  </Card>
+                </Col>
 
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting1}>
-                        <FormattedMessage id="middle-middleinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-
-              <Col span={10}>
-                <Card
-                  bordered={true}
-                  size="small"
-                  style={{
-                    height: 420,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit2}
-                    hideRequiredMark
+                <Col span={10}>
+                  <Card
+                    bordered={true}
+                    size="small"
                     style={{
-                      marginTop: 8,
-                      width: 592,
-                      marginLeft: -25,
+                      height: 360,
                     }}
                   >
                     <FormItem
@@ -306,34 +234,14 @@ class MiddleInput extends Component<MiddleInputProps> {
                       )}
                       <Text> 台</Text>
                     </FormItem>
+                  </Card>
+                </Col>
 
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting2}>
-                        <FormattedMessage id="middle-middleinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-
-              <Col span={7}>
-                <Card
-                  bordered={true}
-                  style={{
-                    minHeight: 420,
-                  }}
-                >
-                  <Form
-                    onSubmit={this.handleSubmit3}
-                    hideRequiredMark
+                <Col span={7}>
+                  <Card
+                    bordered={true}
                     style={{
-                      marginTop: 8,
-                      marginLeft: 15,
+                      minHeight: 360,
                     }}
                   >
                     <FormItem
@@ -354,26 +262,6 @@ class MiddleInput extends Component<MiddleInputProps> {
                     </FormItem>
 
                     <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting3}>
-                        <FormattedMessage id="middle-middleinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-
-                  <Form
-                    onSubmit={this.handleSubmit4}
-                    hideRequiredMark
-                    style={{
-                      marginTop: 8,
-                      marginLeft: 15,
-                    }}
-                  >
-                    <FormItem
                       {...formItemLayout}
                       label={<FormattedMessage id="middle-middleinput.repay.label" />}
                     >
@@ -389,21 +277,20 @@ class MiddleInput extends Component<MiddleInputProps> {
                       )}
                       <Text> 元</Text>
                     </FormItem>
-
-                    <FormItem
-                      {...submitFormLayout}
-                      style={{
-                        marginTop: 32,
-                      }}
-                    >
-                      <Button type="primary" htmlType="submit" loading={submitting4}>
-                        <FormattedMessage id="middle-middleinput.form.submit" />
-                      </Button>
-                    </FormItem>
-                  </Form>
-                </Card>
-              </Col>
-            </Row>
+                  </Card>
+                </Col>
+              </Row>
+              <Card>
+                <Row>
+                  <Col span={11}></Col>
+                  <Col>
+                    <Button type="primary" htmlType="submit" loading={submittingall}>
+                      <FormattedMessage id="middle-middleinput.form.submit" />
+                    </Button>
+                  </Col>
+                </Row>
+              </Card>
+            </Form>
           </React.Fragment>
         </GridContent>
       </PageHeaderWrapper>
@@ -420,10 +307,7 @@ export default Form.create<MiddleInputProps>()(
       loading: { effects: { [key: string]: boolean } };
       user: ConnectState;
     }) => ({
-      submitting1: loading.effects['middleMiddleInput/submitRegularForm1'],
-      submitting2: loading.effects['middleMiddleInput/submitRegularForm2'],
-      submitting3: loading.effects['middleMiddleInput/submitRegularForm3'],
-      submitting4: loading.effects['middleMiddleInput/submitRegularForm4'],
+      submittingall: loading.effects['middleMiddleInput/submitRegularForm'],
 
       currentUser: user.currentUser,
     }),

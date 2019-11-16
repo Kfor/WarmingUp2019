@@ -209,7 +209,7 @@ class DealMiddleDown extends Component<DealMiddleDownProps> {
                 ],
               })(
                 <InputNumber
-                  step={1000}
+                  step={500}
                   placeholder={formatMessage({
                     id: 'adminandinputorderanddealmiddledown.price.placeholder',
                   })}

@@ -158,7 +158,7 @@ class DealUpMiddle extends Component<DealUpMiddleProps> {
               })(
                 <InputNumber
                   defaultValue={0}
-                  step={1000}
+                  step={500}
                   placeholder={formatMessage({
                     id: 'exchange-up.price.placeholder',
                   })}
