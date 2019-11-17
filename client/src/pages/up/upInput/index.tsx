@@ -1,6 +1,6 @@
 import { Button, Card, Form, InputNumber } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
-import { Typography, Col } from 'antd';
+import { Typography, Col, Row } from 'antd';
 const { Text } = Typography;
 
 import React, { Component } from 'react';
