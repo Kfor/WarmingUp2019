@@ -1,4 +1,4 @@
-import { Button, Card, Form } from 'antd';
+import { Button, Card, Form, InputNumber } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 
