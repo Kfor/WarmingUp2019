@@ -1,5 +1,6 @@
 export default {
-  'down-downinput.basic.description': '你是下游公司，本环节将进行手机销售、广告投入。',
+  'down-downinput.basic.description':
+    '你是下游公司，本环节将进行手机销售、广告投入。\n注意：\n1. 可以多次提交；\n2. 在“余额不足”、“手机库存不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）；\n3. 首轮贷款额度为0。',
 
   'down-downinput.userId.label': '公司序号',
   'down-downinput.userId.placeholder': '公司序号',
