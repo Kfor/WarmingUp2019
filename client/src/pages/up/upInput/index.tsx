@@ -1,7 +1,7 @@
-import { Button, Card, Form, InputNumber } from 'antd';
+import { Button, Card, Form, InputNumber, Descriptions } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import { Typography, Col, Row } from 'antd';
-const { Text } = Typography;
+const { Text, Paragraph } = Typography;
 
 import React, { Component } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
@@ -81,7 +81,15 @@ class UpInput extends Component<UpInputProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="up-upinput.basic.description" />}>
+      <PageHeaderWrapper
+        content={
+          <Typography>
+            <Paragraph>你是上游公司，本环节将进行芯片生产、科研投入、生产技术投入。</Paragraph>
+            注意：1. 可以多次提交； 2.
+            在“余额不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）； 3. 首轮贷款额度为0。
+          </Typography>
+        }
+      >
         <GridContent>
           <React.Fragment>
             <Form

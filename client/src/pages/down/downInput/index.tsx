@@ -2,7 +2,7 @@ import { Button, Card, Form, InputNumber, Radio } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 import { Typography, Col, Dropdown, Icon, Menu, Row } from 'antd';
-const { Text } = Typography;
+const { Text, Paragraph } = Typography;
 
 import { Dispatch } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
@@ -74,7 +74,18 @@ class DownInput extends Component<DownInputProps> {
       },
     };
     return (
-      <PageHeaderWrapper content={<FormattedMessage id="down-downinput.basic.description" />}>
+      <PageHeaderWrapper
+        content={
+          <Typography>
+            <Paragraph>你是下游公司，本环节将进行手机销售、广告投入。</Paragraph>
+            <Paragraph>
+              注意：1. 可以多次提交；2.
+              在“余额不足”、“手机库存不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）；3.
+              首轮贷款额度为0。
+            </Paragraph>
+          </Typography>
+        }
+      >
         <GridContent>
           <React.Fragment>
             <Form

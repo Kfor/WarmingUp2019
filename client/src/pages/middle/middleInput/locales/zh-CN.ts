@@ -1,6 +1,6 @@
 export default {
   'middle-middleinput.basic.description':
-    '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入。\n注意：\n1. 可以多次提交；\n2. 在“余额不足”、“芯片库存不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）；\n3. 首轮贷款额度为0。',
+    '你是中游公司，本环节将进行手机生产、设计投入、功能模块投入。 \n 注意： \n 1. 可以多次提交； \n 2. 在“余额不足”、“芯片库存不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）； \n 3. 首轮贷款额度为0。',
 
   'middle-middleinput.userId.label': '公司序号',
   'middle-middleinput.userId.placeholder': '公司序号',
