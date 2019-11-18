@@ -77,7 +77,7 @@ class MiddleInput extends Component<MiddleInputProps> {
             <Paragraph>
               注意：1. 可以多次提交；2.
               在“余额不足”、“芯片库存不足”、“借贷额度不足”时，会自动罚款20w（正确部分仍生效）；3.
-              首轮贷款额度为0。
+              首轮贷款额度为0；4. 整个表单中借贷最先执行。
             </Paragraph>
           </Typography>
         }
