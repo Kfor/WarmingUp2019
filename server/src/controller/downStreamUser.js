@@ -44,8 +44,8 @@ class UserController {
       User.autoFine(data.userId);
       return;
     }
-    if(valid == 1){
-      OneRoundSell.addOneRoundSell(data.userId, data);
+    else{
+      if(valid==1) OneRoundSell.addOneRoundSell(data.userId, data);
       
       ctx.body = {
         status: 200,
