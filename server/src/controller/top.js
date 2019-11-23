@@ -303,7 +303,7 @@ class TopController {
         for (var i = 0; i < result.length; i++) {
             var tmpUserId = result[i].userId;
             var tmp = await downStreamUser.findUserByUserId(tmpUserId);
-            var newPhone = tmp.dataValues.phoneNum;
+            var newPhone = tmp.dataValues.phoneNum;     
 
             for (var j = 0; j < newPhone.length; j++) {
                 if (newPhone[j].ka == result[i].ka &&
@@ -313,7 +313,7 @@ class TopController {
                 }
                 break;
             }
-            console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price);
+            console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price,newPhone);
             await downStreamUser.update(tmpUserId, {
                 currency: tmp.dataValues.currency + Number(result[i].actualMarket * result[i].price),
                 //thisProfit: tmp.dataValues.thisProfit + Number(result[i].actualMarket * result[i].price),
