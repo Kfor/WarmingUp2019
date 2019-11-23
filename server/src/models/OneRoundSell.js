@@ -190,8 +190,11 @@ function distributeMarket(turn, oneTurnInputJSON) {
             var ad = oneTurnInput[index]['ad'];
             var thisActualMarket = Math.ceil(mThisTurnType*Math.pow(thisComp,k0)/Math.pow(sumOfComp,k0));
             
-            if(Number(oneTurnInput[index].price)>Number(2*priceExpect[i]))
+            if(Number(oneTurnInput[index].price)>Number(2*priceExpect[i])){
+                oneTurnInput[index]['actualMarket'] = 0;
                 continue;
+            }
+                
 
             if(thisActualMarket > sellValue) { // 如果应该分配的大于产量，则卖出数量即为应该量
                 thisActualMarket = sellValue;
