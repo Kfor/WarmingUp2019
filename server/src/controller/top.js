@@ -344,7 +344,24 @@ class TopController {
         var round = roundtable.dataValues.round; 
         const data = ctx.request.query;
         var valid = true;
-        var result = await upStreamUser.findUserByUserId(data.userId1);
+
+        for(let one of upGraoupList) {
+            if(one==data.userId){
+                var result = await upStreamUser.findUserByUserId(data.userId1);
+            }
+        }
+
+        for(let one of middleGraoupList) {
+            if(one==data.userId){
+                var result = await middleStreamUser.findUserByUserId(data.userId1);
+            }
+        }
+        for(let one of downGraoupList) {
+            if(one==data.userId){
+                var result = await downStreamUser.findUserByUserId(data.userId1);
+            }
+        }
+
 
         if(result.dataValues.currency<data.money){
             ctx.status = 600;
