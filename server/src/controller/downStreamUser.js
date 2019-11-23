@@ -39,12 +39,12 @@ class UserController {
     var valid = await User.sell(data.userId, data);
 
     data.round = round;
-    if(!valid) {
+    if(valid == 0) {
       ctx.status = 602;
       User.autoFine(data.userId);
       return;
     }
-    else{
+    if(valid == 1){
       OneRoundSell.addOneRoundSell(data.userId, data);
       
       ctx.body = {

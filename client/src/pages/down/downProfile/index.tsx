@@ -83,7 +83,6 @@ class DownProfile extends Component<DownProfileProps, DownProfileState> {
           <Divider style={{ marginBottom: 8 }} />
           <Descriptions title="生产能力" style={{ marginBottom: 8 }} column={4}>
             <Descriptions.Item label="本轮广告影响力">{userInfo.ad}</Descriptions.Item>
-            <Descriptions.Item label="累积广告投入">{userInfo.adCost} 元</Descriptions.Item>
           </Descriptions>
           <Divider style={{ marginBottom: 8 }} />
           <div className={styles.title}>手机库存</div>

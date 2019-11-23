@@ -123,7 +123,7 @@ async function advertise(userId, data) {
     const prev = result.dataValues;
 
     var tmpAdCost = Number(prev.adCost) + Number(data.adInvest);
-    var tmpAd = (1 + Number(data.adInvest) / 10000000);
+    var tmpAd = (1 + Number(tmpAdCost) / 10000000);
 
     var tmpCurrency = Number(prev.currency) - Number(data.adInvest);
     // var tmpProfit = Number(prev.thisProfit) - Number(data.adInvest);
@@ -148,16 +148,16 @@ async function sell(userId, data) {
     const result = await findUserByUserId(userId);
     var phones = result.dataValues.phoneNum;
 
-    var valid = false;
-    if(data.amount==0) return true;
+    var valid = 0;
+    if(data.amount==0) return 2;
     for (i = 0; i < phones.length; i++) {
         if (phones[i].ka == data.ka && phones[i].kb == data.kb
             && phones[i].kc == data.kc && Number(phones[i].amount >= Number(data.amount))) {
-            valid = true;
+            valid = 1;
             phones[i].amount = Number(phones[i].amount) - Number(data.amount);
         }
     }
-    if(valid) {
+    if(valid==1) {
         User.update({
             phoneNum:phones,
         },{
@@ -278,6 +278,7 @@ async function endRound() {
 
         User.update({
             loan: tmpLoan,
+            adCost: Number(0),
             ad: Number(1),
             currency: result.dataValues.currency - tmpStorageCost,
             totalStorageCost: result.dataValues.totalStorageCost + tmpStorageCost,

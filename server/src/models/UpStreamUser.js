@@ -178,7 +178,7 @@ async function invest(userId, data) {
 
     var valid = tmpCurrency>=0;
     if(valid){
-        User.update({
+        await User.update({
             T:tmpT,
             //M:tmpM,
             // Max1:Max1,
@@ -244,7 +244,7 @@ async function produce(userId, data) { //上游需要一次性输入
         return validFlag;
     }
     
-    User.update({
+    await User.update({
         // Max1:Max1,
         // Max2:Max2,
         // Max3:Max3,
@@ -267,7 +267,7 @@ async function loan(userId, data) {
         var tmpLoan = Number(prev.loan) + Number(data.loan);
         var tmpCurrency = Number(prev.currency) + Number(data.loan);
         
-        User.update({
+        await User.update({
             loan: tmpLoan,
             loanMax: Number(prev.loanMax) - Number(data.loan),
             currency: tmpCurrency,
@@ -290,7 +290,7 @@ async function repay(userId, data) {
     var tmpCurrency = Number(prev.currency) - Number(data.repay);
     var valid = tmpCurrency>=0;
     if (valid) {
-        User.update({
+        await User.update({
             loan: tmpLoan,
             currency: tmpCurrency,
         }, {
@@ -353,7 +353,7 @@ async function endGame() {//用来还钱
     for(let group of upGroupList) {
         var result = await User.findOne({where:{userId:group}});
         var tmpLoan = Number(result.dataValues.loan);
-        User.update({
+        await User.update({
             loan: 0,
             currency: Number(result.dataValues.currency - tmpLoan)
         },{where:{userId:group}});
@@ -380,7 +380,7 @@ async function endRound() {
         // var Max2 = Math.floor(Im[tmpRound] * fN[1] * result.M);
         // var Max3 = Math.floor(Im[tmpRound] * fN[2] * result.M);
 
-        User.update({
+        await User.update({
             // Max1:Max1,
             // Max2:Max2,
             // Max3:Max3,
@@ -404,7 +404,7 @@ async function updateLoanMax(data) {
             }
         }
 
-        User.update({
+        await User.update({
             rank: tmpRank,
             loanMax: tmpLoanMax,
         },{where:{userId:group}});

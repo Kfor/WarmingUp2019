@@ -383,34 +383,34 @@ class TopController {
 
         for (let one of upGroupList) {
             if (userId1 == one) {
-                upStreamUser.addCurrency(userId1, -1 * Number(data.money));
+                await upStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
         for (let one of middleGroupList) {
             if (userId1 == one) {
-                middleStreamUser.addCurrency(userId1, -1 * Number(data.money));
+                await middleStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
         for (let one of downGroupList) {
             if (userId1 == one) {
-                downStreamUser.addCurrency(userId1, -1 * Number(data.money));
+                await downStreamUser.addCurrency(userId1, -1 * Number(data.money));
             }
         }
 
 
         for (let one of upGroupList) {
             if (userId2 == one) {
-                upStreamUser.addCurrency(userId2, Number(data.money));
+                await upStreamUser.addCurrency(userId2, Number(data.money));
             }
         }
         for (let one of middleGroupList) {
             if (userId2 == one) {
-                middleStreamUser.addCurrency(userId2, Number(data.money));
+                await middleStreamUser.addCurrency(userId2, Number(data.money));
             }
         }
         for (let one of downGroupList) {
             if (userId2 == one) {
-                downStreamUser.addCurrency(userId2, Number(data.money));
+                await downStreamUser.addCurrency(userId2, Number(data.money));
             }
         }
 
@@ -433,9 +433,9 @@ class TopController {
 
 
         //以下用于更新round和各自的loan, currency, profit
-        upStreamUser.endRound();
-        middleStreamUser.endRound();
-        downStreamUser.endRound();
+        await upStreamUser.endRound();
+        await middleStreamUser.endRound();
+        await downStreamUser.endRound();
 
 
 
@@ -454,34 +454,34 @@ class TopController {
 
                 for (let one of upGroupList) {
                     if (userId1 == one) {
-                        upStreamUser.addCurrency(userId1, Number(money));
+                        await upStreamUser.addCurrency(userId1, Number(money));
                     }
                 }
                 for (let one of middleGroupList) {
                     if (userId1 == one) {
-                        middleStreamUser.addCurrency(userId1, Number(money));
+                        await middleStreamUser.addCurrency(userId1, Number(money));
                     }
                 }
                 for (let one of downGroupList) {
                     if (userId1 == one) {
-                        downStreamUser.addCurrency(userId1, Number(money));
+                        await downStreamUser.addCurrency(userId1, Number(money));
                     }
                 }
 
 
                 for (let one of upGroupList) {
                     if (userId2 == one) {
-                        upStreamUser.addCurrency(userId2, -1 * Number(money));
+                        await upStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
                 for (let one of middleGroupList) {
                     if (userId2 == one) {
-                        middleStreamUser.addCurrency(userId2, -1 * Number(money));
+                        await middleStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
                 for (let one of downGroupList) {
                     if (userId2 == one) {
-                        downStreamUser.addCurrency(userId2, -1 * Number(money));
+                        await downStreamUser.addCurrency(userId2, -1 * Number(money));
                     }
                 }
             }
@@ -544,11 +544,11 @@ class TopController {
 
 
         // 以下处理loanMax，rank问题
-        upStreamUser.updateLoanMax(tmpRankList);
-        middleStreamUser.updateLoanMax(tmpRankList);
-        downStreamUser.updateLoanMax(tmpRankList);
+        await upStreamUser.updateLoanMax(tmpRankList);
+        await middleStreamUser.updateLoanMax(tmpRankList);
+        await downStreamUser.updateLoanMax(tmpRankList);
         
-        Round.nextRound();
+        await Round.nextRound();
         console.log('to next round: ' + round);
 
         ctx.body = {
@@ -573,17 +573,17 @@ class TopController {
 
         for (let one of upGroupList) {
             if (result == one) {
-                upStreamUser.addCurrency(result, (-1) * Number(data.fine));
+                await upStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
         for (let one of middleGroupList) {
             if (result == one) {
-                middleStreamUser.addCurrency(result, (-1) * Number(data.fine));
+                await middleStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
         for (let one of downGroupList) {
             if (result == one) {
-                downStreamUser.addCurrency(result, (-1) * Number(data.fine));
+                await downStreamUser.addCurrency(result, (-1) * Number(data.fine));
             }
         }
 
@@ -609,17 +609,17 @@ class TopController {
 
         for (let one of upGroupList) {
             if (result == one) {
-                upStreamUser.addCurrency(result, Number(data.money));
+                await upStreamUser.addCurrency(result, Number(data.money));
             }
         }
         for (let one of middleGroupList) {
             if (result == one) {
-                middleStreamUser.addCurrency(result, Number(data.money));
+                await middleStreamUser.addCurrency(result, Number(data.money));
             }
         }
         for (let one of downGroupList) {
             if (result == one) {
-                downStreamUser.addCurrency(result, Number(data.money));
+                await downStreamUser.addCurrency(result, Number(data.money));
             }
         }
 
