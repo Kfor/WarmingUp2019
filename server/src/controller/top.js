@@ -345,18 +345,18 @@ class TopController {
         const data = ctx.request.query;
         var valid = true;
 
-        for(let one of upGraoupList) {
+        for(let one of upGroupList) {
             if(one==data.userId){
                 var result = await upStreamUser.findUserByUserId(data.userId1);
             }
         }
 
-        for(let one of middleGraoupList) {
+        for(let one of middleGroupList) {
             if(one==data.userId){
                 var result = await middleStreamUser.findUserByUserId(data.userId1);
             }
         }
-        for(let one of downGraoupList) {
+        for(let one of downGroupList) {
             if(one==data.userId){
                 var result = await downStreamUser.findUserByUserId(data.userId1);
             }
