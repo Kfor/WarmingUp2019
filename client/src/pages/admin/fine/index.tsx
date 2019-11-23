@@ -96,6 +96,7 @@ class Fine extends Component<FineProps> {
               })(
                 <InputNumber
                   defaultValue={0}
+                  step={200000}
                   placeholder={formatMessage({
                     id: 'penalty.money.placeholder',
                   })}

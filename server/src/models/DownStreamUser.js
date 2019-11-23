@@ -149,6 +149,7 @@ async function sell(userId, data) {
     var phones = result.dataValues.phoneNum;
 
     var valid = false;
+    if(data.amount==0) return true;
     for (i = 0; i < phones.length; i++) {
         if (phones[i].ka == data.ka && phones[i].kb == data.kb
             && phones[i].kc == data.kc && Number(phones[i].amount >= Number(data.amount))) {
