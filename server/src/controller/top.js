@@ -346,18 +346,18 @@ class TopController {
         var valid = true;
 
         for(let one of upGroupList) {
-            if(one==data.userId){
+            if(one==data.userId1){
                 var result = await upStreamUser.findUserByUserId(data.userId1);
             }
         }
 
         for(let one of middleGroupList) {
-            if(one==data.userId){
+            if(one==data.userId1){
                 var result = await middleStreamUser.findUserByUserId(data.userId1);
             }
         }
         for(let one of downGroupList) {
-            if(one==data.userId){
+            if(one==data.userId1){
                 var result = await downStreamUser.findUserByUserId(data.userId1);
             }
         }
