@@ -311,7 +311,6 @@ class TopController {
                     newPhone[j].kc == result[i].kc) {
                     newPhone[j].amount = Number(newPhone[j].amount) + Number(result[i].amount) - Math.ceil(Number(result[i].actualMarket));
                 }
-                break;
             }
             console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price,newPhone);
             await downStreamUser.update(tmpUserId, {

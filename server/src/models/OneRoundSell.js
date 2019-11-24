@@ -134,9 +134,10 @@ function competitionValue(ad,ka,kb,kc,priceActual,marketType) {
 
 function calSumOfCompValue(input, indexList, num) {
     // 计算各个玩家的g之和
+    var k0 = 1.3;
     var sum = 0;
     for (var i=0;i<num;i++) {
-        sum = Number(sum) + Number(input[Math.abs(indexList[i])].compValue);
+        sum = Number(sum) + Math.pow(Number(input[Math.abs(indexList[i])].compValue),k0);
     }
     return sum;
 }
@@ -150,7 +151,6 @@ function distributeMarket(turn, oneTurnInputJSON) {
     var marketTypeIndex = [[],[],[],[]]
 
     var oneTurnInput = oneTurnInputJSON;
-    console.log(oneTurnInput);
 
     for(var i=0;i<oneTurnInput.length;i++) {// 对于每一个产品
         var max = 0;
@@ -175,39 +175,55 @@ function distributeMarket(turn, oneTurnInputJSON) {
         oneTurnInput[i]['compValue'] = competitionValue(ad,ka,kb,kc,priceActual,actualMarketType);//在这个细分市场下的竞争力
         marketTypeIndex[Number(actualMarketType)].push(Number(i));
     }
+    console.log('oneTurnInput----',oneTurnInput);
+    
+
 
     for(var i=0;i<4;i++) {// 4是市场类型数目
         
         var typeNum = marketTypeIndex[i].length;
+        if(typeNum==0) continue;
         var mThisTurnType = MarketThisTurn[i];
+        console.log('marketThis',MarketThisTurn[i])
         var sumOfComp = calSumOfCompValue(oneTurnInput,marketTypeIndex[i],typeNum);
         var k0 = 1.3;//为了显示龙头效应的系数
 
-        var indexList = [];//用于按照竞争力大小排序
-        for(let j=0;j<typeNum;j++) {
+        var indexList = new Array(typeNum);//用于按照竞争力大小排序
+        indexList[0] = Number(0);
+        console.log('marketType------',marketTypeIndex[i]);
+        for(let j=1;j<typeNum;j++) {
             var index = Math.abs(marketTypeIndex[i][j]);
             var thisComp = oneTurnInput[index]['compValue'];
+            console.log('one',index,thisComp,indexList)
+            
 
-            for(let indexInList=0;indexInList<indexList.length;indexInList++) {
+            for(var indexInList=j-1;indexInList>=0;indexInList--) {
                 
                 var indexThis = Math.abs(marketTypeIndex[i][indexInList]);
                 var thisCompThis = oneTurnInput[indexThis]['compValue'];
+                console.log('in',indexThis,thisCompThis)
 
-                if(thisComp<thisCompThis) {
+                if(thisComp>thisCompThis) {
+                    indexList[Number(indexInList)+1] = indexList[indexInList];
+                }
+                else{
                     break;
                 }
             }
-            indexList.push(index);
+            indexList[Number(indexInList)+1] = j;
+            
         }
         console.log('indexList------',indexList);
+        console.log('marketType-----',marketTypeIndex[i]);
         
         for(var k=0;k<typeNum;k++) {//对于每种手机，都需要一次重新计算市场占比
             var j = indexList[k];
-            var index = Math.abs(marketTypeIndex[i][j]);
+            var index = Math.abs(marketTypeIndex[i][Number(j)]);
+            console.log('index----',index,j);
             var thisComp = oneTurnInput[index]['compValue'];
             var sellValue = oneTurnInput[index]['amount'];
             var ad = oneTurnInput[index]['ad'];
-            var thisActualMarket = Math.ceil(mThisTurnType*Math.pow(thisComp,k0)/Math.pow(sumOfComp,k0));
+            var thisActualMarket = Math.ceil(mThisTurnType*Math.pow(thisComp,k0)/sumOfComp);
             
             if(Number(oneTurnInput[index].price)>Number(2*priceExpect[i])){
                 oneTurnInput[index]['actualMarket'] = 0;
@@ -235,9 +251,9 @@ function distributeMarket(turn, oneTurnInputJSON) {
             }
 
             oneTurnInput[index]['actualMarket'] = thisActualMarket;
-            if(j<typeNum-1)
-                sumOfComp = Number(sumOfComp) - Number(thisComp);//在最后两种的时候就不比较了
-            mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
+            //if(j<typeNum-1)
+            //    sumOfComp = Number(sumOfComp) - Number(thisComp);//在最后两种的时候就不比较了
+            //mThisTurnType = Number(mThisTurnType) - Number(thisActualMarket);
         }
     }
     console.log('oneTurn',oneTurnInput)
