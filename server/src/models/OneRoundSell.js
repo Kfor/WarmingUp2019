@@ -182,8 +182,27 @@ function distributeMarket(turn, oneTurnInputJSON) {
         var mThisTurnType = MarketThisTurn[i];
         var sumOfComp = calSumOfCompValue(oneTurnInput,marketTypeIndex[i],typeNum);
         var k0 = 1.3;//为了显示龙头效应的系数
+
+        var indexList = [];//用于按照竞争力大小排序
+        for(let j=0;j<typeNum;j++) {
+            var index = Math.abs(marketTypeIndex[i][j]);
+            var thisComp = oneTurnInput[index]['compValue'];
+
+            for(let indexInList=0;indexInList<indexList.length;indexInList++) {
+                
+                var indexThis = Math.abs(marketTypeIndex[i][indexInList]);
+                var thisCompThis = oneTurnInput[indexThis]['compValue'];
+
+                if(thisComp<thisCompThis) {
+                    break;
+                }
+            }
+            indexList.push(index);
+        }
+        console.log('indexList------',indexList);
         
-        for(var j=0;j<typeNum;j++) {//对于每种手机，都需要一次重新计算市场占比
+        for(var k=0;k<typeNum;k++) {//对于每种手机，都需要一次重新计算市场占比
+            var j = indexList[k];
             var index = Math.abs(marketTypeIndex[i][j]);
             var thisComp = oneTurnInput[index]['compValue'];
             var sellValue = oneTurnInput[index]['amount'];
