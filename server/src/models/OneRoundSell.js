@@ -219,7 +219,7 @@ function distributeMarket(turn, oneTurnInputJSON) {
         for(var k=0;k<typeNum;k++) {//对于每种手机，都需要一次重新计算市场占比
             var j = indexList[k];
             var index = Math.abs(marketTypeIndex[i][Number(j)]);
-            console.log('index----',index,j);
+            //console.log('index----',index,j);
             var thisComp = oneTurnInput[index]['compValue'];
             var sellValue = oneTurnInput[index]['amount'];
             var ad = oneTurnInput[index]['ad'];

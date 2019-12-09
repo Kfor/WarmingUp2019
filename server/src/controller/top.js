@@ -27,6 +27,12 @@ class TopController {
         for (let i in all) {
             result.push(all[i].dataValues);
         }
+        
+        function sortBy(a, b) {
+            return a.rank - b.rank;
+        }
+
+        result.sort(sortBy);
         ctx.body = {
             status: 200,
             userRank: result,
@@ -312,7 +318,7 @@ class TopController {
                     newPhone[j].amount = Number(newPhone[j].amount) + Number(result[i].amount) - Math.ceil(Number(result[i].actualMarket));
                 }
             }
-            console.log("this:",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price,newPhone);
+            console.log("thisDownItem:id,money,getMoney,phones",tmpUserId,tmp.dataValues.currency,result[i].actualMarket * result[i].price,newPhone);
             await downStreamUser.update(tmpUserId, {
                 currency: tmp.dataValues.currency + Number(result[i].actualMarket * result[i].price),
                 //thisProfit: tmp.dataValues.thisProfit + Number(result[i].actualMarket * result[i].price),

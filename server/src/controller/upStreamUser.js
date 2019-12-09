@@ -7,7 +7,7 @@ class UserController {
     const result = await User.findUserByUserId(data.userId);
     var round = await Round.getRound();
 
-    console.log(result.dataValues)
+    //console.log(result.dataValues)
     ctx.body = {
       userInfo: result.dataValues,
       round: round.dataValues.round
